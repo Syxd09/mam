@@ -93,6 +93,9 @@ const HeroSlider = () => {
                   <h5 className="font-oswald text-sm md:text-base font-semibold text-primary-foreground mb-2">
                     {feature.title}
                   </h5>
+                  <p className="text-xs text-primary-foreground/80 font-opensans leading-relaxed">
+                    {feature.desc}
+                  </p>
                 </div>
               </motion.div>
             ))}
