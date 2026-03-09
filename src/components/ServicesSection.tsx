@@ -125,10 +125,10 @@ const ServiceCarousel = ({
 
         {/* Navigation buttons */}
         <button
-          className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-primary/10 backdrop-blur-sm rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 opacity-80 hover:opacity-100 z-10"
+          className="absolute -left-1 md:left-4 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 bg-primary/10 backdrop-blur-sm rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 opacity-80 hover:opacity-100 z-10"
           onClick={scrollPrev}
         >
-          <ChevronLeft size={20} />
+          <ChevronLeft size={18} />
         </button>
         
         <button
