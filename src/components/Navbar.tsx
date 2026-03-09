@@ -120,7 +120,7 @@ const Navbar = () => {
 
           {/* Mobile toggle */}
           <button
-            className={`md:hidden ${scrolled ? "text-secondary-foreground" : "text-foreground"}`}
+            className="md:hidden text-foreground"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
