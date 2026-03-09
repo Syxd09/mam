@@ -77,9 +77,7 @@ const ContactSection = () => {
           className="mt-12 text-center"
         >
           <a
-            href="https://quikolasers.com/associate/"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/associate"
             className="inline-block font-oswald text-sm font-semibold px-8 py-3 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors tracking-wider uppercase"
           >
             Connect
