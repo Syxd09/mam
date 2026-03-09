@@ -61,13 +61,13 @@ const AboutSection = () => {
               { icon: Heart, title: "WHY PEOPLE LIKE US?", desc: "Reliability. We take pride in our customer service. The trust and belief in our service often leads to recurrent collaborative work." },
               { icon: Circle, title: "WHAT WE OFFER?", desc: "Laser cutting, Laser Marking/Engraving, CNC bending, Welding and Powder Coating—a complete end-to-end solution for metal fabrication." },
             ].map((item) => (
-              <div key={item.title} className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-primary flex items-center justify-center rounded">
-                  <item.icon className="w-5 h-5 text-primary-foreground" />
+              <div key={item.title} className="flex items-start gap-4 group cursor-pointer">
+                <div className="flex-shrink-0 w-12 h-12 bg-primary group-hover:bg-secondary flex items-center justify-center rounded transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg">
+                  <item.icon className="w-5 h-5 text-primary-foreground group-hover:text-secondary-foreground transition-colors duration-300" />
                 </div>
                 <div>
-                  <h5 className="font-oswald text-lg font-semibold text-foreground mb-2">{item.title}</h5>
-                  <p className="text-muted-foreground font-opensans text-sm">{item.desc}</p>
+                  <h5 className="font-oswald text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">{item.title}</h5>
+                  <p className="text-muted-foreground font-opensans text-sm group-hover:text-foreground transition-colors duration-300">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -76,9 +76,9 @@ const AboutSection = () => {
               href="https://quikolasers.com/wp-content/uploads/2019/05/Quiko-Lasers.jpg"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-3 font-oswald text-sm font-semibold uppercase tracking-widest text-primary-foreground bg-primary px-5 py-3 rounded hover:bg-primary/90 transition-all duration-300 shadow-md hover:shadow-primary/40 hover:shadow-lg hover:-translate-y-0.5"
+              className="group inline-flex items-center gap-3 font-oswald text-sm font-semibold uppercase tracking-widest text-primary-foreground bg-primary px-5 py-3 rounded hover:bg-secondary hover:text-secondary-foreground transition-all duration-300 shadow-md hover:shadow-secondary/40 hover:shadow-xl hover:-translate-y-1 hover:scale-105 active:scale-95 active:translate-y-0"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:animate-bounce">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:animate-bounce group-hover:text-secondary-foreground transition-colors duration-300">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
               </svg>
               Download Our Brochure
