@@ -14,10 +14,10 @@ const slides = [
 ];
 
 const features = [
-  { icon: Cog, title: "TECH-SAVVY" },
-  { icon: Star, title: "QUALITY" },
-  { icon: Users, title: "COMPETITIVE" },
-  { icon: Hourglass, title: "JUST-IN-TIME" },
+  { icon: Cog, title: "TECH-SAVVY", desc: "With the latest and advanced fibre optic laser technologies, we believe in offering the best output for all of our clients' requirements." },
+  { icon: Star, title: "QUALITY", desc: "With a team of qualified and experienced personnel, we offer optimum solutions with rigid quality controls at every step." },
+  { icon: Users, title: "COMPETITIVE", desc: "With the strong desire to have a long-term and recurring business relationship, we offer the best and competitive quotes." },
+  { icon: Hourglass, title: "JUST-IN-TIME", desc: "With our skilled work force, planned manufacturing process and the motivation to get the work done, we serve on-time, every time." },
 ];
 
 const HeroSlider = () => {
@@ -93,6 +93,9 @@ const HeroSlider = () => {
                   <h5 className="font-oswald text-sm md:text-base font-semibold text-primary-foreground mb-2">
                     {feature.title}
                   </h5>
+                  <p className="text-xs text-primary-foreground/80 font-opensans leading-relaxed">
+                    {feature.desc}
+                  </p>
                 </div>
               </motion.div>
             ))}
