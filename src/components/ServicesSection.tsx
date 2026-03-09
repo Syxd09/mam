@@ -116,7 +116,7 @@ const ServiceCarousel = ({
 
       <div className="relative">
         <div className="overflow-hidden" ref={emblaRef}>
-          <div className="flex gap-8">
+          <div className="flex gap-4 md:gap-8">
             {items.map((item, i) => (
               <ServiceCard key={item.title} item={item} index={i} />
             ))}
