@@ -109,9 +109,7 @@ const Navbar = () => {
                   className={`nav-link-animate font-oswald text-sm font-medium uppercase tracking-widest transition-colors ${
                     activeLabel === item.label
                       ? "text-primary"
-                      : scrolled
-                        ? "text-secondary-foreground hover:text-primary"
-                        : "text-foreground hover:text-primary"
+                      : "text-foreground hover:text-primary"
                   }`}
                 >
                   {item.label}
