@@ -8,11 +8,13 @@ const Footer = () => (
     <div className="absolute inset-x-0 top-0 h-1 stripe-accent" />
     <div className="container py-16 grid gap-10 md:grid-cols-12">
       <div className="md:col-span-4">
-        <div className="flex items-center gap-2.5 mb-5">
-          <Logo />
-          <div>
-            <div className="font-sora font-bold text-lg">MAM Industries</div>
-            <div className="text-[10px] uppercase tracking-[0.18em] text-metallic">Precision Fabrication</div>
+        <div className="flex items-center gap-3 mb-5">
+          <div className="bg-white/95 rounded-lg p-2 shadow-lg">
+            <Logo className="w-14 h-14" />
+          </div>
+          <div className="leading-tight border-l border-white/15 pl-3">
+            <div className="text-[10px] uppercase tracking-[0.22em] text-metallic">Precision</div>
+            <div className="text-[10px] uppercase tracking-[0.22em] text-accent font-semibold">Fabrication</div>
           </div>
         </div>
         <p className="text-sm text-metallic leading-relaxed mb-5">
