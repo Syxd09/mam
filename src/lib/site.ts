@@ -3,10 +3,10 @@
 export const SITE = {
   name: "MAM Industries",
   tagline: "Precision Metal Fabrication, Laser Cutting & CNC Bending",
-  phone: "+91 76193 65978",
-  phoneHref: "tel:+917619365978",
-  email: "syxdmatheen.9@gmail.com",
-  whatsapp: "https://wa.me/917619365978",
+  phone: "+91 63811 63159",
+  phoneHref: "tel:+916381163159",
+  email: "mamindustries19@gmail.com",
+  whatsapp: "https://wa.me/916381163159",
   formAccessKey: "634c75d7-4815-40d1-bced-6fa62f7bcc92",
   address: {
     line1: "7th Mile, No. 113, Kanakapura Main Rd",

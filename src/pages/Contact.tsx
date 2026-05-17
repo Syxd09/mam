@@ -127,7 +127,7 @@ const Contact = () => {
     }
 
     const message = `Hello MAM Industries, I'm ${data.name}.%0A%0A*Project Enquiry:*%0A- *Service:* ${data.service || 'General Enquiry'}%0A- *Phone:* ${data.phone}%0A- *Email:* ${data.email}%0A- *Details:* ${data.message}`;
-    window.open(`https://wa.me/917619365978?text=${message}`, "_blank");
+    window.open(`${SITE.whatsapp}?text=${message}`, "_blank");
   };
 
   return (
