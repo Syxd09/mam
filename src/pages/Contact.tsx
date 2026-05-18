@@ -77,18 +77,14 @@ const Contact = () => {
       }
 
       // 2. Send via Web3Forms (Email Notification)
+      const formData = new FormData(e.currentTarget);
+      formData.append("access_key", "5e6757af-ab7d-4b52-8b5d-8608896bbdde");
+      formData.append("subject", `New Enquiry: ${data.service} from ${data.name}`);
+      formData.append("from_name", "MAM Industries Website");
+      
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          access_key: SITE.formAccessKey,
-          ...data,
-          subject: `New Enquiry: ${data.service} from ${data.name}`,
-          from_name: "MAM Industries Website",
-        }),
+        body: formData
       });
 
       const result = await response.json();

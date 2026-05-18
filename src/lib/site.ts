@@ -7,7 +7,7 @@ export const SITE = {
   phoneHref: "tel:+916381163159",
   email: "mamindustries19@gmail.com",
   whatsapp: "https://wa.me/916381163159",
-  formAccessKey: "634c75d7-4815-40d1-bced-6fa62f7bcc92",
+  formAccessKey: "5e6757af-ab7d-4b52-8b5d-8608896bbdde",
   address: {
     line1: "7th Mile, No. 113, Kanakapura Main Rd",
     line2: "Yelachenahalli, Naidu Layout",
