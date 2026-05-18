@@ -164,7 +164,10 @@ const GalleryManager = () => {
 
       const { error: uploadError } = await supabase.storage
         .from("gallery-images")
-        .upload(filePath, imageFile);
+        .upload(filePath, imageFile, {
+          contentType: imageFile.type,
+          upsert: false
+        });
 
       if (uploadError) throw uploadError;
 
