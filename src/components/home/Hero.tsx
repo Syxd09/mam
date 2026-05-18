@@ -118,7 +118,7 @@ const Hero = () => {
     <div className="relative bg-secondary border-t border-white/5">
       <div className="container py-5 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10">
         {[
-          { icon: ShieldCheck, t: "ISO-grade processes", d: "Repeatable QC at every stage." },
+          { icon: ShieldCheck, t: "Quality Assured", d: "We deliver quality to our customers." },
           { icon: Zap, t: "Fast turnaround", d: "Prototype to production in days." },
           { icon: Star, t: "5.0 customer rating", d: "Trusted by OEMs & architects." },
         ].map(({ icon: Icon, t, d }, i) => (
