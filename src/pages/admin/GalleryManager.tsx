@@ -41,13 +41,35 @@ const GalleryManager = () => {
   
   // Form State
   const [title, setTitle] = useState("");
+  const [categories, setCategories] = useState<string[]>(CATEGORIES);
   const [category, setCategory] = useState(CATEGORIES[0]);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   useEffect(() => {
     fetchGallery();
+    fetchCategories();
   }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("services")
+        .select("title")
+        .order("title", { ascending: true });
+        
+      if (error) throw error;
+      
+      if (data && data.length > 0) {
+        const fetched = data.map(s => s.title);
+        const merged = Array.from(new Set([...fetched, "Other"]));
+        setCategories(merged);
+        setCategory(merged[0]);
+      }
+    } catch (error) {
+      console.error("Error loading service categories:", error);
+    }
+  };
 
   const fetchGallery = async () => {
     setLoading(true);
@@ -119,6 +141,9 @@ const GalleryManager = () => {
   const handleEdit = (item: GalleryItem) => {
     setEditingItem(item);
     setTitle(item.title);
+    if (!categories.includes(item.category)) {
+      setCategories(prev => [...prev, item.category]);
+    }
     setCategory(item.category);
     setPreviewUrl(item.image_url);
     setIsModalOpen(true);
@@ -260,7 +285,7 @@ const GalleryManager = () => {
 
   const resetForm = () => {
     setTitle("");
-    setCategory(CATEGORIES[0]);
+    setCategory(categories[0] || "Other");
     setImageFile(null);
     setPreviewUrl(null);
     setEditingItem(null);
@@ -421,7 +446,7 @@ const GalleryManager = () => {
                         onChange={(e) => setCategory(e.target.value)}
                         className="w-full bg-primary border border-white/10 rounded-md p-3 text-white focus:border-accent outline-none appearance-none"
                       >
-                        {CATEGORIES.map(c => (
+                        {categories.map(c => (
                           <option key={c} value={c}>{c}</option>
                         ))}
                       </select>
