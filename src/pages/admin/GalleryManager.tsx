@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { 
   Database, Loader2, CheckCircle2, AlertTriangle, Play, 
-  Plus, X, Upload, Image as ImageIcon, Trash2, Edit3 
+  Plus, X, Upload, Image as ImageIcon, Trash2, Edit3,
+  ArrowUp, ArrowDown
 } from "lucide-react";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
@@ -23,6 +24,13 @@ interface GalleryItem {
   image_url: string;
   display_order: number;
 }
+
+const getHomeBadge = (index: number) => {
+  if (index >= 12) return null;
+  if (index === 0 || index === 7) return { label: "Large Square", color: "bg-accent/20 border-accent/30 text-accent" };
+  if (index === 10 || index === 11) return { label: "Wide Card", color: "bg-blue-500/20 border-blue-500/30 text-blue-400" };
+  return { label: "Standard Square", color: "bg-emerald-500/20 border-emerald-500/30 text-emerald-400" };
+};
 
 const GalleryManager = () => {
   const [items, setItems] = useState<GalleryItem[]>([]);
@@ -50,7 +58,37 @@ const GalleryManager = () => {
         .order("display_order", { ascending: true });
       
       if (error) throw error;
-      setItems(data || []);
+      
+      const loadedItems = data || [];
+      
+      // Let's verify if orders are normalized (i.e. unique sequential from 0 to N-1)
+      let needsNormalization = false;
+      for (let i = 0; i < loadedItems.length; i++) {
+        if (loadedItems[i].display_order !== i) {
+          needsNormalization = true;
+          break;
+        }
+      }
+
+      if (needsNormalization && loadedItems.length > 0) {
+        // Fix orders in Supabase sequentially
+        const updates = loadedItems.map((item, index) => 
+          supabase
+            .from("gallery")
+            .update({ display_order: index })
+            .eq("id", item.id)
+        );
+        await Promise.all(updates);
+        
+        // Re-fetch
+        const { data: refetchedData } = await supabase
+          .from("gallery")
+          .select("*")
+          .order("display_order", { ascending: true });
+        setItems(refetchedData || []);
+      } else {
+        setItems(loadedItems);
+      }
     } catch (error) {
       toast.error("Failed to load gallery items");
     } finally {
@@ -164,6 +202,37 @@ const GalleryManager = () => {
     }
   };
 
+  const handleMove = async (item: GalleryItem, direction: "up" | "down") => {
+    const currentIndex = items.findIndex((i) => i.id === item.id);
+    if (currentIndex === -1) return;
+
+    const targetIndex = direction === "up" ? currentIndex - 1 : currentIndex + 1;
+    if (targetIndex < 0 || targetIndex >= items.length) return;
+
+    const otherItem = items[targetIndex];
+
+    try {
+      const tempOrder = item.display_order;
+      
+      const { error: err1 } = await supabase
+        .from("gallery")
+        .update({ display_order: otherItem.display_order })
+        .eq("id", item.id);
+
+      const { error: err2 } = await supabase
+        .from("gallery")
+        .update({ display_order: tempOrder })
+        .eq("id", otherItem.id);
+
+      if (err1 || err2) throw err1 || err2;
+
+      toast.success("Position swapped successfully");
+      fetchGallery();
+    } catch (error: any) {
+      toast.error("Failed to reorder: " + error.message);
+    }
+  };
+
   const resetForm = () => {
     setTitle("");
     setCategory(CATEGORIES[0]);
@@ -197,41 +266,81 @@ const GalleryManager = () => {
         </div>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {items.map((item) => (
-            <motion.div
-              key={item.id}
-              layout
-              className="bg-secondary/50 border border-white/5 rounded-lg overflow-hidden group"
-            >
-              <div className="aspect-square relative overflow-hidden">
-                <img
-                  src={item.image_url}
-                  alt={item.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
-                  <button 
-                    onClick={() => handleEdit(item)}
-                    className="p-2 bg-white/10 hover:bg-accent hover:text-accent-foreground rounded-full transition-all"
-                  >
-                    <Edit3 size={16} />
-                  </button>
-                  <button 
-                    onClick={() => handleDelete(item)}
-                    className="p-2 bg-white/10 hover:bg-red-500 rounded-full transition-all"
-                  >
-                    <Trash2 size={16} />
-                  </button>
+          {items.map((item, index) => {
+            const badge = getHomeBadge(index);
+            return (
+              <motion.div
+                key={item.id}
+                layout
+                className={`bg-secondary/50 border border-white/5 rounded-lg overflow-hidden group relative flex flex-col justify-between ${
+                  index < 12 ? "ring-1 ring-accent/30" : ""
+                }`}
+              >
+                <div className="aspect-square relative overflow-hidden">
+                  <img
+                    src={item.image_url}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+                    <button 
+                      onClick={() => handleEdit(item)}
+                      className="p-2 bg-white/10 hover:bg-accent hover:text-accent-foreground rounded-full transition-all"
+                      title="Edit details"
+                    >
+                      <Edit3 size={16} />
+                    </button>
+                    <button 
+                      onClick={() => handleDelete(item)}
+                      className="p-2 bg-white/10 hover:bg-red-500 rounded-full transition-all"
+                      title="Delete"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
+                  <div className="absolute top-2 left-2 px-2 py-1 bg-black/50 backdrop-blur-md rounded text-[10px] text-white uppercase tracking-widest font-bold">
+                    {item.category}
+                  </div>
+                  {badge && (
+                    <div className={`absolute bottom-2 left-2 px-2 py-0.5 border backdrop-blur-md rounded text-[9px] uppercase tracking-wider font-semibold ${badge.color}`}>
+                      {badge.label}
+                    </div>
+                  )}
+                  <div className="absolute top-2 right-2 px-2 py-0.5 bg-black/60 border border-white/10 rounded text-[9px] text-white font-mono">
+                    #{index + 1}
+                  </div>
                 </div>
-                <div className="absolute top-2 left-2 px-2 py-1 bg-black/50 backdrop-blur-md rounded text-[10px] text-white uppercase tracking-widest font-bold">
-                  {item.category}
+                <div className="p-3 flex items-center justify-between gap-2 border-t border-white/5 bg-secondary/30">
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-xs font-medium text-white truncate" title={item.title}>
+                      {item.title || "Untitled Project"}
+                    </h3>
+                    <p className="text-[9px] text-metallic">
+                      {index < 12 ? "Featured on Home" : "Main Portfolio"}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-1 shrink-0">
+                    <button
+                      onClick={() => handleMove(item, "up")}
+                      disabled={index === 0}
+                      className="p-1 bg-white/5 hover:bg-accent hover:text-accent-foreground disabled:opacity-20 disabled:hover:bg-white/5 disabled:hover:text-white/60 rounded text-white transition-all border border-white/5"
+                      title="Move Left/Up"
+                    >
+                      <ArrowUp size={12} />
+                    </button>
+                    <button
+                      onClick={() => handleMove(item, "down")}
+                      disabled={index === items.length - 1}
+                      className="p-1 bg-white/5 hover:bg-accent hover:text-accent-foreground disabled:opacity-20 disabled:hover:bg-white/5 disabled:hover:text-white/60 rounded text-white transition-all border border-white/5"
+                      title="Move Right/Down"
+                    >
+                      <ArrowDown size={12} />
+                    </button>
+                  </div>
                 </div>
-              </div>
-              <div className="p-3">
-                <h3 className="text-sm font-medium text-white truncate">{item.title || "Untitled Project"}</h3>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       )}
 
