@@ -77,6 +77,29 @@ const Contact = () => {
         // We continue anyway so the email still sends
       }
 
+      // 1.5 Sync to CRM Backend (Non-blocking background API call)
+      const crmApiUrl = (import.meta.env.VITE_CRM_API_URL || "http://localhost:5001") + "/api/integration/website-enquiry";
+      const crmApiKey = import.meta.env.VITE_CRM_API_KEY || "mam_secure_sync_secret_123";
+      
+      fetch(crmApiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": crmApiKey
+        },
+        body: JSON.stringify({
+          name: parsed.data.name,
+          company: "Direct Web Inquiry",
+          email: parsed.data.email,
+          phone: parsed.data.phone,
+          city: "Bengaluru",
+          service: parsed.data.service,
+          message: parsed.data.message
+        })
+      }).catch(err => {
+        console.error("CRM Sync failed in background:", err);
+      });
+
       // 2. Send via Web3Forms (Email Notification)
       const formData = new FormData(formElement);
       formData.append("access_key", "5e6757af-ab7d-4b52-8b5d-8608896bbdde");
