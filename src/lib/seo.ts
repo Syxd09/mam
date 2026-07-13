@@ -79,3 +79,54 @@ export const getBreadcrumbSchema = (items: { name: string; url: string }[]) => (
     "item": `https://www.mamindustries.in${item.url}`
   }))
 });
+
+export const getOrganizationSchema = () => ({
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://www.mamindustries.in/#organization",
+  "name": SITE.name,
+  "url": "https://www.mamindustries.in",
+  "logo": "https://www.mamindustries.in/favicon.png",
+  "image": "https://www.mamindustries.in/favicon.png",
+  "sameAs": [
+    "https://www.facebook.com/mamindustries",
+    "https://www.linkedin.com/company/mam-industries",
+    "https://www.instagram.com/mamindustries"
+  ],
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "telephone": SITE.phone,
+      "contactType": "sales",
+      "areaServed": "IN",
+      "availableLanguage": ["en", "kn", "hi"]
+    }
+  ]
+});
+
+export const getWebSiteSchema = () => ({
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://www.mamindustries.in/#website",
+  "url": "https://www.mamindustries.in",
+  "name": SITE.name,
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://www.mamindustries.in/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+});
+
+export const getFAQPageSchema = (faqs: { q: string; a: string }[]) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.a
+    }
+  }))
+});
+

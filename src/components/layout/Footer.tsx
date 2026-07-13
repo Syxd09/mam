@@ -43,7 +43,7 @@ const Footer = () => {
     <footer className="bg-blueprint text-primary-foreground relative overflow-hidden">
       <div className="absolute inset-x-0 top-0 h-1 stripe-accent" />
       <div className="container py-16 grid gap-10 md:grid-cols-12">
-        <div className="md:col-span-4">
+        <div className="md:col-span-3">
           <div className="flex items-center mb-5">
             <img
               src={logoCombinedDark}
@@ -70,12 +70,24 @@ const Footer = () => {
           </ul>
         </div>
 
-        <div className="md:col-span-3">
+        <div className="md:col-span-2">
           <h4 className="text-sm font-semibold uppercase tracking-wider mb-4 text-white">Services</h4>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-y-2.5 gap-x-4 text-sm text-metallic">
+          <ul className="space-y-2.5 text-sm text-metallic">
             {services.map(s => (
               <li key={s.slug}><Link to={`/services#${s.slug}`} className="hover:text-accent transition-colors">{s.title}</Link></li>
             ))}
+          </ul>
+        </div>
+
+        <div className="md:col-span-2">
+          <h4 className="text-sm font-semibold uppercase tracking-wider mb-4 text-white">B2B Focus</h4>
+          <ul className="space-y-2.5 text-sm text-metallic">
+            <li><Link to="/laser-cutting-bangalore" className="hover:text-accent transition-colors">Laser Cutting BLR</Link></li>
+            <li><Link to="/cnc-bending-bangalore" className="hover:text-accent transition-colors">CNC Bending BLR</Link></li>
+            <li><Link to="/powder-coating-bangalore" className="hover:text-accent transition-colors">Powder Coating BLR</Link></li>
+            <li><Link to="/laser-marking-bangalore" className="hover:text-accent transition-colors">Laser Marking BLR</Link></li>
+            <li><Link to="/welding-services-bangalore" className="hover:text-accent transition-colors">Welding Services BLR</Link></li>
+            <li><Link to="/custom-metal-fabrication-bangalore" className="hover:text-accent transition-colors">Custom Fabrication BLR</Link></li>
           </ul>
         </div>
 
