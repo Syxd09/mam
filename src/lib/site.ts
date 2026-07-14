@@ -20,7 +20,7 @@ export const SITE = {
   yearsExperience: 7,
   industriesServed: 20,
   projectsCompleted: 1200,
-  mapEmbed: "https://storage.googleapis.com/maps-solutions-w26v4ghv3l/locator-plus/90ra/locator-plus.html",
+  mapEmbed: "https://www.google.com/maps/embed/v1/place?key=AIzaSyDahNdzwtRpy7hmYJjkLjkqXo5-KWsY7ZM&q=MAM+Industries,+Kanakapura+Main+Road,+Yelachenahalli,+Bengaluru",
 };
 
 export const NAV = [
