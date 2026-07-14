@@ -50,7 +50,26 @@ const Contact = () => {
         fullscreenControl: true,
       });
 
-      new google.maps.Marker({
+      const contentString = `
+        <div style="font-family: 'Sora', sans-serif; padding: 6px; max-width: 220px;">
+          <h4 style="margin: 0 0 4px 0; font-size: 13px; font-weight: 700; color: #0F172A;">MAM Industries</h4>
+          <p style="margin: 0 0 8px 0; font-size: 11px; line-height: 1.4; color: #475569;">
+            7th Mile, Kanakapura Rd, Yelachenahalli, Bengaluru, Karnataka 560062
+          </p>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=MAM+Industries,+Yelachenahalli,+Bengaluru" 
+             target="_blank" 
+             rel="noopener noreferrer" 
+             style="display: inline-block; font-size: 11px; font-weight: 700; color: #0EA5E9; text-decoration: none; border-bottom: 1px solid #0EA5E9; padding-bottom: 1px;">
+            Get Directions ↗
+          </a>
+        </div>
+      `;
+
+      const infowindow = new google.maps.InfoWindow({
+        content: contentString,
+      });
+
+      const marker = new google.maps.Marker({
         position: position,
         map: map,
         title: "MAM Industries",
@@ -58,6 +77,20 @@ const Contact = () => {
           url: "/favicon.png",
           scaledSize: new google.maps.Size(42, 42), // Resize the logo pin
         },
+      });
+
+      // Auto-open on load
+      infowindow.open({
+        anchor: marker,
+        map,
+      });
+
+      // Re-open on click
+      marker.addListener("click", () => {
+        infowindow.open({
+          anchor: marker,
+          map,
+        });
       });
     };
 
