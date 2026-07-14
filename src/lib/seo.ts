@@ -8,7 +8,7 @@ export const getLocalBusinessSchema = () => ({
   "logo": "https://www.mamindustries.in/favicon.png",
   "@id": "https://www.mamindustries.in/#organization",
   "url": "https://www.mamindustries.in",
-  "telephone": SITE.phone,
+  "telephone": [SITE.phone, "+91 63811 63159"],
   "email": SITE.email,
   "priceRange": "$$",
   "address": {
@@ -97,6 +97,13 @@ export const getOrganizationSchema = () => ({
     {
       "@type": "ContactPoint",
       "telephone": SITE.phone,
+      "contactType": "sales",
+      "areaServed": "IN",
+      "availableLanguage": ["en", "kn", "hi"]
+    },
+    {
+      "@type": "ContactPoint",
+      "telephone": "+91 63811 63159",
       "contactType": "sales",
       "areaServed": "IN",
       "availableLanguage": ["en", "kn", "hi"]
