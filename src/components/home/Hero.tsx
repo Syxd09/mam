@@ -35,10 +35,10 @@ const Hero = () => {
       <picture className="absolute inset-0 -z-10 block w-full h-full">
         <source
           media="(max-width: 767px)"
-          srcSet="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=750&q=60"
+          srcSet="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=600&q=50&fm=webp"
         />
         <img
-          src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=1600&q=75"
+          src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=1400&q=70&fm=webp"
           alt="Precision Metal Fabrication"
           loading="eager"
           className="w-full h-full object-cover"
