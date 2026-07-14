@@ -144,7 +144,7 @@ const WeldingServicesBangalore = () => {
                     <ShieldCheck size={20} />
                   </span>
                   <div>
-                    <h4 className="font-semibold text-primary">AWS Certified Welders</h4>
+                    <h3 className="font-semibold text-primary">AWS Certified Welders</h3>
                     <p className="text-sm text-muted-foreground">Welding procedures follow strict ASME Section IX and AWS guidelines.</p>
                   </div>
                 </div>
@@ -153,7 +153,7 @@ const WeldingServicesBangalore = () => {
                     <Zap size={20} />
                   </span>
                   <div>
-                    <h4 className="font-semibold text-primary">Laser Weld Processing</h4>
+                    <h3 className="font-semibold text-primary">Laser Weld Processing</h3>
                     <p className="text-sm text-muted-foreground">Laser welds create hermetic joins, perfect for industrial tanks and pressure enclosures.</p>
                   </div>
                 </div>
@@ -162,7 +162,7 @@ const WeldingServicesBangalore = () => {
                     <Layers size={20} />
                   </span>
                   <div>
-                    <h4 className="font-semibold text-primary">Stainless Pickling & Passivation</h4>
+                    <h3 className="font-semibold text-primary">Stainless Pickling & Passivation</h3>
                     <p className="text-sm text-muted-foreground">Post-weld chemical cleaning ensures stainless steel components retain corrosion resistance.</p>
                   </div>
                 </div>
@@ -171,7 +171,7 @@ const WeldingServicesBangalore = () => {
                     <Compass size={20} />
                   </span>
                   <div>
-                    <h4 className="font-semibold text-primary">Dye Penetrant Inspection</h4>
+                    <h3 className="font-semibold text-primary">Dye Penetrant Inspection</h3>
                     <p className="text-sm text-muted-foreground">Non-destructive test checks for micro-fissures and leaks in load-bearing welds.</p>
                   </div>
                 </div>
@@ -223,7 +223,7 @@ const WeldingServicesBangalore = () => {
             </div>
 
             <div className="bg-secondary/10 border border-secondary/20 p-6 rounded-lg space-y-4">
-              <h4 className="font-semibold text-primary text-base">AWS Feasibility Studies</h4>
+              <h3 className="font-semibold text-primary text-base">AWS Feasibility Studies</h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
                 Send your weldment specifications and drawings. We will review weld geometry and preparation to provide competitive pricing options.
               </p>

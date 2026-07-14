@@ -138,7 +138,7 @@ const LaserMarkingBangalore = () => {
                     <ShieldCheck size={20} />
                   </span>
                   <div>
-                    <h4 className="font-semibold text-primary">Permanent Contrast</h4>
+                    <h3 className="font-semibold text-primary">Permanent Contrast</h3>
                     <p className="text-sm text-muted-foreground">Produces crisp dark or light marks on SS and anodized surfaces for camera scanners.</p>
                   </div>
                 </div>
@@ -147,7 +147,7 @@ const LaserMarkingBangalore = () => {
                     <Zap size={20} />
                   </span>
                   <div>
-                    <h4 className="font-semibold text-primary">High-Speed Execution</h4>
+                    <h3 className="font-semibold text-primary">High-Speed Execution</h3>
                     <p className="text-sm text-muted-foreground">Galvo scanning heads mark small parts in milliseconds, enabling rapid volume throughput.</p>
                   </div>
                 </div>
@@ -156,7 +156,7 @@ const LaserMarkingBangalore = () => {
                     <Layers size={20} />
                   </span>
                   <div>
-                    <h4 className="font-semibold text-primary">Non-Contact Process</h4>
+                    <h3 className="font-semibold text-primary">Non-Contact Process</h3>
                     <p className="text-sm text-muted-foreground">No tool wear or physical force is applied, preventing bending of thin-walled parts.</p>
                   </div>
                 </div>
@@ -165,7 +165,7 @@ const LaserMarkingBangalore = () => {
                     <Compass size={20} />
                   </span>
                   <div>
-                    <h4 className="font-semibold text-primary">Deep Mark Option</h4>
+                    <h3 className="font-semibold text-primary">Deep Mark Option</h3>
                     <p className="text-sm text-muted-foreground">Maintains visibility under subsequent sandblasting, plating, or zinc coating.</p>
                   </div>
                 </div>
@@ -217,7 +217,7 @@ const LaserMarkingBangalore = () => {
             </div>
 
             <div className="bg-secondary/10 border border-secondary/20 p-6 rounded-lg space-y-4">
-              <h4 className="font-semibold text-primary text-base">Traceability Standards</h4>
+              <h3 className="font-semibold text-primary text-base">Traceability Standards</h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
                 We assist with B2B compliance needs (including unique serial patterns, GS1 QR format, and ISO 9001 logging requirements).
               </p>

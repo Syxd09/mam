@@ -144,7 +144,7 @@ const CncBendingBangalore = () => {
                     <ShieldCheck size={20} />
                   </span>
                   <div>
-                    <h4 className="font-semibold text-primary">Multi-Axis backgauging</h4>
+                    <h3 className="font-semibold text-primary">Multi-Axis backgauging</h3>
                     <p className="text-sm text-muted-foreground">Precision alignment of multi-stage bends for complicated brackets and enclosures.</p>
                   </div>
                 </div>
@@ -153,7 +153,7 @@ const CncBendingBangalore = () => {
                     <Zap size={20} />
                   </span>
                   <div>
-                    <h4 className="font-semibold text-primary">Auto-Crowning Systems</h4>
+                    <h3 className="font-semibold text-primary">Auto-Crowning Systems</h3>
                     <p className="text-sm text-muted-foreground">Maintains constant angular accuracy across the entire length of the bed.</p>
                   </div>
                 </div>
@@ -162,7 +162,7 @@ const CncBendingBangalore = () => {
                     <Layers size={20} />
                   </span>
                   <div>
-                    <h4 className="font-semibold text-primary">Enclosure Bending Tooling</h4>
+                    <h3 className="font-semibold text-primary">Enclosure Bending Tooling</h3>
                     <p className="text-sm text-muted-foreground">Gooseneck punch and split dies allow deep box forming without panel collision.</p>
                   </div>
                 </div>
@@ -171,7 +171,7 @@ const CncBendingBangalore = () => {
                     <Compass size={20} />
                   </span>
                   <div>
-                    <h4 className="font-semibold text-primary">Springback Calibration</h4>
+                    <h3 className="font-semibold text-primary">Springback Calibration</h3>
                     <p className="text-sm text-muted-foreground">Calculations account for specific metal hardness and grain directions.</p>
                   </div>
                 </div>
@@ -223,7 +223,7 @@ const CncBendingBangalore = () => {
             </div>
 
             <div className="bg-secondary/10 border border-secondary/20 p-6 rounded-lg space-y-4">
-              <h4 className="font-semibold text-primary text-base">Press Brake Tooling Setup</h4>
+              <h3 className="font-semibold text-primary text-base">Press Brake Tooling Setup</h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
                 We maintain a comprehensive library of punch and die sets to accommodate custom radius requirements. No custom tooling charges for standard radius bends.
               </p>

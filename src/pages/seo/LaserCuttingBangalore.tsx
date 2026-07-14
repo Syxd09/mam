@@ -144,7 +144,7 @@ const LaserCuttingBangalore = () => {
                     <ShieldCheck size={20} />
                   </span>
                   <div>
-                    <h4 className="font-semibold text-primary">Quality Certification</h4>
+                    <h3 className="font-semibold text-primary">Quality Certification</h3>
                     <p className="text-sm text-muted-foreground">Rigorous QA checks check part profiles and hole geometries against drawings.</p>
                   </div>
                 </div>
@@ -153,7 +153,7 @@ const LaserCuttingBangalore = () => {
                     <Zap size={20} />
                   </span>
                   <div>
-                    <h4 className="font-semibold text-primary">SigmaNEST Optimization</h4>
+                    <h3 className="font-semibold text-primary">SigmaNEST Optimization</h3>
                     <p className="text-sm text-muted-foreground">Advanced dynamic nesting reduces scrap rate by up to 15%, reducing batch costs.</p>
                   </div>
                 </div>
@@ -162,7 +162,7 @@ const LaserCuttingBangalore = () => {
                     <Layers size={20} />
                   </span>
                   <div>
-                    <h4 className="font-semibold text-primary">Secondary Edge De-burring</h4>
+                    <h3 className="font-semibold text-primary">Secondary Edge De-burring</h3>
                     <p className="text-sm text-muted-foreground">Post-cut inspection handles sharp edges, preparing parts for bending or painting.</p>
                   </div>
                 </div>
@@ -171,7 +171,7 @@ const LaserCuttingBangalore = () => {
                     <Compass size={20} />
                   </span>
                   <div>
-                    <h4 className="font-semibold text-primary">High-Speed Processing</h4>
+                    <h3 className="font-semibold text-primary">High-Speed Processing</h3>
                     <p className="text-sm text-muted-foreground">3kW fiber power enables clean cuts on complex geometries with short delivery windows.</p>
                   </div>
                 </div>
@@ -223,7 +223,7 @@ const LaserCuttingBangalore = () => {
             </div>
 
             <div className="bg-secondary/10 border border-secondary/20 p-6 rounded-lg space-y-4">
-              <h4 className="font-semibold text-primary text-base">Instant Technical Review</h4>
+              <h3 className="font-semibold text-primary text-base">Instant Technical Review</h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
                 Got drawings? Upload them in our quote portal. Our production engineers will check the parameters and respond within 24 hours.
               </p>

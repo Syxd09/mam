@@ -94,28 +94,28 @@ const CustomMetalFabricationBangalore = () => {
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="border border-border p-5 rounded-lg bg-card shadow-sm space-y-2">
                   <span className="text-xs font-bold text-accent uppercase">Stage 01</span>
-                  <h4 className="font-semibold text-primary">DFM Engineering Review</h4>
+                  <h3 className="font-semibold text-primary">DFM Engineering Review</h3>
                   <p className="text-xs text-muted-foreground leading-relaxed">
                     Our technical team reviews client CAD designs to optimize sheet layout, minimize bending setups, and reduce welding distortion before scheduling runs.
                   </p>
                 </div>
                 <div className="border border-border p-5 rounded-lg bg-card shadow-sm space-y-2">
                   <span className="text-xs font-bold text-accent uppercase">Stage 02</span>
-                  <h4 className="font-semibold text-primary">Precision CNC Profiling</h4>
+                  <h3 className="font-semibold text-primary">Precision CNC Profiling</h3>
                   <p className="text-xs text-muted-foreground leading-relaxed">
                     3kW CNC fiber lasers cut parts with sub-millimeter precision, creating clean profiles and holes ready for downstream bending.
                   </p>
                 </div>
                 <div className="border border-border p-5 rounded-lg bg-card shadow-sm space-y-2">
                   <span className="text-xs font-bold text-accent uppercase">Stage 03</span>
-                  <h4 className="font-semibold text-primary">CNC Press Bending</h4>
+                  <h3 className="font-semibold text-primary">CNC Press Bending</h3>
                   <p className="text-xs text-muted-foreground leading-relaxed">
                     250-ton hydraulic press brakes bend sections up to 2.5 meters. Gooseneck punches and split dies allow complex enclosure folding sequences.
                   </p>
                 </div>
                 <div className="border border-border p-5 rounded-lg bg-card shadow-sm space-y-2">
                   <span className="text-xs font-bold text-accent uppercase">Stage 04</span>
-                  <h4 className="font-semibold text-primary">Welding & Surface Coating</h4>
+                  <h3 className="font-semibold text-primary">Welding & Surface Coating</h3>
                   <p className="text-xs text-muted-foreground leading-relaxed">
                     Certified welders join parts using MIG, TIG, and laser welding. Finished weldments are cleaned and treated in our powder coating lines.
                   </p>
@@ -134,7 +134,7 @@ const CustomMetalFabricationBangalore = () => {
                     <ShieldCheck size={20} />
                   </span>
                   <div>
-                    <h4 className="font-semibold text-primary">Turnkey BOM Sourcing</h4>
+                    <h3 className="font-semibold text-primary">Turnkey BOM Sourcing</h3>
                     <p className="text-sm text-muted-foreground">We source certified MS, SS, and Aluminum plates from primary steel mills with test certificates.</p>
                   </div>
                 </div>
@@ -143,7 +143,7 @@ const CustomMetalFabricationBangalore = () => {
                     <Zap size={20} />
                   </span>
                   <div>
-                    <h4 className="font-semibold text-primary">OEM Scale Capabilities</h4>
+                    <h3 className="font-semibold text-primary">OEM Scale Capabilities</h3>
                     <p className="text-sm text-muted-foreground">Our workshop operates in double-shifts to process high-volume sheet metal contracts.</p>
                   </div>
                 </div>
@@ -152,7 +152,7 @@ const CustomMetalFabricationBangalore = () => {
                     <Layers size={20} />
                   </span>
                   <div>
-                    <h4 className="font-semibold text-primary">Anti-Corrosive Painting</h4>
+                    <h3 className="font-semibold text-primary">Anti-Corrosive Painting</h3>
                     <p className="text-sm text-muted-foreground">We offer high-grade zinc-phosphated powder coating to withstand 500-1000 hour salt spray tests.</p>
                   </div>
                 </div>
@@ -161,7 +161,7 @@ const CustomMetalFabricationBangalore = () => {
                     <Compass size={20} />
                   </span>
                   <div>
-                    <h4 className="font-semibold text-primary">JIT Scheduled Deliveries</h4>
+                    <h3 className="font-semibold text-primary">JIT Scheduled Deliveries</h3>
                     <p className="text-sm text-muted-foreground">We support scheduled kanban and just-in-time logistics to feed B2B assembly lines.</p>
                   </div>
                 </div>
@@ -213,7 +213,7 @@ const CustomMetalFabricationBangalore = () => {
             </div>
 
             <div className="bg-secondary/10 border border-secondary/20 p-6 rounded-lg space-y-4">
-              <h4 className="font-semibold text-primary text-base">B2B Sourcing Support</h4>
+              <h3 className="font-semibold text-primary text-base">B2B Sourcing Support</h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
                 Got a custom assembly requirement? Send us the details and drawings. We will evaluate feasibility and provide competitive pricing schedules.
               </p>

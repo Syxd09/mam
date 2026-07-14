@@ -144,7 +144,7 @@ const PowderCoatingBangalore = () => {
                     <ShieldCheck size={20} />
                   </span>
                   <div>
-                    <h4 className="font-semibold text-primary">7-Tank Pretreatment</h4>
+                    <h3 className="font-semibold text-primary">7-Tank Pretreatment</h3>
                     <p className="text-sm text-muted-foreground">Comprehensive multi-tank chemical washes ensure optimal corrosion resistance.</p>
                   </div>
                 </div>
@@ -153,7 +153,7 @@ const PowderCoatingBangalore = () => {
                     <Zap size={20} />
                   </span>
                   <div>
-                    <h4 className="font-semibold text-primary">Electrostatic Uniformity</h4>
+                    <h3 className="font-semibold text-primary">Electrostatic Uniformity</h3>
                     <p className="text-sm text-muted-foreground">Charged corona gun spray provides wrapping and uniform coating on complex geometries.</p>
                   </div>
                 </div>
@@ -162,7 +162,7 @@ const PowderCoatingBangalore = () => {
                     <Layers size={20} />
                   </span>
                   <div>
-                    <h4 className="font-semibold text-primary">Micro-Curing Profiling</h4>
+                    <h3 className="font-semibold text-primary">Micro-Curing Profiling</h3>
                     <p className="text-sm text-muted-foreground">Oven temperatures are logged and calibrated to ensure full cross-linking without brittleness.</p>
                   </div>
                 </div>
@@ -171,7 +171,7 @@ const PowderCoatingBangalore = () => {
                     <Compass size={20} />
                   </span>
                   <div>
-                    <h4 className="font-semibold text-primary">Cross-Hatch Adhesion Checks</h4>
+                    <h3 className="font-semibold text-primary">Cross-Hatch Adhesion Checks</h3>
                     <p className="text-sm text-muted-foreground">Destructive cross-cut tests verify coating adhesion indexes on reference sample panels.</p>
                   </div>
                 </div>
@@ -223,7 +223,7 @@ const PowderCoatingBangalore = () => {
             </div>
 
             <div className="bg-secondary/10 border border-secondary/20 p-6 rounded-lg space-y-4">
-              <h4 className="font-semibold text-primary text-base">RAL Color Codes</h4>
+              <h3 className="font-semibold text-primary text-base">RAL Color Codes</h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
                 We support the entire RAL Classic color library. Custom shades can be formulated for bulk B2B agreements matching corporate brand standards.
               </p>

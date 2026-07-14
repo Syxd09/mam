@@ -17,7 +17,7 @@ const WhyChoose = () => (
       <div className="max-w-2xl mb-14">
         <span className="eyebrow">Why Us</span>
         <h2 className="h-display text-3xl md:text-5xl mt-3 text-white">
-          Built for the realities of <span className="text-accent">Indian manufacturing.</span>
+          Why Leading OEMs Choose MAM <span className="text-accent">in Bengaluru.</span>
         </h2>
         <p className="text-metallic mt-4 max-w-xl">
           Industrial buyers don't choose vendors twice. We've earned long-term partnerships by being measurably better at the things that matter on a shop floor.
