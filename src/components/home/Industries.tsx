@@ -1,6 +1,34 @@
 import { motion } from "framer-motion";
-import * as Lucide from "lucide-react";
+import { 
+  Car, 
+  Building2, 
+  HardHat, 
+  LampDesk, 
+  Factory, 
+  Truck, 
+  Construction, 
+  Zap, 
+  Plane, 
+  FlaskConical, 
+  Sun, 
+  Settings2 
+} from "lucide-react";
 import { INDUSTRIES } from "@/lib/site";
+
+const iconMap: Record<string, React.ComponentType<any>> = {
+  Car,
+  Building2,
+  HardHat,
+  LampDesk,
+  Factory,
+  Truck,
+  Construction,
+  Zap,
+  Plane,
+  FlaskConical,
+  Sun,
+  Settings2,
+};
 
 const Industries = () => (
   <section className="py-20 md:py-28 bg-muted/30">
@@ -17,7 +45,7 @@ const Industries = () => (
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
         {INDUSTRIES.map((ind, i) => {
-          const Icon = (Lucide as any)[ind.icon] ?? Lucide.Factory;
+          const Icon = iconMap[ind.icon] ?? Factory;
           return (
             <motion.div
               key={ind.name}
