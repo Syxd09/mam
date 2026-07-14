@@ -30,6 +30,53 @@ const Contact = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const apiKey = "AIzaSyDahNdzwtRpy7hmYJjkLjkqXo5-KWsY7ZM";
+    const scriptId = "google-maps-script";
+    let script = document.getElementById(scriptId) as HTMLScriptElement;
+
+    const initMap = () => {
+      const google = (window as any).google;
+      if (!mapRef.current || !google) return;
+
+      const position = { lat: 12.8944419, lng: 77.5693295 }; // MAM Industries Coordinates
+      const map = new google.maps.Map(mapRef.current, {
+        center: position,
+        zoom: 16,
+        mapTypeControl: false,
+        streetViewControl: false,
+        fullscreenControl: true,
+      });
+
+      new google.maps.Marker({
+        position: position,
+        map: map,
+        title: "MAM Industries",
+        icon: {
+          url: "/favicon.png",
+          scaledSize: new google.maps.Size(42, 42), // Resize the logo pin
+        },
+      });
+    };
+
+    if (!(window as any).google) {
+      if (!script) {
+        script = document.createElement("script");
+        script.id = scriptId;
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}`;
+        script.async = true;
+        script.defer = true;
+        document.head.appendChild(script);
+      }
+      script.onload = () => {
+        initMap();
+      };
+    } else {
+      initMap();
+    }
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -346,14 +393,7 @@ const Contact = () => {
             ))}
 
             <div className="rounded-lg overflow-hidden border border-border h-72">
-              <iframe
-                title="MAM Industries location"
-                src={SITE.mapEmbed}
-                width="100%" height="100%"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="border-0"
-              />
+              <div ref={mapRef} className="w-full h-full" />
             </div>
           </div>
         </div>
