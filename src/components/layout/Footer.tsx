@@ -113,11 +113,11 @@ const Footer = () => {
           </ul>
           <div className="flex gap-2 mt-5">
             {[
-              { Icon: Facebook, href: config.facebook_url || "#" },
-              { Icon: Instagram, href: config.instagram_url || "#" },
-              { Icon: Youtube, href: config.youtube_url || "#" }
-            ].map(({ Icon, href }, i) => (
-              <a key={i} href={href} target="_blank" rel="noopener noreferrer" aria-label="social" className="w-9 h-9 grid place-items-center border border-white/10 rounded-md text-metallic hover:text-accent hover:border-accent transition-colors">
+              { Icon: Facebook, label: "Facebook", href: config.facebook_url || "#" },
+              { Icon: Instagram, label: "Instagram", href: config.instagram_url || "#" },
+              { Icon: Youtube, label: "YouTube", href: config.youtube_url || "#" }
+            ].map(({ Icon, label, href }, i) => (
+              <a key={i} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="w-9 h-9 grid place-items-center border border-white/10 rounded-md text-metallic hover:text-accent hover:border-accent transition-colors">
                 <Icon size={15} />
               </a>
             ))}

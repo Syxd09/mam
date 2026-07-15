@@ -114,6 +114,7 @@ const Gallery = () => {
               <motion.button
                 key={`${g.src}-${i}`}
                 onClick={() => setActive(i)}
+                aria-label={`View larger image of ${g.title}`}
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: (i % 6) * 0.04 }}
@@ -137,7 +138,11 @@ const Gallery = () => {
             className="fixed inset-0 bg-primary/95 backdrop-blur-sm z-[80] flex items-center justify-center p-4"
             onClick={() => setActive(null)}
           >
-            <button onClick={() => setActive(null)} className="absolute top-5 right-5 w-10 h-10 grid place-items-center rounded-full bg-white/10 text-white hover:bg-accent hover:text-accent-foreground transition-colors">
+            <button 
+              onClick={() => setActive(null)} 
+              aria-label="Close image viewer"
+              className="absolute top-5 right-5 w-10 h-10 grid place-items-center rounded-full bg-white/10 text-white hover:bg-accent hover:text-accent-foreground transition-colors"
+            >
               <X size={18} />
             </button>
             <motion.div

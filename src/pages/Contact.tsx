@@ -45,6 +45,7 @@ const Contact = () => {
       const map = new google.maps.Map(mapRef.current, {
         center: position,
         zoom: 16,
+        mapId: "DEMO_MAP_ID", // Required for AdvancedMarkerElement
         mapTypeControl: false,
         streetViewControl: false,
         fullscreenControl: true,
@@ -69,14 +70,18 @@ const Contact = () => {
         content: contentString,
       });
 
-      const marker = new google.maps.Marker({
+      // Create an img element for the custom logo pin
+      const pinImage = document.createElement("img");
+      pinImage.src = "/favicon.png";
+      pinImage.alt = "MAM Industries Location Pin";
+      pinImage.style.width = "42px";
+      pinImage.style.height = "42px";
+
+      const marker = new google.maps.marker.AdvancedMarkerElement({
         position: position,
         map: map,
         title: "MAM Industries",
-        icon: {
-          url: "/favicon.png",
-          scaledSize: new google.maps.Size(42, 42), // Resize the logo pin
-        },
+        content: pinImage,
       });
 
       // Auto-open on load
@@ -98,7 +103,7 @@ const Contact = () => {
       if (!script) {
         script = document.createElement("script");
         script.id = scriptId;
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}`;
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&loading=async&libraries=marker`;
         script.async = true;
         script.defer = true;
         document.head.appendChild(script);
@@ -310,8 +315,9 @@ const Contact = () => {
                     { name: "phone", label: "Phone *", type: "tel", placeholder: "+91" },
                   ].map(f => (
                     <div key={f.name}>
-                      <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">{f.label}</label>
+                      <label htmlFor={f.name} className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">{f.label}</label>
                       <input
+                        id={f.name}
                         name={f.name} type={f.type} placeholder={f.placeholder} maxLength={120}
                         className="mt-1.5 w-full bg-background border border-border rounded-md px-4 py-3 text-base focus:outline-none focus:border-accent transition-all placeholder:text-muted-foreground/50 font-medium md:text-sm"
                       />
@@ -372,8 +378,9 @@ const Contact = () => {
                   </div>
 
                   <div className="sm:col-span-2">
-                    <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">Project details *</label>
+                    <label htmlFor="message" className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">Project details *</label>
                     <textarea
+                      id="message"
                       name="message" rows={5} maxLength={1000}
                       placeholder="Tell us about your job — material, quantity, drawings, timeline."
                       className="mt-1.5 w-full bg-background border border-border rounded-md px-4 py-3 text-base focus:outline-none focus:border-accent transition-all placeholder:text-muted-foreground/50 font-medium resize-none md:text-sm"
