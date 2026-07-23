@@ -30,91 +30,6 @@ const Contact = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const apiKey = "AIzaSyDahNdzwtRpy7hmYJjkLjkqXo5-KWsY7ZM";
-    const scriptId = "google-maps-script";
-    let script = document.getElementById(scriptId) as HTMLScriptElement;
-
-    const initMap = () => {
-      const google = (window as any).google;
-      if (!mapRef.current || !google) return;
-
-      const position = { lat: 12.8944419, lng: 77.5693295 }; // MAM Industries Coordinates
-      const map = new google.maps.Map(mapRef.current, {
-        center: position,
-        zoom: 16,
-        mapId: "DEMO_MAP_ID", // Required for AdvancedMarkerElement
-        mapTypeControl: false,
-        streetViewControl: false,
-        fullscreenControl: true,
-      });
-
-      const contentString = `
-        <div style="font-family: 'Sora', sans-serif; padding: 6px; max-width: 220px;">
-          <h4 style="margin: 0 0 4px 0; font-size: 13px; font-weight: 700; color: #0F172A;">MAM Industries</h4>
-          <p style="margin: 0 0 8px 0; font-size: 11px; line-height: 1.4; color: #475569;">
-            7th Mile, Kanakapura Rd, Yelachenahalli, Bengaluru, Karnataka 560062
-          </p>
-          <a href="https://www.google.com/maps/dir/?api=1&destination=MAM+Industries,+Yelachenahalli,+Bengaluru" 
-             target="_blank" 
-             rel="noopener noreferrer" 
-             style="display: inline-block; font-size: 11px; font-weight: 700; color: #0EA5E9; text-decoration: none; border-bottom: 1px solid #0EA5E9; padding-bottom: 1px;">
-            Get Directions ↗
-          </a>
-        </div>
-      `;
-
-      const infowindow = new google.maps.InfoWindow({
-        content: contentString,
-      });
-
-      // Create an img element for the custom logo pin
-      const pinImage = document.createElement("img");
-      pinImage.src = "/favicon.png";
-      pinImage.alt = "MAM Industries Location Pin";
-      pinImage.style.width = "42px";
-      pinImage.style.height = "42px";
-
-      const marker = new google.maps.marker.AdvancedMarkerElement({
-        position: position,
-        map: map,
-        title: "MAM Industries",
-        content: pinImage,
-      });
-
-      // Auto-open on load
-      infowindow.open({
-        anchor: marker,
-        map,
-      });
-
-      // Re-open on click
-      marker.addListener("click", () => {
-        infowindow.open({
-          anchor: marker,
-          map,
-        });
-      });
-    };
-
-    if (!(window as any).google) {
-      if (!script) {
-        script = document.createElement("script");
-        script.id = scriptId;
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&loading=async&libraries=marker`;
-        script.async = true;
-        script.defer = true;
-        document.head.appendChild(script);
-      }
-      script.onload = () => {
-        initMap();
-      };
-    } else {
-      initMap();
-    }
-  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -433,7 +348,17 @@ const Contact = () => {
             ))}
 
             <div className="rounded-lg overflow-hidden border border-border h-72">
-              <div ref={mapRef} className="w-full h-full" />
+              <iframe
+                title="MAM Industries Location Map"
+                src={SITE.mapEmbed}
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="w-full h-full border-0"
+              />
             </div>
           </div>
         </div>
