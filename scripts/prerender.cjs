@@ -119,8 +119,39 @@ async function prerender() {
       }
     }
 
-    console.log("\n✅ Prerendering completed successfully!");
-    console.log(`Generated full static HTML for ${ROUTES.length} routes.\n`);
+    // 7. Write SPA shells for client-only dynamic routes (/admin, /login, etc.)
+    const SPA_SHELL_ROUTES = [
+      "admin",
+      "admin/enquiries",
+      "admin/config",
+      "admin/gallery",
+      "admin/services",
+      "admin/clients",
+      "admin/reviews",
+      "admin/capabilities",
+      "login"
+    ];
+
+    console.log("\n📦 Generating static SPA entry points for admin & client routes...");
+    for (const route of SPA_SHELL_ROUTES) {
+      const htmlFile = path.join(distDir, `${route}.html`);
+      const routeDir = path.join(distDir, route);
+      
+      const parentDir = path.dirname(htmlFile);
+      if (!fs.existsSync(parentDir)) {
+        fs.mkdirSync(parentDir, { recursive: true });
+      }
+      fs.writeFileSync(htmlFile, template, "utf-8");
+
+      if (!fs.existsSync(routeDir)) {
+        fs.mkdirSync(routeDir, { recursive: true });
+      }
+      fs.writeFileSync(path.join(routeDir, "index.html"), template, "utf-8");
+      console.log(`  ✓ Wrote static shell for /${route}`);
+    }
+
+    console.log("\n✅ Prerendering and SPA shell generation completed successfully!");
+    console.log(`Generated full static HTML for ${ROUTES.length} public routes + ${SPA_SHELL_ROUTES.length} dynamic routes.\n`);
   } catch (err) {
     console.error("❌ Prerendering failed:", err);
     process.exit(1);
