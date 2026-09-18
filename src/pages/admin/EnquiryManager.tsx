@@ -19,7 +19,40 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
-import { format } from "date-fns";
+
+const formatShortDate = (dateStr: string) => {
+  try {
+    const d = new Date(dateStr);
+    return d.toLocaleString("en-US", {
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+  } catch {
+    return dateStr;
+  }
+};
+
+const formatFullDate = (dateStr: string) => {
+  try {
+    const d = new Date(dateStr);
+    const datePart = d.toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    });
+    const timePart = d.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+    return `${datePart} at ${timePart}`;
+  } catch {
+    return dateStr;
+  }
+};
 
 interface Enquiry {
   id: string;
@@ -219,7 +252,7 @@ const EnquiryManager = () => {
                     <td className="px-6 py-4">
                       <div className="text-xs text-metallic flex items-center gap-1.5">
                         <Clock size={12} />
-                        {format(new Date(enquiry.created_at), "MMM d, h:mm a")}
+                        {formatShortDate(enquiry.created_at)}
                       </div>
                     </td>
                     <td className="px-6 py-4 text-right">
@@ -283,7 +316,7 @@ const EnquiryManager = () => {
               <div className="p-6 border-b border-white/5 flex justify-between items-center bg-white/5 shrink-0">
                 <div>
                   <h2 className="text-lg font-bold text-white uppercase tracking-widest">Enquiry Details</h2>
-                  <p className="text-xs text-metallic">Received on {format(new Date(selectedEnquiry.created_at), "MMMM d, yyyy 'at' h:mm a")}</p>
+                  <p className="text-xs text-metallic">Received on {formatFullDate(selectedEnquiry.created_at)}</p>
                 </div>
                 <button onClick={() => setSelectedEnquiry(null)} className="text-metallic hover:text-white p-2">
                   <X size={20} />
