@@ -65,12 +65,15 @@ const Hero = () => {
             5.0 Rated · 7+ Years in Bengaluru
           </div>
 
-          <h1 className="h-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white mb-6">
-            {heroContent.title}
+          <h1 className="h-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-6">
+            Laser Cutting, CNC Bending & Metal Fabrication in Bangalore
           </h1>
 
-          <p className="text-base md:text-lg text-metallic max-w-2xl leading-relaxed mb-8">
-            {heroContent.subtitle}
+          <p className="text-base md:text-lg text-metallic max-w-2xl leading-relaxed mb-6">
+            MAM Industries is a metal fabrication and engineering company in Bangalore specializing in CNC fiber laser cutting, CNC bending, sheet metal fabrication, precision welding and custom metal fabrication.
+          </p>
+          <p className="text-sm md:text-base text-metallic/90 max-w-2xl leading-relaxed mb-8">
+            We manufacture custom metal components, brackets, panels, trays, enclosures, machine parts and fabricated assemblies based on customer drawings, CAD files, dimensions and project requirements.
           </p>
 
           <div className="flex flex-wrap gap-3">

@@ -1,21 +1,25 @@
 import { useState, useRef, useEffect } from "react";
 import { z } from "zod";
 import { motion, AnimatePresence } from "framer-motion";
-import { Phone, Mail, MapPin, Clock, MessageCircle, Send, ChevronDown, CheckCircle2 } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, MessageCircle, Send, ChevronDown, CheckCircle2, Upload } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 import SEO from "@/components/SEO";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { SITE, SERVICES } from "@/lib/site";
 import { toast } from "@/hooks/use-toast";
-
 import { getBreadcrumbSchema } from "@/lib/seo";
 import { supabase } from "@/lib/supabase";
 
 const schema = z.object({
   name: z.string().trim().min(2, "Name is too short").max(80),
+  company: z.string().trim().max(100).optional(),
   email: z.string().trim().email("Enter a valid email").max(120),
   phone: z.string().trim().min(7, "Enter a valid phone").max(20),
+  material: z.string().trim().optional(),
+  thickness: z.string().trim().optional(),
+  quantity: z.string().trim().optional(),
   service: z.string().trim().min(1, "Select a service"),
-  message: z.string().trim().min(10, "Tell us a bit more").max(1000),
+  message: z.string().trim().min(5, "Please provide project details").max(1000),
 });
 
 const Contact = () => {
@@ -79,17 +83,16 @@ const Contact = () => {
           email: parsed.data.email,
           phone: parsed.data.phone,
           service: parsed.data.service,
-          message: parsed.data.message,
+          message: `Company: ${parsed.data.company || "N/A"} | Material: ${parsed.data.material || "N/A"} | Thickness: ${parsed.data.thickness || "N/A"} | Quantity: ${parsed.data.quantity || "N/A"} \n\n${parsed.data.message}`,
           status: 'New'
         }
       ]);
 
       if (dbError) {
         console.error("Database error:", dbError);
-        // We continue anyway so the email still sends
       }
 
-      // 1.5 Sync to CRM Backend (Non-blocking background API call)
+      // 1.5 Sync to CRM Backend
       const crmApiUrl = (import.meta.env.VITE_CRM_API_URL || "http://localhost:5001") + "/api/integration/website-enquiry";
       const crmApiKey = import.meta.env.VITE_CRM_API_KEY || "mam_secure_sync_secret_123";
       
@@ -101,7 +104,7 @@ const Contact = () => {
         },
         body: JSON.stringify({
           name: parsed.data.name,
-          company: "Direct Web Inquiry",
+          company: parsed.data.company || "Direct Web Inquiry",
           email: parsed.data.email,
           phone: parsed.data.phone,
           city: "Bengaluru",
@@ -112,10 +115,10 @@ const Contact = () => {
         console.error("CRM Sync failed in background:", err);
       });
 
-      // 2. Send via Web3Forms (Email Notification)
+      // 2. Send via Web3Forms
       const formData = new FormData(formElement);
       formData.append("access_key", "5e6757af-ab7d-4b52-8b5d-8608896bbdde");
-      formData.append("subject", `New Enquiry: ${data.service} from ${data.name}`);
+      formData.append("subject", `New Quote Request: ${data.service} from ${data.name}`);
       formData.append("from_name", "MAM Industries Website");
       
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -150,21 +153,21 @@ const Contact = () => {
     const data = Object.fromEntries(fd.entries());
     data.service = selectedService;
     
-    if (!data.name || !data.phone || !data.message) {
-      toast({ title: "Please fill the form", description: "Fill in your details to generate a WhatsApp message." });
+    if (!data.name || !data.phone) {
+      toast({ title: "Please enter your name and phone", description: "Fill in your details to start WhatsApp chat." });
       return;
     }
 
-    const message = `Hello MAM Industries, I'm ${data.name}.%0A%0A*Project Enquiry:*%0A- *Service:* ${data.service || 'General Enquiry'}%0A- *Phone:* ${data.phone}%0A- *Email:* ${data.email}%0A- *Details:* ${data.message}`;
+    const message = `Hello MAM Industries, I'm ${data.name} ${data.company ? `from ${data.company}` : ''}.%0A%0A*Project Quotation Request:*%0A- *Service:* ${data.service || 'General Enquiry'}%0A- *Material:* ${data.material || 'N/A'}%0A- *Thickness:* ${data.thickness || 'N/A'}%0A- *Quantity:* ${data.quantity || 'N/A'}%0A- *Phone:* ${data.phone}%0A- *Email:* ${data.email}%0A- *Details:* ${data.message || 'N/A'}`;
     window.open(`${SITE.whatsapp}?text=${message}`, "_blank");
   };
 
   return (
     <>
       <SEO
-        title="Get a Quote — Contact MAM Industries Bengaluru"
-        description="Contact MAM Industries for precise laser cutting, CNC bending, and fabrication enquiries in Bengaluru. Send your drawings for a technical review and quote within 24h."
-        keywords="contact laser cutting bangalore, get fabrication quote bengaluru, industrial enquiry karnataka, sheet metal job work price, mam industries contact, fabrication factory address"
+        title="Contact MAM Industries | Laser Cutting & Metal Fabrication Bangalore"
+        description="Contact MAM Industries in Bangalore for CNC laser cutting, CNC bending, sheet metal fabrication and custom metal fabrication. Send your drawing for a quote."
+        keywords="contact mam industries, laser cutting bangalore contact, metal fabrication quotation bengaluru, sheet metal job work price bangalore, cnc bending factory address"
         path="/contact"
         jsonLd={getBreadcrumbSchema([
           { name: "Home", url: "/" },
@@ -174,13 +177,14 @@ const Contact = () => {
 
       <section className="bg-primary text-primary-foreground relative overflow-hidden">
         <div className="absolute inset-0 bg-blueprint opacity-40" />
-        <div className="container relative py-20 md:py-24">
-          <span className="eyebrow">Get in touch</span>
+        <div className="container relative py-16 md:py-24">
+          <Breadcrumbs items={[{ label: "Contact Us" }]} />
+          <span className="eyebrow mt-2">Get in Touch</span>
           <h1 className="h-display text-4xl md:text-6xl mt-3 text-white max-w-3xl">
-            Tell us about your <span className="text-accent">next project.</span>
+            Contact MAM Industries in Bangalore
           </h1>
-          <p className="text-metallic mt-5 max-w-2xl">
-            Share your requirement and our team will follow up with feasibility, material options and lead times — within one business day.
+          <p className="text-metallic mt-5 max-w-2xl leading-relaxed">
+            Send your CAD drawings, part dimensions, or project specifications for CNC laser cutting, CNC press brake bending, welding, powder coating, and custom sheet metal fabrication in Bangalore.
           </p>
         </div>
       </section>
@@ -206,49 +210,97 @@ const Contact = () => {
                 <div className="w-16 h-16 bg-emerald-500/10 text-emerald-500 rounded-full flex items-center justify-center mb-6 ring-8 ring-emerald-500/5">
                   <CheckCircle2 size={36} className="text-emerald-500" />
                 </div>
-                <h2 className="font-sora font-bold text-2xl text-primary mb-3">Thank you!</h2>
+                <h2 className="font-sora font-bold text-2xl text-primary mb-3">Quote Request Received!</h2>
                 <p className="text-sm text-muted-foreground max-w-md mx-auto mb-8 leading-relaxed">
-                  Your enquiry has been sent successfully. We've received your details and will get back to you shortly.
+                  Thank you for contacting MAM Industries. Our engineering team in Bangalore will review your requirements and follow up with a quotation within 24 hours.
                 </p>
                 <button
                   type="button"
                   onClick={() => setSubmitted(false)}
                   className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-6 py-3 rounded-md font-bold text-xs uppercase tracking-widest hover:bg-accent/90 transition-all shadow-md"
                 >
-                  Send another enquiry
+                  Send another request
                 </button>
               </motion.div>
             ) : (
               <>
-                <h2 className="font-sora font-bold text-2xl text-primary mb-1">Send an enquiry</h2>
-                <p className="text-sm text-muted-foreground mb-6">Fields marked with * are required.</p>
+                <h2 className="font-sora font-bold text-2xl text-primary mb-1">Request a Fast Fabrication Quote</h2>
+                <p className="text-sm text-muted-foreground mb-6">Fill in your requirements below. Fields marked with * are required.</p>
 
                 <form onSubmit={onSubmit} className="grid sm:grid-cols-2 gap-4">
-                  {[
-                    { name: "name", label: "Full name *", type: "text", placeholder: "Your name" },
-                    { name: "email", label: "Email *", type: "email", placeholder: "you@company.com" },
-                    { name: "phone", label: "Phone *", type: "tel", placeholder: "+91" },
-                  ].map(f => (
-                    <div key={f.name}>
-                      <label htmlFor={f.name} className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">{f.label}</label>
-                      <input
-                        id={f.name}
-                        name={f.name} type={f.type} placeholder={f.placeholder} maxLength={120}
-                        className="mt-1.5 w-full bg-background border border-border rounded-md px-4 py-3 text-base focus:outline-none focus:border-accent transition-all placeholder:text-muted-foreground/50 font-medium md:text-sm"
-                      />
-                      {errors[f.name] && <p className="text-[10px] text-destructive mt-1 font-bold uppercase tracking-wider">{errors[f.name]}</p>}
-                    </div>
-                  ))}
+                  <div>
+                    <label htmlFor="name" className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">Name *</label>
+                    <input
+                      id="name"
+                      name="name" type="text" placeholder="Your name" maxLength={80}
+                      className="mt-1.5 w-full bg-background border border-border rounded-md px-4 py-3 text-base focus:outline-none focus:border-accent transition-all placeholder:text-muted-foreground/50 font-medium md:text-sm"
+                    />
+                    {errors.name && <p className="text-[10px] text-destructive mt-1 font-bold uppercase tracking-wider">{errors.name}</p>}
+                  </div>
 
-                  <div className="relative" ref={dropdownRef}>
-                    <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">Service *</label>
+                  <div>
+                    <label htmlFor="company" className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">Company</label>
+                    <input
+                      id="company"
+                      name="company" type="text" placeholder="Company / Business Name" maxLength={100}
+                      className="mt-1.5 w-full bg-background border border-border rounded-md px-4 py-3 text-base focus:outline-none focus:border-accent transition-all placeholder:text-muted-foreground/50 font-medium md:text-sm"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="phone" className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">Phone *</label>
+                    <input
+                      id="phone"
+                      name="phone" type="tel" placeholder="+91 Phone number" maxLength={20}
+                      className="mt-1.5 w-full bg-background border border-border rounded-md px-4 py-3 text-base focus:outline-none focus:border-accent transition-all placeholder:text-muted-foreground/50 font-medium md:text-sm"
+                    />
+                    {errors.phone && <p className="text-[10px] text-destructive mt-1 font-bold uppercase tracking-wider">{errors.phone}</p>}
+                  </div>
+
+                  <div>
+                    <label htmlFor="email" className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">Email *</label>
+                    <input
+                      id="email"
+                      name="email" type="email" placeholder="you@company.com" maxLength={120}
+                      className="mt-1.5 w-full bg-background border border-border rounded-md px-4 py-3 text-base focus:outline-none focus:border-accent transition-all placeholder:text-muted-foreground/50 font-medium md:text-sm"
+                    />
+                    {errors.email && <p className="text-[10px] text-destructive mt-1 font-bold uppercase tracking-wider">{errors.email}</p>}
+                  </div>
+
+                  <div>
+                    <label htmlFor="material" className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">Material</label>
+                    <input
+                      id="material"
+                      name="material" type="text" placeholder="e.g. Mild Steel (MS), SS304, Aluminium" maxLength={80}
+                      className="mt-1.5 w-full bg-background border border-border rounded-md px-4 py-3 text-base focus:outline-none focus:border-accent transition-all placeholder:text-muted-foreground/50 font-medium md:text-sm"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="thickness" className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">Thickness & Quantity</label>
+                    <div className="grid grid-cols-2 gap-2 mt-1.5">
+                      <input
+                        id="thickness"
+                        name="thickness" type="text" placeholder="e.g. 2mm" maxLength={40}
+                        className="w-full bg-background border border-border rounded-md px-3 py-3 text-base focus:outline-none focus:border-accent transition-all placeholder:text-muted-foreground/50 font-medium md:text-sm"
+                      />
+                      <input
+                        id="quantity"
+                        name="quantity" type="text" placeholder="e.g. 50 pcs" maxLength={40}
+                        className="w-full bg-background border border-border rounded-md px-3 py-3 text-base focus:outline-none focus:border-accent transition-all placeholder:text-muted-foreground/50 font-medium md:text-sm"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="sm:col-span-2 relative" ref={dropdownRef}>
+                    <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">Required Service *</label>
                     <button
                       type="button"
                       onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                       className={`mt-1.5 w-full flex items-center justify-between bg-background border rounded-md px-4 py-3 text-sm transition-all text-left ${isDropdownOpen ? "border-accent ring-1 ring-accent" : "border-border"}`}
                     >
                       <span className={selectedService ? "text-primary font-medium" : "text-muted-foreground/50 font-medium"}>
-                        {selectedService || "Select a service"}
+                        {selectedService || "Select Required Service"}
                       </span>
                       <ChevronDown size={16} className={`text-muted-foreground transition-transform duration-300 ${isDropdownOpen ? "rotate-180" : ""}`} />
                     </button>
@@ -262,29 +314,28 @@ const Contact = () => {
                           className="absolute z-20 top-full left-0 right-0 mt-2 bg-background border border-border rounded-lg shadow-xl overflow-hidden max-h-64 overflow-y-auto"
                         >
                           <div className="p-1">
-                            {SERVICES.map((s) => (
+                            {[
+                              "CNC Fiber Laser Cutting",
+                              "CNC Bending",
+                              "Sheet Metal Fabrication",
+                              "Custom Metal Fabrication",
+                              "Welding & Fabrication",
+                              "Powder Coating",
+                              "Laser Marking",
+                              "Other / Multiple Services"
+                            ].map((svcTitle) => (
                               <button
-                                key={s.slug}
+                                key={svcTitle}
                                 type="button"
                                 onClick={() => {
-                                  setSelectedService(s.title);
+                                  setSelectedService(svcTitle);
                                   setIsDropdownOpen(false);
                                 }}
-                                className={`w-full text-left px-3 py-2.5 text-sm rounded-md transition-colors ${selectedService === s.title ? "bg-accent text-white" : "hover:bg-accent/10 text-primary"}`}
+                                className={`w-full text-left px-3 py-2.5 text-sm rounded-md transition-colors ${selectedService === svcTitle ? "bg-accent text-white" : "hover:bg-accent/10 text-primary"}`}
                               >
-                                {s.title}
+                                {svcTitle}
                               </button>
                             ))}
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setSelectedService("Other / Multiple");
-                                  setIsDropdownOpen(false);
-                              }}
-                              className={`w-full text-left px-3 py-2.5 text-sm rounded-md transition-colors ${selectedService === "Other / Multiple" ? "bg-accent text-white" : "hover:bg-accent/10 text-primary"}`}
-                            >
-                              Other / Multiple
-                            </button>
                           </div>
                         </motion.div>
                       )}
@@ -293,30 +344,30 @@ const Contact = () => {
                   </div>
 
                   <div className="sm:col-span-2">
-                    <label htmlFor="message" className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">Project details *</label>
+                    <label htmlFor="message" className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">Drawing / File Upload Details & Message *</label>
                     <textarea
                       id="message"
-                      name="message" rows={5} maxLength={1000}
-                      placeholder="Tell us about your job — material, quantity, drawings, timeline."
+                      name="message" rows={4} maxLength={1000}
+                      placeholder="Describe your project, drawing specifications, dimensions, tolerances or CAD file link (DXF, DWG, STEP, PDF)."
                       className="mt-1.5 w-full bg-background border border-border rounded-md px-4 py-3 text-base focus:outline-none focus:border-accent transition-all placeholder:text-muted-foreground/50 font-medium resize-none md:text-sm"
                     />
                     {errors.message && <p className="text-[10px] text-destructive mt-1 font-bold uppercase tracking-wider">{errors.message}</p>}
                   </div>
 
-                  <div className="sm:col-span-2 flex flex-wrap gap-3 pt-2">
+                  <div className="sm:col-span-2 flex flex-wrap items-center gap-3 pt-2">
                     <button
                       type="submit"
                       disabled={submitting}
                       className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-8 py-3.5 rounded-md font-bold text-xs uppercase tracking-widest shadow-accentglow hover:bg-accent/90 transition-all disabled:opacity-60"
                     >
-                      {submitting ? "Sending..." : <>Send enquiry <Send size={14} /></>}
+                      {submitting ? "Submitting..." : <>Request Quote <Send size={14} /></>}
                     </button>
                     <button
                       type="button"
                       onClick={handleWhatsAppClick}
                       className="inline-flex items-center gap-2 bg-highlight text-highlight-foreground px-8 py-3.5 rounded-md font-bold text-xs uppercase tracking-widest hover:bg-highlight/90 transition-all"
                     >
-                      <MessageCircle size={15} /> Chat on WhatsApp
+                      <MessageCircle size={15} /> WhatsApp Drawing
                     </button>
                   </div>
                 </form>
@@ -324,30 +375,62 @@ const Contact = () => {
             )}
           </motion.div>
 
-          {/* Details */}
-          <div className="lg:col-span-5 space-y-4">
-            {[
-              { Icon: MapPin, label: "Visit us", value: `${SITE.address.line1}, ${SITE.address.line2}, ${SITE.address.city}, ${SITE.address.state} ${SITE.address.pincode}` },
-              { Icon: Phone, label: "Call us", value: SITE.phone, href: SITE.phoneHref },
-              { Icon: Mail, label: "Email us", value: SITE.email, href: `mailto:${SITE.email}` },
-              { Icon: Clock, label: "Working hours", value: SITE.hours },
-            ].map(({ Icon, label, value, href }, i) => (
-              <div key={i} className="bg-card border border-border rounded-lg p-5 flex gap-4 card-lift">
-                <div className="w-12 h-12 grid place-items-center rounded-md bg-primary text-accent shrink-0 border border-white/5 shadow-inner">
-                  <Icon size={20} />
+          {/* Details & Map */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="bg-card border border-border rounded-lg p-6 space-y-5 shadow-sm">
+              <h3 className="font-sora font-semibold text-lg text-primary border-b border-border pb-3">Bangalore Unit Contact Information</h3>
+              
+              <div className="flex gap-4 items-start">
+                <div className="w-10 h-10 grid place-items-center rounded-md bg-primary text-accent shrink-0 border border-white/5">
+                  <MapPin size={18} />
                 </div>
                 <div>
-                  <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-1">{label}</div>
-                  {href ? (
-                    <a href={href} className="font-sora font-bold text-primary hover:text-accent transition-colors block text-sm">{value}</a>
-                  ) : (
-                    <div className="font-sora font-bold text-primary text-sm leading-relaxed">{value}</div>
-                  )}
+                  <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-1">Factory & Registered Address</div>
+                  <div className="text-sm font-semibold text-primary leading-relaxed">
+                    MAM Industries<br />
+                    7th Mile, 113, Kanakapura Main Road,<br />
+                    Yelachenahalli, Naidu Layout,<br />
+                    Bengaluru, Karnataka 560062, India
+                  </div>
                 </div>
               </div>
-            ))}
 
-            <div className="rounded-lg overflow-hidden border border-border h-72">
+              <div className="flex gap-4 items-center">
+                <div className="w-10 h-10 grid place-items-center rounded-md bg-primary text-accent shrink-0 border border-white/5">
+                  <Phone size={18} />
+                </div>
+                <div>
+                  <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-0.5">Phone & WhatsApp</div>
+                  <a href="tel:+917892303386" className="text-sm font-bold text-primary hover:text-accent transition-colors block">
+                    +91 78923 03386 / +91 98450 63230
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex gap-4 items-center">
+                <div className="w-10 h-10 grid place-items-center rounded-md bg-primary text-accent shrink-0 border border-white/5">
+                  <Mail size={18} />
+                </div>
+                <div>
+                  <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-0.5">Official Email</div>
+                  <a href="mailto:info@mamindustries.in" className="text-sm font-bold text-primary hover:text-accent transition-colors block">
+                    info@mamindustries.in
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex gap-4 items-center">
+                <div className="w-10 h-10 grid place-items-center rounded-md bg-primary text-accent shrink-0 border border-white/5">
+                  <Clock size={18} />
+                </div>
+                <div>
+                  <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-0.5">Shop Working Hours</div>
+                  <div className="text-sm font-medium text-muted-foreground">Monday – Saturday: 9:00 AM – 7:30 PM</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-lg overflow-hidden border border-border h-72 shadow-sm">
               <iframe
                 title="MAM Industries Location Map"
                 src={SITE.mapEmbed}

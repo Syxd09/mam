@@ -1,42 +1,44 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Check, ShieldCheck, Zap, Layers, Compass } from "lucide-react";
 import SEO from "@/components/SEO";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import ContactCTA from "@/components/home/ContactCTA";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { getBreadcrumbSchema, getServiceSchema, getFAQPageSchema } from "@/lib/seo";
 
 const FAQS = [
   {
-    q: "What types of metals can you mark or engrave?",
-    a: "We mark and engrave a wide range of metals including Mild Steel (MS), Stainless Steel (SS), Carbon Steel, Brass, Copper, Titanium, Anodized Aluminum, and various industrial plastics (such as ABS or Polycarbonate).",
+    q: "What metal materials can be laser marked at MAM Industries in Bangalore?",
+    a: "We perform fiber laser marking on stainless steel, mild steel, aluminum, brass, copper, and coated sheet metal components.",
   },
   {
-    q: "What is the difference between laser marking, etching, and deep engraving?",
-    a: "Laser marking changes the material surface color with minimal depth (ideal for branding). Laser etching melts the surface slightly to create high contrast. Laser engraving removes metal layers to create deep, abrasion-resistant lettering.",
+    q: "Can you laser mark sequential serial numbers and barcodes?",
+    a: "Yes. Our CNC laser marking systems support dynamic batch serialization, sequential serial numbers, 2D Data Matrix codes, QR codes, and custom part numbers.",
   },
   {
-    q: "Can you generate sequential serial numbers, QR codes, and barcodes automatically?",
-    a: "Yes. Our CNC laser marking systems integrate with database software to automatically generate and mark sequential serial numbers, static/dynamic QR codes, Code 128 barcodes, and production datestamps in batches.",
+    q: "Does laser marking wear off over time?",
+    a: "No. Fiber laser marking creates high-contrast permanent marks or deep etchings directly into the metal surface that resist wear, heat, chemical exposure, and handling.",
   },
   {
-    q: "Is the marking permanent enough to withstand powder coating or galvanization?",
-    a: "For parts that require post-coat visibility, we perform deep engraving (cutting deep into the metal base) so that the markings remain fully legible even after receiving standard powder coating or plating layers.",
+    q: "How can I request a quote for laser marking services?",
+    a: "Send your part drawings, vector graphics (DXF/AI/PDF), marking specifications, and batch quantities to MAM Industries via our quote form or WhatsApp.",
   },
 ];
 
 const LaserMarkingBangalore = () => {
   const pageUrl = "/laser-marking-bangalore";
-  const pageTitle = "Laser Marking & Metal Engraving Services Bangalore | MAM Industries";
-  const pageDesc = "MAM Industries provides high-speed B2B fiber laser marking & metal engraving services in Bangalore. Permanent QR, barcode & serialization. Get a quote.";
-  const pageKeywords = "laser marking services, metal engraving bangalore, industrial marking, fiber laser engraving, metal serialization bangalore";
+  const pageTitle = "Laser Marking Bangalore | Metal Laser Marking Services | MAM Industries";
+  const pageDesc = "MAM Industries provides permanent metal laser marking services in Bangalore. High-contrast serial numbers, part numbers, logos, and QR codes for components.";
+  const pageKeywords = "laser marking bangalore, metal laser marking services bangalore, fiber laser marking bangalore, part serialization bangalore";
 
   const jsonLd = {
     "@graph": [
       getBreadcrumbSchema([
         { name: "Home", url: "/" },
+        { name: "Services", url: "/services" },
         { name: "Laser Marking Bangalore", url: pageUrl },
       ]),
-      getServiceSchema("Laser Marking & Engraving", "High-speed permanent fiber laser marking and deep engraving services for B2B industrial assemblies in Bangalore."),
+      getServiceSchema("Laser Marking Services in Bangalore", "High-speed permanent fiber laser marking and deep engraving services for metal components in Bangalore."),
       getFAQPageSchema(FAQS),
     ],
   };
@@ -54,176 +56,144 @@ const LaserMarkingBangalore = () => {
       {/* Hero Section */}
       <section className="bg-primary text-primary-foreground relative overflow-hidden">
         <div className="absolute inset-0 bg-blueprint opacity-40" />
-        <div className="container relative py-20 md:py-28 flex flex-col justify-center min-h-[50vh]">
-          <span className="eyebrow">Traceability & Branding</span>
+        <div className="container relative py-16 md:py-24 flex flex-col justify-center min-h-[45vh]">
+          <Breadcrumbs items={[{ label: "Services", url: "/services" }, { label: "Laser Marking" }]} />
+          <span className="eyebrow mt-2">Part Identification & Branding</span>
           <h1 className="h-display text-4xl md:text-6xl mt-4 text-white max-w-4xl">
-            Fiber Laser <span className="text-accent">Marking Services</span> in Bangalore
+            Laser Marking Services in Bangalore
           </h1>
           <p className="text-metallic mt-6 max-w-2xl text-lg leading-relaxed">
-            Ensure long-term part traceability and professional branding. MAM Industries delivers permanent fiber laser marking and deep metal engraving for OEMs and toolmakers across Bangalore.
+            MAM Industries provides high-precision fiber laser marking services in Bangalore for permanent component identification, serial numbers, barcodes, logos, and traceability.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <Link to="/contact?service=Laser%20Marking" className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-6 py-3.5 rounded-md font-semibold text-sm hover:bg-accent/90 transition-colors shadow-accentglow">
-              Get Fast Quote <ArrowRight size={15} />
+              Request a Quote <ArrowRight size={15} />
             </Link>
-            <a href="tel:+917892303386" className="inline-flex items-center gap-2 border border-white/20 text-white px-6 py-3.5 rounded-md font-semibold text-sm hover:bg-white/10 transition-colors">
-              Call Sales Desk
+            <a href="https://wa.me/917892303386?text=Hi%20MAM%20Industries%2C%20I%20have%20a%20laser%20marking%20enquiry." target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 border border-white/20 text-white px-6 py-3.5 rounded-md font-semibold text-sm hover:bg-white/10 transition-colors">
+              WhatsApp Sales Desk
             </a>
           </div>
         </div>
       </section>
 
-      {/* Overview Section */}
+      {/* Content Section */}
       <section className="py-16 md:py-24 bg-background">
         <div className="container grid lg:grid-cols-12 gap-12 items-start">
           {/* Main Content */}
-          <article className="lg:col-span-8 space-y-8 text-foreground/90">
+          <article className="lg:col-span-8 space-y-10 text-foreground/90">
             <div className="space-y-4">
-              <h2 className="text-3xl font-bold tracking-tight text-primary">Permanent Traceability & Precision Marking Solutions in Bengaluru</h2>
+              <h2 className="text-3xl font-bold tracking-tight text-primary">Metal Component Laser Marking</h2>
               <p className="leading-relaxed text-muted-foreground">
-                In modern industrial sectors like aerospace, automotive, electronics, and medical device manufacturing, product traceability is a strict regulatory requirement. At MAM Industries, we offer high-speed, high-resolution **fiber laser marking and engraving services in Bangalore**. Utilizing advanced solid-state fiber laser heads, we create crisp, high-contrast markings on metal and composite surfaces without causing heat damage or stress fractures.
+                In modern industrial manufacturing, component traceability and clear product identification are critical. At MAM Industries in Bangalore, we provide fiber laser marking on sheet metal fabrications, machined parts, enclosures, nameplates, and custom hardware.
               </p>
               <p className="leading-relaxed text-muted-foreground">
-                Unlike chemical etching or ink jetting, fiber laser markings do not wear off, peel, or fade over time. They remain permanent through harsh industrial cleaning, abrasive environments, and thermal cycles, ensuring lifetime part identification.
+                Our high-speed fiber laser marking systems deliver high-contrast, permanent surface markings without physical contact or tool wear, preserving component structural integrity while ensuring crisp legibility.
               </p>
             </div>
 
-            {/* Spec Sheet Table */}
-            <div className="border border-border rounded-lg overflow-hidden bg-card shadow-sm">
-              <div className="bg-primary/5 px-6 py-4 border-b border-border">
-                <h3 className="font-sora font-semibold text-primary">Laser Marking System Specifications</h3>
-              </div>
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse text-sm">
-                  <thead>
-                    <tr className="bg-secondary/10 border-b border-border">
-                      <th className="px-6 py-3 font-semibold text-primary">Process Type</th>
-                      <th className="px-6 py-3 font-semibold text-primary">Depth Range</th>
-                      <th className="px-6 py-3 font-semibold text-primary">Suitable Materials</th>
-                      <th className="px-6 py-3 font-semibold text-primary">Key Attributes</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-border">
-                    <tr>
-                      <td className="px-6 py-3.5 font-medium">Laser Marking</td>
-                      <td className="px-6 py-3.5">Surface-level (&lt;5 microns)</td>
-                      <td className="px-6 py-3.5">Stainless Steel, Titanium, Anodized Al</td>
-                      <td className="px-6 py-3.5">High-contrast surface color change, no depth</td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-3.5 font-medium">Laser Etching</td>
-                      <td className="px-6 py-3.5">5 – 25 microns</td>
-                      <td className="px-6 py-3.5">Mild Steel, Die-cast metals, Alloys</td>
-                      <td className="px-6 py-3.5">Fast processing, ideal for QR/Barcodes</td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-3.5 font-medium">Laser Engraving</td>
-                      <td className="px-6 py-3.5">25 – 100+ microns</td>
-                      <td className="px-6 py-3.5">All metals, brass, copper, carbon steel</td>
-                      <td className="px-6 py-3.5">Deep carving, survives painting/powder coating</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold tracking-tight text-primary">B2B Traceability: Serial Numbers, QR Codes & Logos</h2>
-              <p className="leading-relaxed text-muted-foreground">
-                We handle high-volume serialization batches. Our lasers process multi-variable data fields including serial strings, data matrices, QR codes, and compliance logos (CE, UL, ISI). By importing vector files (.DXF, .AI) directly, we mark high-definition brand logos and scale lines onto control knobs, bezels, dials, and casing components.
-              </p>
-              <div className="grid md:grid-cols-2 gap-4 pt-2">
-                <div className="flex gap-3 items-start">
-                  <span className="p-2 bg-accent/10 rounded-md text-accent shrink-0">
-                    <ShieldCheck size={20} />
-                  </span>
-                  <div>
-                    <h3 className="font-semibold text-primary">Permanent Contrast</h3>
-                    <p className="text-sm text-muted-foreground">Produces crisp dark or light marks on SS and anodized surfaces for camera scanners.</p>
-                  </div>
+            <div className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-card border border-border p-5 rounded-lg space-y-2">
+                  <h2 className="text-xl font-bold text-primary">Serial Numbers</h2>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    We mark sequential serial numbers, lot numbers, and manufacture batch codes for full lifecycle tracking across production runs.
+                  </p>
                 </div>
-                <div className="flex gap-3 items-start">
-                  <span className="p-2 bg-accent/10 rounded-md text-accent shrink-0">
-                    <Zap size={20} />
-                  </span>
-                  <div>
-                    <h3 className="font-semibold text-primary">High-Speed Execution</h3>
-                    <p className="text-sm text-muted-foreground">Galvo scanning heads mark small parts in milliseconds, enabling rapid volume throughput.</p>
-                  </div>
+                <div className="bg-card border border-border p-5 rounded-lg space-y-2">
+                  <h2 className="text-xl font-bold text-primary">Part Numbers</h2>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Legible part numbers and drawing codes marked onto individual components streamline assembly and spare-part management.
+                  </p>
                 </div>
-                <div className="flex gap-3 items-start">
-                  <span className="p-2 bg-accent/10 rounded-md text-accent shrink-0">
-                    <Layers size={20} />
-                  </span>
-                  <div>
-                    <h3 className="font-semibold text-primary">Non-Contact Process</h3>
-                    <p className="text-sm text-muted-foreground">No tool wear or physical force is applied, preventing bending of thin-walled parts.</p>
-                  </div>
+                <div className="bg-card border border-border p-5 rounded-lg space-y-2">
+                  <h2 className="text-xl font-bold text-primary">Logos</h2>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    High-resolution crisp company logos, brand marks, and technical symbols directly engraved onto metal panels and product housings.
+                  </p>
                 </div>
-                <div className="flex gap-3 items-start">
-                  <span className="p-2 bg-accent/10 rounded-md text-accent shrink-0">
-                    <Compass size={20} />
-                  </span>
-                  <div>
-                    <h3 className="font-semibold text-primary">Deep Mark Option</h3>
-                    <p className="text-sm text-muted-foreground">Maintains visibility under subsequent sandblasting, plating, or zinc coating.</p>
-                  </div>
+                <div className="bg-card border border-border p-5 rounded-lg space-y-2">
+                  <h2 className="text-xl font-bold text-primary">Product Identification</h2>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Voltage ratings, operating instructions, compliance icons, and warning labels laser-etched onto stainless steel nameplates.
+                  </p>
                 </div>
               </div>
             </div>
 
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold tracking-tight text-primary">B2B Segments Supported</h2>
+              <h2 className="text-2xl font-bold tracking-tight text-primary">Traceability</h2>
               <p className="leading-relaxed text-muted-foreground">
-                Our laser marking services are frequently utilized by:
+                Laser marking provides permanent, tamper-proof part traceability for quality control and ISO compliance. 2D Data Matrix codes and QR codes can be etched onto small or large metal surfaces for instant optical scanner reading.
               </p>
-              <ul className="grid md:grid-cols-2 gap-2 text-sm text-muted-foreground pl-2">
-                <li className="flex items-center gap-2"><Check size={16} className="text-highlight" /> Automotive part manufacturers (marking gear, engine components)</li>
-                <li className="flex items-center gap-2"><Check size={16} className="text-highlight" /> Electrical panel builders (marking nameplates, legend plates)</li>
-                <li className="flex items-center gap-2"><Check size={16} className="text-highlight" /> Tooling and die makers (engraving measurements, custom logos)</li>
-                <li className="flex items-center gap-2"><Check size={16} className="text-highlight" /> Medical and surgical instrument producers (UDI compliance)</li>
-                <li className="flex items-center gap-2"><Check size={16} className="text-highlight" /> Industrial hardware distributors (branding tools, fasteners)</li>
-                <li className="flex items-center gap-2"><Check size={16} className="text-highlight" /> Promotional product companies (branding custom metal gifts)</li>
-              </ul>
+            </div>
+
+            <div className="space-y-4">
+              <h2 className="text-2xl font-bold tracking-tight text-primary">Custom Marking Requirements</h2>
+              <p className="leading-relaxed text-muted-foreground">
+                Whether you need a single prototype marked or thousands of production parts serialized, MAM Industries handles custom marking specifications with quick turnaround times in Bangalore.
+              </p>
+            </div>
+
+            <div className="space-y-4 bg-secondary/10 border border-secondary/20 p-6 rounded-lg">
+              <h2 className="text-2xl font-bold tracking-tight text-primary">Request a Quote</h2>
+              <p className="leading-relaxed text-muted-foreground">
+                Need permanent laser marking for your metal parts in Bangalore? Contact MAM Industries with your graphics files or text requirements to receive a fast quote.
+              </p>
+              <div className="flex flex-wrap gap-4 pt-2">
+                <Link to="/contact?service=Laser%20Marking" className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-5 py-3 rounded-md font-semibold text-sm hover:bg-accent/90 transition-colors">
+                  Send Marking Requirement <ArrowRight size={15} />
+                </Link>
+                <Link to="/gallery" className="inline-flex items-center gap-2 border border-primary/30 text-primary px-5 py-3 rounded-md font-semibold text-sm hover:bg-primary/5 transition-colors">
+                  View Laser Marked Parts
+                </Link>
+              </div>
             </div>
           </article>
 
           {/* Sidebar */}
           <aside className="lg:col-span-4 space-y-6">
             <div className="bg-card border border-border p-6 rounded-lg shadow-sm space-y-6">
-              <h3 className="font-sora font-semibold text-lg text-primary border-b border-border pb-3">Related Services</h3>
+              <h3 className="font-sora font-semibold text-lg text-primary border-b border-border pb-3">Metal Fabrication Services</h3>
               <nav className="flex flex-col gap-2.5">
                 <Link to="/laser-cutting-bangalore" className="flex items-center justify-between text-sm text-muted-foreground hover:text-accent font-medium py-1 transition-colors">
-                  <span>CNC Laser Cutting</span>
+                  <span>CNC Fiber Laser Cutting</span>
                   <ArrowRight size={14} />
                 </Link>
                 <Link to="/cnc-bending-bangalore" className="flex items-center justify-between text-sm text-muted-foreground hover:text-accent font-medium py-1 transition-colors">
-                  <span>CNC Press-Brake Bending</span>
+                  <span>CNC Press Brake Bending</span>
                   <ArrowRight size={14} />
                 </Link>
-                <Link to="/welding-services-bangalore" className="flex items-center justify-between text-sm text-muted-foreground hover:text-accent font-medium py-1 transition-colors">
-                  <span>MIG/TIG/Laser Welding</span>
-                  <ArrowRight size={14} />
-                </Link>
-                <Link to="/powder-coating-bangalore" className="flex items-center justify-between text-sm text-muted-foreground hover:text-accent font-medium py-1 transition-colors">
-                  <span>Industrial Powder Coating</span>
+                <Link to="/sheet-metal-fabrication-bangalore" className="flex items-center justify-between text-sm text-muted-foreground hover:text-accent font-medium py-1 transition-colors">
+                  <span>Sheet Metal Fabrication</span>
                   <ArrowRight size={14} />
                 </Link>
                 <Link to="/custom-metal-fabrication-bangalore" className="flex items-center justify-between text-sm text-muted-foreground hover:text-accent font-medium py-1 transition-colors">
-                  <span>Custom Turnkey Fabrication</span>
+                  <span>Custom Metal Fabrication</span>
+                  <ArrowRight size={14} />
+                </Link>
+                <Link to="/welding-services-bangalore" className="flex items-center justify-between text-sm text-muted-foreground hover:text-accent font-medium py-1 transition-colors">
+                  <span>Welding Services</span>
+                  <ArrowRight size={14} />
+                </Link>
+                <Link to="/powder-coating-bangalore" className="flex items-center justify-between text-sm text-muted-foreground hover:text-accent font-medium py-1 transition-colors">
+                  <span>Powder Coating Services</span>
                   <ArrowRight size={14} />
                 </Link>
               </nav>
             </div>
 
-            <div className="bg-secondary/10 border border-secondary/20 p-6 rounded-lg space-y-4">
-              <h3 className="font-semibold text-primary text-base">Traceability Standards</h3>
+            <div className="bg-card border border-border p-6 rounded-lg space-y-3">
+              <h3 className="font-semibold text-primary text-base">Bangalore Unit Location</h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                We assist with B2B compliance needs (including unique serial patterns, GS1 QR format, and ISO 9001 logging requirements).
+                MAM Industries<br />
+                7th Mile, 113, Kanakapura Main Road,<br />
+                Yelachenahalli, Naidu Layout,<br />
+                Bengaluru, Karnataka 560062, India
               </p>
-              <Link to="/contact" className="w-full inline-flex justify-center items-center gap-2 bg-primary text-primary-foreground py-2.5 rounded-md text-xs font-semibold hover:bg-primary/95 transition-colors">
-                Enquire Marking Capacity
-              </Link>
+              <p className="text-xs text-muted-foreground pt-1">
+                Phone: +91 78923 03386 / +91 98450 63230<br />
+                Email: info@mamindustries.in
+              </p>
             </div>
           </aside>
         </div>
@@ -235,10 +205,10 @@ const LaserMarkingBangalore = () => {
           <div className="lg:col-span-4">
             <span className="eyebrow">FAQ Helpdesk</span>
             <h2 className="h-display text-2xl md:text-4xl mt-3 text-primary">
-              Laser Marking <span className="text-accent">Queries</span>
+              Frequently Asked <span className="text-accent">Questions</span>
             </h2>
             <p className="text-muted-foreground mt-4 text-sm leading-relaxed">
-              Find technical answers about laser wavelengths, marking depths, and batch serialization.
+              Find technical answers about laser marking options, serialization, and barcode requirements in Bangalore.
             </p>
           </div>
           <div className="lg:col-span-8">

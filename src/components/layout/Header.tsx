@@ -55,21 +55,83 @@ const Header = () => {
           </Link>
 
           <ul className="hidden md:flex items-center gap-1">
-            {NAV.map((item) => (
-              <li key={item.href}>
-                <NavLink
-                  to={item.href}
-                  end={item.href === "/"}
-                  className={({ isActive }) =>
-                    `px-4 py-2 text-sm font-medium tracking-wide rounded-md transition-colors ${
-                      isActive ? "text-accent" : "text-foreground hover:text-accent"
-                    }`
-                  }
-                >
-                  {item.label}
-                </NavLink>
-              </li>
-            ))}
+            <li>
+              <NavLink
+                to="/"
+                end
+                className={({ isActive }) =>
+                  `px-3 py-2 text-sm font-medium tracking-wide rounded-md transition-colors ${
+                    isActive ? "text-accent" : "text-foreground hover:text-accent"
+                  }`
+                }
+              >
+                Home
+              </NavLink>
+            </li>
+
+            {/* Services Dropdown */}
+            <li className="relative group">
+              <NavLink
+                to="/services"
+                className={({ isActive }) =>
+                  `px-3 py-2 text-sm font-medium tracking-wide rounded-md transition-colors inline-flex items-center gap-1 ${
+                    isActive ? "text-accent" : "text-foreground hover:text-accent"
+                  }`
+                }
+              >
+                Services
+              </NavLink>
+
+              <div className="absolute top-full left-0 hidden group-hover:block w-64 bg-background border border-border rounded-lg shadow-xl p-2 z-50 animate-fade-in">
+                <Link to="/laser-cutting-bangalore" className="block px-3 py-2 text-xs font-medium text-foreground hover:bg-white/5 hover:text-accent rounded-md transition-colors">
+                  Laser Cutting Bangalore
+                </Link>
+                <Link to="/cnc-bending-bangalore" className="block px-3 py-2 text-xs font-medium text-foreground hover:bg-white/5 hover:text-accent rounded-md transition-colors">
+                  CNC Bending Bangalore
+                </Link>
+                <Link to="/sheet-metal-fabrication-bangalore" className="block px-3 py-2 text-xs font-medium text-foreground hover:bg-white/5 hover:text-accent rounded-md transition-colors">
+                  Sheet Metal Fabrication
+                </Link>
+                <Link to="/custom-metal-fabrication-bangalore" className="block px-3 py-2 text-xs font-medium text-foreground hover:bg-white/5 hover:text-accent rounded-md transition-colors">
+                  Custom Metal Fabrication
+                </Link>
+                <Link to="/welding-services-bangalore" className="block px-3 py-2 text-xs font-medium text-foreground hover:bg-white/5 hover:text-accent rounded-md transition-colors">
+                  Welding & Fabrication
+                </Link>
+                <Link to="/powder-coating-bangalore" className="block px-3 py-2 text-xs font-medium text-foreground hover:bg-white/5 hover:text-accent rounded-md transition-colors">
+                  Powder Coating Services
+                </Link>
+                <Link to="/laser-marking-bangalore" className="block px-3 py-2 text-xs font-medium text-foreground hover:bg-white/5 hover:text-accent rounded-md transition-colors">
+                  Laser Marking Services
+                </Link>
+              </div>
+            </li>
+
+            <li>
+              <NavLink
+                to="/gallery"
+                className={({ isActive }) =>
+                  `px-3 py-2 text-sm font-medium tracking-wide rounded-md transition-colors ${
+                    isActive ? "text-accent" : "text-foreground hover:text-accent"
+                  }`
+                }
+              >
+                Projects
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink
+                to="/contact"
+                className={({ isActive }) =>
+                  `px-3 py-2 text-sm font-medium tracking-wide rounded-md transition-colors ${
+                    isActive ? "text-accent" : "text-foreground hover:text-accent"
+                  }`
+                }
+              >
+                Contact
+              </NavLink>
+            </li>
           </ul>
 
           <div className="hidden md:flex items-center gap-3">
@@ -89,23 +151,29 @@ const Header = () => {
         </div>
 
         {open && (
-          <div className="md:hidden border-t border-border bg-background animate-fade-in">
+          <div className="md:hidden border-t border-border bg-background animate-fade-in max-h-[80vh] overflow-y-auto">
             <ul className="container py-4 flex flex-col gap-1">
-              {NAV.map((item) => (
-                <li key={item.href}>
-                  <NavLink
-                    to={item.href}
-                    end={item.href === "/"}
-                    className={({ isActive }) =>
-                      `block py-3 px-2 text-sm font-medium border-b border-border/50 ${
-                        isActive ? "text-accent" : "text-foreground"
-                      }`
-                    }
-                  >
-                    {item.label}
-                  </NavLink>
-                </li>
-              ))}
+              <li>
+                <NavLink to="/" end className="block py-2 px-2 text-sm font-medium border-b border-border/50 text-foreground">Home</NavLink>
+              </li>
+              <li>
+                <NavLink to="/services" className="block py-2 px-2 text-sm font-semibold text-accent border-b border-border/50">Services</NavLink>
+                <div className="pl-4 py-1 space-y-1">
+                  <Link to="/laser-cutting-bangalore" className="block py-1.5 text-xs text-metallic hover:text-accent">Laser Cutting Bangalore</Link>
+                  <Link to="/cnc-bending-bangalore" className="block py-1.5 text-xs text-metallic hover:text-accent">CNC Bending Bangalore</Link>
+                  <Link to="/sheet-metal-fabrication-bangalore" className="block py-1.5 text-xs text-metallic hover:text-accent">Sheet Metal Fabrication</Link>
+                  <Link to="/custom-metal-fabrication-bangalore" className="block py-1.5 text-xs text-metallic hover:text-accent">Custom Metal Fabrication</Link>
+                  <Link to="/welding-services-bangalore" className="block py-1.5 text-xs text-metallic hover:text-accent">Welding Services</Link>
+                  <Link to="/powder-coating-bangalore" className="block py-1.5 text-xs text-metallic hover:text-accent">Powder Coating</Link>
+                  <Link to="/laser-marking-bangalore" className="block py-1.5 text-xs text-metallic hover:text-accent">Laser Marking</Link>
+                </div>
+              </li>
+              <li>
+                <NavLink to="/gallery" className="block py-2 px-2 text-sm font-medium border-b border-border/50 text-foreground">Projects</NavLink>
+              </li>
+              <li>
+                <NavLink to="/contact" className="block py-2 px-2 text-sm font-medium border-b border-border/50 text-foreground">Contact</NavLink>
+              </li>
               <li className="pt-3 flex gap-2">
                 <a href={SITE.phoneHref} className="flex-1 text-center py-3 border border-border rounded-md text-sm font-medium">Call</a>
                 <Link to="/contact" className="flex-1 text-center py-3 bg-accent text-accent-foreground rounded-md text-sm font-semibold">Get Quote</Link>

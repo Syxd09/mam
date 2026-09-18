@@ -2,14 +2,14 @@
 
 export const SITE = {
   name: "MAM Industries",
-  tagline: "Precision Metal Fabrication, Laser Cutting & CNC Bending",
+  tagline: "Precision Metal Fabrication, Laser Cutting & CNC Bending in Bangalore",
   phone: "+91 7892303386",
   phoneHref: "tel:+917892303386",
   email: "mamindustries19@gmail.com",
   whatsapp: "https://wa.me/917892303386",
   formAccessKey: "5e6757af-ab7d-4b52-8b5d-8608896bbdde",
   address: {
-    line1: "7th Mile, No. 113, Kanakapura Main Rd",
+    line1: "7th Mile, 113, Kanakapura Main Road",
     line2: "Yelachenahalli, Naidu Layout",
     city: "Bengaluru",
     state: "Karnataka",

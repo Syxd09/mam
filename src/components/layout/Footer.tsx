@@ -82,12 +82,13 @@ const Footer = () => {
         <div className="md:col-span-2">
           <h4 className="text-sm font-semibold uppercase tracking-wider mb-4 text-white">B2B Focus</h4>
           <ul className="space-y-2.5 text-sm text-metallic">
-            <li><Link to="/laser-cutting-bangalore" className="hover:text-accent transition-colors">Laser Cutting BLR</Link></li>
-            <li><Link to="/cnc-bending-bangalore" className="hover:text-accent transition-colors">CNC Bending BLR</Link></li>
-            <li><Link to="/powder-coating-bangalore" className="hover:text-accent transition-colors">Powder Coating BLR</Link></li>
-            <li><Link to="/laser-marking-bangalore" className="hover:text-accent transition-colors">Laser Marking BLR</Link></li>
-            <li><Link to="/welding-services-bangalore" className="hover:text-accent transition-colors">Welding Services BLR</Link></li>
-            <li><Link to="/custom-metal-fabrication-bangalore" className="hover:text-accent transition-colors">Custom Fabrication BLR</Link></li>
+            <li><Link to="/laser-cutting-bangalore" className="hover:text-accent transition-colors">Laser Cutting Bangalore</Link></li>
+            <li><Link to="/cnc-bending-bangalore" className="hover:text-accent transition-colors">CNC Bending Bangalore</Link></li>
+            <li><Link to="/sheet-metal-fabrication-bangalore" className="hover:text-accent transition-colors">Sheet Metal Fabrication</Link></li>
+            <li><Link to="/custom-metal-fabrication-bangalore" className="hover:text-accent transition-colors">Custom Fabrication</Link></li>
+            <li><Link to="/welding-services-bangalore" className="hover:text-accent transition-colors">Welding Services</Link></li>
+            <li><Link to="/powder-coating-bangalore" className="hover:text-accent transition-colors">Powder Coating</Link></li>
+            <li><Link to="/laser-marking-bangalore" className="hover:text-accent transition-colors">Laser Marking</Link></li>
           </ul>
         </div>
 

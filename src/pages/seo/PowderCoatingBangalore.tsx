@@ -1,42 +1,44 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Check, ShieldCheck, Zap, Layers, Compass } from "lucide-react";
 import SEO from "@/components/SEO";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import ContactCTA from "@/components/home/ContactCTA";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { getBreadcrumbSchema, getServiceSchema, getFAQPageSchema } from "@/lib/seo";
 
 const FAQS = [
   {
-    q: "What is your metal pretreatment process before powder coating?",
-    a: "We employ a multi-stage chemical pretreatment process (including degreasing, rust removal/acid pickling, and phosphating/chromating) followed by DI water rinses. This cleaning stage ensures maximum powder adhesion and stops under-film corrosion.",
+    q: "What metal finishing services does MAM Industries provide in Bangalore?",
+    a: "MAM Industries provides professional powder coating, surface cleaning, and protective finishing for custom fabricated mild steel, stainless steel, and aluminum components.",
   },
   {
-    q: "What types of powders and finishes do you offer?",
-    a: "We offer Pure Polyester (for outdoor UV resistance), Epoxy-Polyester Hybrids (for indoor chemical/abrasion resistance), and Pure Epoxy coatings. Finishes include glossy, semi-gloss, matt, texture, structure, and metallic finishes in any RAL color.",
+    q: "Why choose powder coating for sheet metal components?",
+    a: "Powder coating provides a tough, durable, and uniform protective layer that resists corrosion, scratches, chipping, and UV exposure far better than traditional liquid paint.",
   },
   {
-    q: "What are your quality control and coating testing standards?",
-    a: "We perform adhesion tests (cross-hatch testing), coating thickness checks (dry film thickness or DFT checks), impact tests, and work with certified labs for salt-spray chamber testing (meeting ASTM B117 standards up to 500-1000 hours).",
+    q: "What colors and surface textures are available for powder coating?",
+    a: "We support standard RAL shades in glossy, semi-gloss, matt, texture, and structure finishes to meet exact customer aesthetic and functional requirements.",
   },
   {
-    q: "Can you powder coat large structural assemblies and heavy enclosures?",
-    a: "Yes, our partner batch curing ovens accommodate large structural fabrications, frames, architectural grilles, and heavy-duty sheet metal enclosures. Contact us with your component dimensions for an exact review.",
+    q: "Can I combine fabrication, welding, and powder coating in one order?",
+    a: "Yes. MAM Industries coordinates the full manufacturing workflow from drawing to laser cutting, CNC bending, welding, and powder coating, delivering finished components ready for assembly.",
   },
 ];
 
 const PowderCoatingBangalore = () => {
   const pageUrl = "/powder-coating-bangalore";
-  const pageTitle = "Industrial Powder Coating Services Bangalore | MAM Industries";
-  const pageDesc = "MAM Industries offers premium B2B powder coating services in Bangalore. Durable, anti-corrosive finishes for MS, SS & Aluminum. Get a quote.";
-  const pageKeywords = "powder coating services, industrial surface finishing bangalore, metal coating bangalore, architectural powder coating, anti corrosive metal finishing";
+  const pageTitle = "Powder Coating Bangalore | Metal Finishing Services | MAM Industries";
+  const pageDesc = "Industrial powder coating and metal finishing services in Bangalore by MAM Industries. High-durability protective finishes for mild steel, stainless steel, and custom fabrications.";
+  const pageKeywords = "powder coating bangalore, metal finishing services bangalore, industrial powder coating, sheet metal coating bangalore";
 
   const jsonLd = {
     "@graph": [
       getBreadcrumbSchema([
         { name: "Home", url: "/" },
+        { name: "Services", url: "/services" },
         { name: "Powder Coating Bangalore", url: pageUrl },
       ]),
-      getServiceSchema("Industrial Powder Coating", "Durable electrostatic powder coating and surface finishing services for metal components in Bangalore."),
+      getServiceSchema("Powder Coating Services in Bangalore", "Durable electrostatic powder coating and surface finishing services for metal components in Bangalore."),
       getFAQPageSchema(FAQS),
     ],
   };
@@ -54,89 +56,45 @@ const PowderCoatingBangalore = () => {
       {/* Hero Section */}
       <section className="bg-primary text-primary-foreground relative overflow-hidden">
         <div className="absolute inset-0 bg-blueprint opacity-40" />
-        <div className="container relative py-20 md:py-28 flex flex-col justify-center min-h-[50vh]">
-          <span className="eyebrow">Durable Surface Finishing</span>
+        <div className="container relative py-16 md:py-24 flex flex-col justify-center min-h-[45vh]">
+          <Breadcrumbs items={[{ label: "Services", url: "/services" }, { label: "Powder Coating" }]} />
+          <span className="eyebrow mt-2">Durable Surface Protection</span>
           <h1 className="h-display text-4xl md:text-6xl mt-4 text-white max-w-4xl">
-            Industrial Metal <span className="text-accent">Powder Coating</span> in Bangalore
+            Powder Coating Services in Bangalore
           </h1>
           <p className="text-metallic mt-6 max-w-2xl text-lg leading-relaxed">
-            MAM Industries provides B2B-grade electrostatic powder coating and surface finishing. Protect your mild steel, stainless steel, and aluminum fabrications against rust and wear.
+            MAM Industries offers professional powder coating and surface metal finishing services in Bangalore for fabricated components, enclosures, frames, and custom parts.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <Link to="/contact?service=Powder%20Coating" className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-6 py-3.5 rounded-md font-semibold text-sm hover:bg-accent/90 transition-colors shadow-accentglow">
-              Get Fast Quote <ArrowRight size={15} />
+              Request a Quote <ArrowRight size={15} />
             </Link>
-            <a href="tel:+917892303386" className="inline-flex items-center gap-2 border border-white/20 text-white px-6 py-3.5 rounded-md font-semibold text-sm hover:bg-white/10 transition-colors">
-              Call Sales Desk
+            <a href="https://wa.me/917892303386?text=Hi%20MAM%20Industries%2C%20I%20have%20a%20powder%20coating%20enquiry." target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 border border-white/20 text-white px-6 py-3.5 rounded-md font-semibold text-sm hover:bg-white/10 transition-colors">
+              WhatsApp Sales Desk
             </a>
           </div>
         </div>
       </section>
 
-      {/* Overview Section */}
+      {/* Content Section */}
       <section className="py-16 md:py-24 bg-background">
         <div className="container grid lg:grid-cols-12 gap-12 items-start">
           {/* Main Content */}
-          <article className="lg:col-span-8 space-y-8 text-foreground/90">
+          <article className="lg:col-span-8 space-y-10 text-foreground/90">
             <div className="space-y-4">
-              <h2 className="text-3xl font-bold tracking-tight text-primary">High-Performance Protective Surface Coatings in Bengaluru</h2>
+              <h2 className="text-3xl font-bold tracking-tight text-primary">Powder Coating for Fabricated Components</h2>
               <p className="leading-relaxed text-muted-foreground">
-                In harsh industrial and outdoor environments, raw metal is vulnerable to corrosion, chemical wear, and impact. At MAM Industries, we offer high-grade **powder coating and metal finishing services in Bangalore** designed to prolong the lifecycle of your parts. Powder coating is an advanced dry finishing process where electrostatically charged pigment particles are sprayed onto grounded metal surfaces and melted/cured under high temperatures.
+                Surface protection is vital for sheet metal parts and structural weldments exposed to industrial environments or weather. At MAM Industries in Bangalore, we ensure that your fabricated components receive high-durability powder coating finishes engineered for long-term corrosion resistance.
               </p>
               <p className="leading-relaxed text-muted-foreground">
-                Unlike liquid paints, powder coating forms a thick, cross-linked protective barrier that is highly resistant to chipping, scratching, UV degradation, and fading. It is also environmentally friendly, emitting zero Volatile Organic Compounds (VOCs).
+                Electrostatically charged powder particles are applied onto cleaned metal surfaces and thermally cured in curing ovens, forming a tough, cross-linked protective shell that resists impact, abrasion, moisture, and chemical exposure.
               </p>
             </div>
 
-            {/* Spec Sheet Table */}
-            <div className="border border-border rounded-lg overflow-hidden bg-card shadow-sm">
-              <div className="bg-primary/5 px-6 py-4 border-b border-border">
-                <h3 className="font-sora font-semibold text-primary">Powder Coating System Capability</h3>
-              </div>
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse text-sm">
-                  <thead>
-                    <tr className="bg-secondary/10 border-b border-border">
-                      <th className="px-6 py-3 font-semibold text-primary">Powder Chemistry</th>
-                      <th className="px-6 py-3 font-semibold text-primary">Best Used For</th>
-                      <th className="px-6 py-3 font-semibold text-primary">Coat Thickness (DFT)</th>
-                      <th className="px-6 py-3 font-semibold text-primary">Salt Spray Rating</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-border">
-                    <tr>
-                      <td className="px-6 py-3.5 font-medium">Epoxies (Pure Epoxy)</td>
-                      <td className="px-6 py-3.5">Indoor machinery, electrical boxes, chemical resistance</td>
-                      <td className="px-6 py-3.5">60 – 90 microns</td>
-                      <td className="px-6 py-3.5">Up to 500 hours</td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-3.5 font-medium">Polyesters (Pure Polyester)</td>
-                      <td className="px-6 py-3.5">Outdoor furniture, solar structures, automotive trim</td>
-                      <td className="px-6 py-3.5">70 – 100 microns</td>
-                      <td className="px-6 py-3.5">Up to 1000 hours (with primer)</td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-3.5 font-medium">Epoxy-Polyester Hybrids</td>
-                      <td className="px-6 py-3.5">General appliances, office panels, brackets</td>
-                      <td className="px-6 py-3.5">60 – 80 microns</td>
-                      <td className="px-6 py-3.5">Up to 300 hours</td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-3.5 font-medium">Polyurethanes</td>
-                      <td className="px-6 py-3.5">High wear components, dynamic equipment</td>
-                      <td className="px-6 py-3.5">50 – 75 microns</td>
-                      <td className="px-6 py-3.5">Up to 750 hours</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold tracking-tight text-primary">The Cleaning & Pretreatment Difference</h2>
+              <h2 className="text-2xl font-bold tracking-tight text-primary">Metal Finishing</h2>
               <p className="leading-relaxed text-muted-foreground">
-                90% of powder coating failures (peeling, bubbling, and premature rusting) originate from poor surface preparation. We manage strict pretreatment workflows: metal surfaces are stripped of oil, grease, scale, and surface contaminants through alkaline degreasing and pickling baths before receiving a micro-crystalline phosphate conversion coating. This chemical bonding agent acts as an anchor for the powder layer.
+                Before applying powder, thorough surface cleaning and pretreatment are performed to remove oils, scale, and surface contaminants. Proper pre-treatment ensures maximum adhesion and long-lasting coating performance without peeling or flaking.
               </p>
               <div className="grid md:grid-cols-2 gap-4 pt-2">
                 <div className="flex gap-3 items-start">
@@ -144,8 +102,8 @@ const PowderCoatingBangalore = () => {
                     <ShieldCheck size={20} />
                   </span>
                   <div>
-                    <h3 className="font-semibold text-primary">7-Tank Pretreatment</h3>
-                    <p className="text-sm text-muted-foreground">Comprehensive multi-tank chemical washes ensure optimal corrosion resistance.</p>
+                    <h3 className="font-semibold text-primary">Corrosion Resistance</h3>
+                    <p className="text-sm text-muted-foreground">Protects mild steel and aluminum parts against rust, moisture, and chemical atmosphere.</p>
                   </div>
                 </div>
                 <div className="flex gap-3 items-start">
@@ -153,8 +111,8 @@ const PowderCoatingBangalore = () => {
                     <Zap size={20} />
                   </span>
                   <div>
-                    <h3 className="font-semibold text-primary">Electrostatic Uniformity</h3>
-                    <p className="text-sm text-muted-foreground">Charged corona gun spray provides wrapping and uniform coating on complex geometries.</p>
+                    <h3 className="font-semibold text-primary">Uniform Coating Thickness</h3>
+                    <p className="text-sm text-muted-foreground">Electrostatic spray delivers smooth, consistent coat coverage over edges and complex shapes.</p>
                   </div>
                 </div>
                 <div className="flex gap-3 items-start">
@@ -162,8 +120,8 @@ const PowderCoatingBangalore = () => {
                     <Layers size={20} />
                   </span>
                   <div>
-                    <h3 className="font-semibold text-primary">Micro-Curing Profiling</h3>
-                    <p className="text-sm text-muted-foreground">Oven temperatures are logged and calibrated to ensure full cross-linking without brittleness.</p>
+                    <h3 className="font-semibold text-primary">Multiple Textures & RAL Colors</h3>
+                    <p className="text-sm text-muted-foreground">Choose from glossy, semi-gloss, matt, and sand-texture finishes in standard RAL shades.</p>
                   </div>
                 </div>
                 <div className="flex gap-3 items-start">
@@ -171,65 +129,95 @@ const PowderCoatingBangalore = () => {
                     <Compass size={20} />
                   </span>
                   <div>
-                    <h3 className="font-semibold text-primary">Cross-Hatch Adhesion Checks</h3>
-                    <p className="text-sm text-muted-foreground">Destructive cross-cut tests verify coating adhesion indexes on reference sample panels.</p>
+                    <h3 className="font-semibold text-primary">Quality Pre-treatment</h3>
+                    <p className="text-sm text-muted-foreground">Proper degreasing and cleaning before coating ensures reliable bond strength.</p>
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold tracking-tight text-primary">Applications & Parts Processed</h2>
+              <h2 className="text-2xl font-bold tracking-tight text-primary">Applications</h2>
               <p className="leading-relaxed text-muted-foreground">
-                We provide powder coating services for:
+                We manage powder coating and finishing solutions for a wide variety of industrial components:
               </p>
               <ul className="grid md:grid-cols-2 gap-2 text-sm text-muted-foreground pl-2">
-                <li className="flex items-center gap-2"><Check size={16} className="text-highlight" /> Industrial Cabinets & Electrical Panel boards</li>
-                <li className="flex items-center gap-2"><Check size={16} className="text-highlight" /> Architectural Metal Gates, Grills, & Railings</li>
-                <li className="flex items-center gap-2"><Check size={16} className="text-highlight" /> Automotive Chassis Components & Brackets</li>
-                <li className="flex items-center gap-2"><Check size={16} className="text-highlight" /> Retail Supermarket Racks & Shelving units</li>
-                <li className="flex items-center gap-2"><Check size={16} className="text-highlight" /> Heavy machinery casings & weldments</li>
-                <li className="flex items-center gap-2"><Check size={16} className="text-highlight" /> Solar panel mounting structures</li>
+                <li className="flex items-center gap-2"><Check size={16} className="text-highlight" /> Electrical control panel boxes & cabinet enclosures</li>
+                <li className="flex items-center gap-2"><Check size={16} className="text-highlight" /> Sheet metal machine covers & safety guards</li>
+                <li className="flex items-center gap-2"><Check size={16} className="text-highlight" /> Architectural metal grilles, frames, & brackets</li>
+                <li className="flex items-center gap-2"><Check size={16} className="text-highlight" /> Industrial racking, storage trays, & shelving</li>
+                <li className="flex items-center gap-2"><Check size={16} className="text-highlight" /> OEM machine components & mounting plates</li>
+                <li className="flex items-center gap-2"><Check size={16} className="text-highlight" /> Outdoor equipment enclosures & mounting frames</li>
               </ul>
+            </div>
+
+            <div className="space-y-4">
+              <h2 className="text-2xl font-bold tracking-tight text-primary">Custom Fabrication and Finishing</h2>
+              <p className="leading-relaxed text-muted-foreground">
+                By integrating powder coating directly with our laser cutting, CNC bending, and welding services, MAM Industries provides hassle-free turnkey component manufacturing. You receive fully finished parts ready for final assembly without coordinating multiple vendors across Bengaluru.
+              </p>
+            </div>
+
+            <div className="space-y-4 bg-secondary/10 border border-secondary/20 p-6 rounded-lg">
+              <h2 className="text-2xl font-bold tracking-tight text-primary">Request a Quote</h2>
+              <p className="leading-relaxed text-muted-foreground">
+                Need powder coating for your metal components in Bangalore? Contact MAM Industries with your part drawings and batch quantities. Our team will recommend the right coating specification and provide a quick quotation.
+              </p>
+              <div className="flex flex-wrap gap-4 pt-2">
+                <Link to="/contact?service=Powder%20Coating" className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-5 py-3 rounded-md font-semibold text-sm hover:bg-accent/90 transition-colors">
+                  Send Your Drawing for Quote <ArrowRight size={15} />
+                </Link>
+                <Link to="/gallery" className="inline-flex items-center gap-2 border border-primary/30 text-primary px-5 py-3 rounded-md font-semibold text-sm hover:bg-primary/5 transition-colors">
+                  View Finished Projects
+                </Link>
+              </div>
             </div>
           </article>
 
           {/* Sidebar */}
           <aside className="lg:col-span-4 space-y-6">
             <div className="bg-card border border-border p-6 rounded-lg shadow-sm space-y-6">
-              <h3 className="font-sora font-semibold text-lg text-primary border-b border-border pb-3">Related Services</h3>
+              <h3 className="font-sora font-semibold text-lg text-primary border-b border-border pb-3">Metal Fabrication Services</h3>
               <nav className="flex flex-col gap-2.5">
                 <Link to="/laser-cutting-bangalore" className="flex items-center justify-between text-sm text-muted-foreground hover:text-accent font-medium py-1 transition-colors">
-                  <span>CNC Laser Cutting</span>
+                  <span>CNC Fiber Laser Cutting</span>
                   <ArrowRight size={14} />
                 </Link>
                 <Link to="/cnc-bending-bangalore" className="flex items-center justify-between text-sm text-muted-foreground hover:text-accent font-medium py-1 transition-colors">
-                  <span>CNC Press-Brake Bending</span>
+                  <span>CNC Press Brake Bending</span>
                   <ArrowRight size={14} />
                 </Link>
-                <Link to="/welding-services-bangalore" className="flex items-center justify-between text-sm text-muted-foreground hover:text-accent font-medium py-1 transition-colors">
-                  <span>MIG/TIG/Laser Welding</span>
-                  <ArrowRight size={14} />
-                </Link>
-                <Link to="/laser-marking-bangalore" className="flex items-center justify-between text-sm text-muted-foreground hover:text-accent font-medium py-1 transition-colors">
-                  <span>Laser Marking & Engraving</span>
+                <Link to="/sheet-metal-fabrication-bangalore" className="flex items-center justify-between text-sm text-muted-foreground hover:text-accent font-medium py-1 transition-colors">
+                  <span>Sheet Metal Fabrication</span>
                   <ArrowRight size={14} />
                 </Link>
                 <Link to="/custom-metal-fabrication-bangalore" className="flex items-center justify-between text-sm text-muted-foreground hover:text-accent font-medium py-1 transition-colors">
-                  <span>Custom Turnkey Fabrication</span>
+                  <span>Custom Metal Fabrication</span>
+                  <ArrowRight size={14} />
+                </Link>
+                <Link to="/welding-services-bangalore" className="flex items-center justify-between text-sm text-muted-foreground hover:text-accent font-medium py-1 transition-colors">
+                  <span>Welding & Fabrication</span>
+                  <ArrowRight size={14} />
+                </Link>
+                <Link to="/laser-marking-bangalore" className="flex items-center justify-between text-sm text-muted-foreground hover:text-accent font-medium py-1 transition-colors">
+                  <span>Laser Marking Services</span>
                   <ArrowRight size={14} />
                 </Link>
               </nav>
             </div>
 
-            <div className="bg-secondary/10 border border-secondary/20 p-6 rounded-lg space-y-4">
-              <h3 className="font-semibold text-primary text-base">RAL Color Codes</h3>
+            <div className="bg-card border border-border p-6 rounded-lg space-y-3">
+              <h3 className="font-semibold text-primary text-base">Bangalore Unit Location</h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                We support the entire RAL Classic color library. Custom shades can be formulated for bulk B2B agreements matching corporate brand standards.
+                MAM Industries<br />
+                7th Mile, 113, Kanakapura Main Road,<br />
+                Yelachenahalli, Naidu Layout,<br />
+                Bengaluru, Karnataka 560062, India
               </p>
-              <Link to="/contact" className="w-full inline-flex justify-center items-center gap-2 bg-primary text-primary-foreground py-2.5 rounded-md text-xs font-semibold hover:bg-primary/95 transition-colors">
-                Enquire Finishing Options
-              </Link>
+              <p className="text-xs text-muted-foreground pt-1">
+                Phone: +91 78923 03386 / +91 98450 63230<br />
+                Email: info@mamindustries.in
+              </p>
             </div>
           </aside>
         </div>
@@ -241,10 +229,10 @@ const PowderCoatingBangalore = () => {
           <div className="lg:col-span-4">
             <span className="eyebrow">FAQ Helpdesk</span>
             <h2 className="h-display text-2xl md:text-4xl mt-3 text-primary">
-              Powder Coating <span className="text-accent">Queries</span>
+              Frequently Asked <span className="text-accent">Questions</span>
             </h2>
             <p className="text-muted-foreground mt-4 text-sm leading-relaxed">
-              Find technical answers about pre-treatment baths, curing ovens, powder types, and thickness measurements.
+              Find technical details regarding our powder coating options, textures, and surface finishing workflows in Bangalore.
             </p>
           </div>
           <div className="lg:col-span-8">

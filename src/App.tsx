@@ -27,6 +27,7 @@ const LoginPage = lazy(() => import("./pages/LoginPage"));
 // B2B SEO Landing Pages (Lazy Loaded)
 const LaserCuttingBangalore = lazy(() => import("./pages/seo/LaserCuttingBangalore"));
 const CncBendingBangalore = lazy(() => import("./pages/seo/CncBendingBangalore"));
+const SheetMetalFabricationBangalore = lazy(() => import("./pages/seo/SheetMetalFabricationBangalore"));
 const PowderCoatingBangalore = lazy(() => import("./pages/seo/PowderCoatingBangalore"));
 const LaserMarkingBangalore = lazy(() => import("./pages/seo/LaserMarkingBangalore"));
 const WeldingServicesBangalore = lazy(() => import("./pages/seo/WeldingServicesBangalore"));
@@ -64,6 +65,7 @@ const App = () => (
               {/* B2B SEO Landing Pages */}
               <Route path="/laser-cutting-bangalore" element={<LaserCuttingBangalore />} />
               <Route path="/cnc-bending-bangalore" element={<CncBendingBangalore />} />
+              <Route path="/sheet-metal-fabrication-bangalore" element={<SheetMetalFabricationBangalore />} />
               <Route path="/powder-coating-bangalore" element={<PowderCoatingBangalore />} />
               <Route path="/laser-marking-bangalore" element={<LaserMarkingBangalore />} />
               <Route path="/welding-services-bangalore" element={<WeldingServicesBangalore />} />

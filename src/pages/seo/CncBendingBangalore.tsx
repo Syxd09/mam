@@ -1,42 +1,45 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Check, ShieldCheck, Zap, Layers, Compass } from "lucide-react";
 import SEO from "@/components/SEO";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import ContactCTA from "@/components/home/ContactCTA";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { getBreadcrumbSchema, getServiceSchema, getFAQPageSchema } from "@/lib/seo";
+import { SITE } from "@/lib/site";
 
 const FAQS = [
   {
-    q: "What is your maximum bending length and tonnage capacity?",
-    a: "Our facility is equipped with a high-capacity 250-ton hydraulic CNC press brake with a maximum bed length of 2500mm (2.5 meters). This allows us to bend heavy-gauge plates and long profiles easily.",
+    q: "What is your maximum bending length and tonnage capacity in Bangalore?",
+    a: "Our Bangalore plant operates a 250-ton CNC press brake with a 2500mm bed length for forming sheet metal up to 8mm MS and 6mm SS."
   },
   {
-    q: "What sheet thicknesses can you form or bend?",
-    a: "We form Mild Steel (MS) up to 8mm thickness and Stainless Steel (SS) up to 6mm thickness. For thinner gauges (like 0.8mm to 3mm), we maintain extremely high precision and zero surface marking.",
+    q: "What materials do you bend at MAM Industries?",
+    a: "We bend Mild Steel (MS 0.8mm – 8mm), Stainless Steel (SS 0.8mm – 6mm), Aluminium (1mm – 6mm), and Galvanised Iron (GI 0.8mm – 4mm)."
   },
   {
-    q: "How do you ensure repeatable accuracy across large production runs?",
-    a: "Our press brakes utilize programmable multi-axis backgauges with auto-crowning systems. Bending programs are simulated in CAD before execution, ensuring angular precision of ±0.05° on every single bend.",
+    q: "Can you bend parts that have complex laser-cut features?",
+    a: "Yes. Flat blanks laser-cut on our 3kW CNC fiber laser are routed to our press brake cells. We verify hole locations relative to bend lines during DFM review."
   },
   {
-    q: "Can you bend parts that have been laser-cut with complex cutouts?",
-    a: "Yes. Our CNC bending cells work directly with laser-cut blanks. We perform DFM reviews to verify that cutouts or holes are not placed too close to the bend line, preventing elongation and deformation during forming.",
-  },
+    q: "How do I request a CNC bending quote?",
+    a: "Send your 2D/3D CAD drawing (.STEP, .DXF, .DWG, PDF) to MAM Industries via our contact page or email. We send an itemized quote within 24 hours."
+  }
 ];
 
 const CncBendingBangalore = () => {
   const pageUrl = "/cnc-bending-bangalore";
-  const pageTitle = "CNC Bending & Press Brake Services Bangalore | MAM Industries";
-  const pageDesc = "MAM Industries provides precision B2B 250T CNC bending and press-brake forming services in Bangalore. Exact angular tolerances for MS & SS. Get a quote.";
-  const pageKeywords = "cnc bending services, press-brake forming bangalore, custom metal bending, sheet metal folding bangalore, precision sheet metal forming";
+  const pageTitle = "CNC Bending Bangalore | Precision Sheet Metal Bending | MAM Industries";
+  const pageDesc = "CNC press brake and sheet metal bending services in Bangalore for MS, stainless steel and aluminium components. Custom bending from customer drawings.";
+  const pageKeywords = "cnc bending bangalore, precision sheet metal bending, press brake bending bangalore, custom sheet metal forming bengaluru, ms ss bending bangalore";
 
   const jsonLd = {
     "@graph": [
       getBreadcrumbSchema([
         { name: "Home", url: "/" },
+        { name: "Services", url: "/services" },
         { name: "CNC Bending Bangalore", url: pageUrl },
       ]),
-      getServiceSchema("CNC Bending & Press Brake Services", "250-ton CNC press brake forming and sheet metal bending services in Bangalore."),
+      getServiceSchema("CNC Bending Services", "CNC press brake and sheet metal bending services in Bangalore for MS, stainless steel and aluminium components."),
       getFAQPageSchema(FAQS),
     ],
   };
@@ -51,224 +54,229 @@ const CncBendingBangalore = () => {
         jsonLd={jsonLd}
       />
 
+      <Breadcrumbs items={[
+        { name: "Services", url: "/services" },
+        { name: "CNC Bending Services in Bangalore", url: pageUrl }
+      ]} />
+
       {/* Hero Section */}
       <section className="bg-primary text-primary-foreground relative overflow-hidden">
         <div className="absolute inset-0 bg-blueprint opacity-40" />
-        <div className="container relative py-20 md:py-28 flex flex-col justify-center min-h-[50vh]">
-          <span className="eyebrow">Precision Metal Forming</span>
-          <h1 className="h-display text-4xl md:text-6xl mt-4 text-white max-w-4xl">
-            Precision CNC <span className="text-accent">Bending Services</span> in Bangalore
+        <div className="container relative py-16 md:py-24 flex flex-col justify-center min-h-[45vh]">
+          <span className="eyebrow">Precision Sheet Metal Forming</span>
+          <h1 className="h-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-3 text-white max-w-4xl">
+            CNC Bending Services in Bangalore
           </h1>
-          <p className="text-metallic mt-6 max-w-2xl text-lg leading-relaxed">
-            From simple angles to complex multi-bend enclosures, MAM Industries operates high-tonnage CNC press brakes delivering repeatable forming for industrial OEMs across Karnataka.
+          <p className="text-metallic mt-5 max-w-2xl text-base md:text-lg leading-relaxed">
+            MAM Industries provides CNC press brake and precision sheet metal bending services in Bangalore for mild steel, stainless steel, and aluminium components based on customer drawings and engineering specs.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
-            <Link to="/contact?service=CNC%20Bending" className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-6 py-3.5 rounded-md font-semibold text-sm hover:bg-accent/90 transition-colors shadow-accentglow">
-              Get Fast Quote <ArrowRight size={15} />
+            <Link to="/contact" className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-6 py-3.5 rounded-md font-semibold text-sm hover:bg-accent/90 transition-colors shadow-accentglow">
+              Request a Bending Quote <ArrowRight size={16} />
             </Link>
-            <a href="tel:+917892303386" className="inline-flex items-center gap-2 border border-white/20 text-white px-6 py-3.5 rounded-md font-semibold text-sm hover:bg-white/10 transition-colors">
-              Call Sales Desk
+            <a href={SITE.phoneHref} className="inline-flex items-center gap-2 border border-white/20 text-white px-6 py-3.5 rounded-md font-semibold text-sm hover:bg-white/10 transition-colors">
+              Call {SITE.phone}
             </a>
           </div>
         </div>
       </section>
 
-      {/* Overview Article */}
+      {/* Main Content Body */}
       <section className="py-16 md:py-24 bg-background">
-        <div className="container grid lg:grid-cols-12 gap-12 items-start">
-          {/* Main Content */}
-          <article className="lg:col-span-8 space-y-8 text-foreground/90">
+        <div className="container grid lg:grid-cols-12 gap-12 items-start max-w-6xl">
+          
+          <article className="lg:col-span-8 space-y-12 text-foreground/90">
+            
+            {/* H2: Precision Sheet Metal Bending */}
             <div className="space-y-4">
-              <h2 className="text-3xl font-bold tracking-tight text-primary">High-Tonnage CNC Press Brake Bending in Bengaluru</h2>
+              <h2 className="text-2xl md:text-3xl font-sora font-bold tracking-tight text-primary">
+                Precision Sheet Metal Bending
+              </h2>
               <p className="leading-relaxed text-muted-foreground">
-                In metal fabrication, a precise cut is only as good as the subsequent bend. MAM Industries is a leading sheet metal forming provider in Bangalore, offering **250-ton hydraulic CNC press-brake bending**. With programmable multi-axis backgauges and a fixed bed length of 2500mm, we perform highly complex folding sequences on mild steel, stainless steel, and aluminum plates.
+                MAM Industries operates 250-ton hydraulic CNC press brakes with programmable multi-axis backgauges and a fixed bed length of 2500 mm. Our CNC bending capabilities deliver consistent bend angles, tight dimensional tolerances, and smooth radii across simple brackets and complex multi-bend enclosures.
               </p>
               <p className="leading-relaxed text-muted-foreground">
-                Our advanced control units allow operators to import 3D CAD files directly, simulating the bend process to prevent part collisions and spring-back variances. This digital workflow guarantees that your production batches match the first prototype exactly.
+                By importing CAD models directly into machine control units, we simulate folding sequences prior to physical execution, eliminating collision risks and compensating for material springback.
               </p>
             </div>
 
-            {/* Bending Capability Guide */}
-            <div className="border border-border rounded-lg overflow-hidden bg-card shadow-sm">
-              <div className="bg-primary/5 px-6 py-4 border-b border-border">
-                <h3 className="font-sora font-semibold text-primary">CNC Bending Capacity Details</h3>
-              </div>
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse text-sm">
-                  <thead>
-                    <tr className="bg-secondary/10 border-b border-border">
-                      <th className="px-6 py-3 font-semibold text-primary">Material</th>
-                      <th className="px-6 py-3 font-semibold text-primary">Thickness Range</th>
-                      <th className="px-6 py-3 font-semibold text-primary">Max Length</th>
-                      <th className="px-6 py-3 font-semibold text-primary">Angular Tolerance</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-border">
-                    <tr>
-                      <td className="px-6 py-3.5 font-medium">Mild Steel (MS)</td>
-                      <td className="px-6 py-3.5">0.8 mm – 8.0 mm</td>
-                      <td className="px-6 py-3.5">2500 mm</td>
-                      <td className="px-6 py-3.5">±0.5° (Repeatable)</td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-3.5 font-medium">Stainless Steel (SS)</td>
-                      <td className="px-6 py-3.5">0.8 mm – 6.0 mm</td>
-                      <td className="px-6 py-3.5">2500 mm</td>
-                      <td className="px-6 py-3.5">±0.5° (Repeatable)</td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-3.5 font-medium">Aluminium (Al)</td>
-                      <td className="px-6 py-3.5">1.0 mm – 6.0 mm</td>
-                      <td className="px-6 py-3.5">2500 mm</td>
-                      <td className="px-6 py-3.5">±1.0°</td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-3.5 font-medium">Galvanized (GI)</td>
-                      <td className="px-6 py-3.5">0.8 mm – 4.0 mm</td>
-                      <td className="px-6 py-3.5">2500 mm</td>
-                      <td className="px-6 py-3.5">±0.5°</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
+            {/* H2: Materials We Bend */}
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold tracking-tight text-primary">Design for Bending (DFM) Support</h2>
-              <p className="leading-relaxed text-muted-foreground">
-                Bending sheet metal requires careful calculation of bend allowances, material elongation, and tool clearances. Our engineering team reviews your design files beforehand to ensure compatibility. If a hole or cutout is located inside a bend radius deformation zone, we suggest minor adjustments to preserve the structural stability of the final piece.
-              </p>
-              <div className="grid md:grid-cols-2 gap-4 pt-2">
-                <div className="flex gap-3 items-start">
-                  <span className="p-2 bg-accent/10 rounded-md text-accent shrink-0">
-                    <ShieldCheck size={20} />
-                  </span>
-                  <div>
-                    <h3 className="font-semibold text-primary">Multi-Axis backgauging</h3>
-                    <p className="text-sm text-muted-foreground">Precision alignment of multi-stage bends for complicated brackets and enclosures.</p>
-                  </div>
-                </div>
-                <div className="flex gap-3 items-start">
-                  <span className="p-2 bg-accent/10 rounded-md text-accent shrink-0">
-                    <Zap size={20} />
-                  </span>
-                  <div>
-                    <h3 className="font-semibold text-primary">Auto-Crowning Systems</h3>
-                    <p className="text-sm text-muted-foreground">Maintains constant angular accuracy across the entire length of the bed.</p>
-                  </div>
-                </div>
-                <div className="flex gap-3 items-start">
-                  <span className="p-2 bg-accent/10 rounded-md text-accent shrink-0">
-                    <Layers size={20} />
-                  </span>
-                  <div>
-                    <h3 className="font-semibold text-primary">Enclosure Bending Tooling</h3>
-                    <p className="text-sm text-muted-foreground">Gooseneck punch and split dies allow deep box forming without panel collision.</p>
-                  </div>
-                </div>
-                <div className="flex gap-3 items-start">
-                  <span className="p-2 bg-accent/10 rounded-md text-accent shrink-0">
-                    <Compass size={20} />
-                  </span>
-                  <div>
-                    <h3 className="font-semibold text-primary">Springback Calibration</h3>
-                    <p className="text-sm text-muted-foreground">Calculations account for specific metal hardness and grain directions.</p>
-                  </div>
+              <h2 className="text-2xl md:text-3xl font-sora font-bold tracking-tight text-primary">
+                Materials We Bend
+              </h2>
+              <div className="border border-border rounded-lg overflow-hidden bg-card shadow-sm">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse text-sm">
+                    <thead>
+                      <tr className="bg-secondary/10 border-b border-border">
+                        <th className="px-6 py-3 font-semibold text-primary">Material</th>
+                        <th className="px-6 py-3 font-semibold text-primary">Thickness Range</th>
+                        <th className="px-6 py-3 font-semibold text-primary">Max Bed Length</th>
+                        <th className="px-6 py-3 font-semibold text-primary">Angular Tolerance</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-border text-muted-foreground">
+                      <tr>
+                        <td className="px-6 py-3 font-medium text-foreground">Mild Steel (MS)</td>
+                        <td className="px-6 py-3">0.8 mm – 8.0 mm</td>
+                        <td className="px-6 py-3">2500 mm</td>
+                        <td className="px-6 py-3">±0.05°</td>
+                      </tr>
+                      <tr>
+                        <td className="px-6 py-3 font-medium text-foreground">Stainless Steel (SS)</td>
+                        <td className="px-6 py-3">0.8 mm – 6.0 mm</td>
+                        <td className="px-6 py-3">2500 mm</td>
+                        <td className="px-6 py-3">±0.05°</td>
+                      </tr>
+                      <tr>
+                        <td className="px-6 py-3 font-medium text-foreground">Aluminium (Al)</td>
+                        <td className="px-6 py-3">1.0 mm – 6.0 mm</td>
+                        <td className="px-6 py-3">2500 mm</td>
+                        <td className="px-6 py-3">±0.05°</td>
+                      </tr>
+                      <tr>
+                        <td className="px-6 py-3 font-medium text-foreground">Galvanised Iron (GI)</td>
+                        <td className="px-6 py-3">0.8 mm – 4.0 mm</td>
+                        <td className="px-6 py-3">2500 mm</td>
+                        <td className="px-6 py-3">±0.05°</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
 
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold tracking-tight text-primary">Industrial Applications</h2>
+            {/* H2: CNC Laser Cutting and Bending */}
+            <div className="space-y-4 bg-secondary/30 p-6 rounded-xl border border-white/5">
+              <h2 className="text-2xl font-sora font-bold tracking-tight text-primary">
+                CNC Laser Cutting and Bending
+              </h2>
               <p className="leading-relaxed text-muted-foreground">
-                We handle CNC press brake bending for:
+                Sheet metal components rarely consist of bends alone. Flat blanks cut on our 3kW CNC fiber laser pass immediately to our CNC bending section. This single-vendor workflow guarantees that cutouts, mounting slots, and hole patterns line up accurately with formed bend lines.
               </p>
-              <ul className="grid md:grid-cols-2 gap-2 text-sm text-muted-foreground pl-2">
-                <li className="flex items-center gap-2"><Check size={16} className="text-highlight" /> Custom Sheet Metal Enclosures & Cases</li>
-                <li className="flex items-center gap-2"><Check size={16} className="text-highlight" /> U-Channels, Z-Profiles & Custom Angles</li>
-                <li className="flex items-center gap-2"><Check size={16} className="text-highlight" /> Industrial Cabinets & Control Desks</li>
-                <li className="flex items-center gap-2"><Check size={16} className="text-highlight" /> Heavy-duty Brackets & Structural Flanges</li>
-                <li className="flex items-center gap-2"><Check size={16} className="text-highlight" /> HVAC Ducting Profiles & Cable Trays</li>
-                <li className="flex items-center gap-2"><Check size={16} className="text-highlight" /> Retail Fixtures & Metal Shelving Parts</li>
+              <Link to="/laser-cutting-bangalore" className="inline-flex items-center gap-1 text-xs font-semibold text-accent uppercase tracking-wider hover:underline">
+                Explore Laser Cutting Services in Bangalore <ArrowRight size={14} />
+              </Link>
+            </div>
+
+            {/* H2: Custom Bent Sheet Metal Components */}
+            <div className="space-y-4">
+              <h2 className="text-2xl md:text-3xl font-sora font-bold tracking-tight text-primary">
+                Custom Bent Sheet Metal Components
+              </h2>
+              <p className="leading-relaxed text-muted-foreground">
+                We manufacture custom formed sheet metal parts for industrial manufacturers, OEM suppliers, and equipment fabricators across Bangalore:
+              </p>
+              <ul className="grid sm:grid-cols-2 gap-3 pt-2">
+                {[
+                  "Electrical control panel boxes & doors",
+                  "Structural U-channels & Z-profiles",
+                  "Machine enclosures & protective covers",
+                  "Heavy-duty mounting brackets & gussets",
+                  "HVAC duct connectors & transition pieces",
+                  "Custom metal chassis & tray assemblies"
+                ].map((item, idx) => (
+                  <li key={idx} className="flex items-center gap-2 text-sm text-foreground">
+                    <Check size={16} className="text-accent shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
               </ul>
             </div>
+
+            {/* H2: Prototype and Production */}
+            <div className="space-y-4">
+              <h2 className="text-2xl md:text-3xl font-sora font-bold tracking-tight text-primary">
+                Prototype and Production
+              </h2>
+              <p className="leading-relaxed text-muted-foreground">
+                Whether you need a single prototype enclosure for engineering testing or high-volume batches of formed brackets, our press brake tooling library and automated CNC backgauging provide rapid setup and repeatable quality.
+              </p>
+            </div>
+
+            {/* H2: How to Request a CNC Bending Quote */}
+            <div className="space-y-4">
+              <h2 className="text-2xl md:text-3xl font-sora font-bold tracking-tight text-primary">
+                How to Request a CNC Bending Quote
+              </h2>
+              <p className="leading-relaxed text-muted-foreground">
+                Requesting a CNC bending quote from MAM Industries:
+              </p>
+              <ol className="space-y-3 text-sm text-muted-foreground pl-4 list-decimal">
+                <li>Submit your 2D/3D drawing (.DXF, .DWG, .STEP, PDF) showing bend radii and overall dimensions.</li>
+                <li>Indicate material grade (MS, SS, Al, GI), sheet gauge, and required batch quantity.</li>
+                <li>Our team will perform a DFM review and send an itemized quotation within 24 hours.</li>
+              </ol>
+            </div>
+
+            {/* H2: Frequently Asked Questions */}
+            <div className="space-y-6 pt-4">
+              <h2 className="text-2xl md:text-3xl font-sora font-bold tracking-tight text-primary">
+                Frequently Asked Questions
+              </h2>
+              <Accordion type="single" collapsible className="space-y-3">
+                {FAQS.map((faq, idx) => (
+                  <AccordionItem
+                    key={idx}
+                    value={`faq-${idx}`}
+                    className="bg-card border border-border rounded-lg px-5 data-[state=open]:border-accent/40 transition-all"
+                  >
+                    <AccordionTrigger className="text-left font-sora font-semibold text-primary hover:text-accent hover:no-underline py-4 text-sm md:text-base">
+                      {faq.q}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground leading-relaxed pb-4 text-sm">
+                      {faq.a}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+
           </article>
 
           {/* Sidebar */}
           <aside className="lg:col-span-4 space-y-6">
             <div className="bg-card border border-border p-6 rounded-lg shadow-sm space-y-6">
-              <h3 className="font-sora font-semibold text-lg text-primary border-b border-border pb-3">Related Services</h3>
+              <h3 className="font-sora font-semibold text-lg text-primary border-b border-border pb-3">Metal Fabrication Services</h3>
               <nav className="flex flex-col gap-2.5">
                 <Link to="/laser-cutting-bangalore" className="flex items-center justify-between text-sm text-muted-foreground hover:text-accent font-medium py-1 transition-colors">
-                  <span>CNC Laser Cutting</span>
+                  <span>Laser Cutting Bangalore</span>
                   <ArrowRight size={14} />
                 </Link>
-                <Link to="/welding-services-bangalore" className="flex items-center justify-between text-sm text-muted-foreground hover:text-accent font-medium py-1 transition-colors">
-                  <span>MIG/TIG/Laser Welding</span>
-                  <ArrowRight size={14} />
-                </Link>
-                <Link to="/powder-coating-bangalore" className="flex items-center justify-between text-sm text-muted-foreground hover:text-accent font-medium py-1 transition-colors">
-                  <span>Industrial Powder Coating</span>
-                  <ArrowRight size={14} />
-                </Link>
-                <Link to="/laser-marking-bangalore" className="flex items-center justify-between text-sm text-muted-foreground hover:text-accent font-medium py-1 transition-colors">
-                  <span>Laser Marking & Engraving</span>
+                <Link to="/sheet-metal-fabrication-bangalore" className="flex items-center justify-between text-sm text-muted-foreground hover:text-accent font-medium py-1 transition-colors">
+                  <span>Sheet Metal Fabrication</span>
                   <ArrowRight size={14} />
                 </Link>
                 <Link to="/custom-metal-fabrication-bangalore" className="flex items-center justify-between text-sm text-muted-foreground hover:text-accent font-medium py-1 transition-colors">
-                  <span>Custom Turnkey Fabrication</span>
+                  <span>Custom Fabrication Bangalore</span>
+                  <ArrowRight size={14} />
+                </Link>
+                <Link to="/welding-services-bangalore" className="flex items-center justify-between text-sm text-muted-foreground hover:text-accent font-medium py-1 transition-colors">
+                  <span>Welding Services Bangalore</span>
+                  <ArrowRight size={14} />
+                </Link>
+                <Link to="/powder-coating-bangalore" className="flex items-center justify-between text-sm text-muted-foreground hover:text-accent font-medium py-1 transition-colors">
+                  <span>Powder Coating Bangalore</span>
                   <ArrowRight size={14} />
                 </Link>
               </nav>
             </div>
 
-            <div className="bg-secondary/10 border border-secondary/20 p-6 rounded-lg space-y-4">
-              <h3 className="font-semibold text-primary text-base">Press Brake Tooling Setup</h3>
+            <div className="bg-secondary/20 border border-white/10 p-6 rounded-lg space-y-4">
+              <h3 className="font-semibold text-primary text-base">Send CAD Drawing for Quote</h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                We maintain a comprehensive library of punch and die sets to accommodate custom radius requirements. No custom tooling charges for standard radius bends.
+                Upload your 3D or 2D files for press brake feasibility review and quotation within 24 hours.
               </p>
-              <Link to="/contact" className="w-full inline-flex justify-center items-center gap-2 bg-primary text-primary-foreground py-2.5 rounded-md text-xs font-semibold hover:bg-primary/95 transition-colors">
-                Enquire Bending Capacity
+              <Link to="/contact" className="w-full inline-flex justify-center items-center gap-2 bg-accent text-accent-foreground py-2.5 rounded-md text-xs font-semibold hover:bg-accent/90 transition-colors">
+                Request Quote Now
               </Link>
             </div>
           </aside>
+
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-16 md:py-24 bg-card border-y border-border">
-        <div className="container grid lg:grid-cols-12 gap-10">
-          <div className="lg:col-span-4">
-            <span className="eyebrow">FAQ Helpdesk</span>
-            <h2 className="h-display text-2xl md:text-4xl mt-3 text-primary">
-              CNC Bending <span className="text-accent">Queries</span>
-            </h2>
-            <p className="text-muted-foreground mt-4 text-sm leading-relaxed">
-              Find technical answers about press brake capacities, angular tolerances, and material forming guidelines.
-            </p>
-          </div>
-          <div className="lg:col-span-8">
-            <Accordion type="single" collapsible className="space-y-3">
-              {FAQS.map((faq, idx) => (
-                <AccordionItem
-                  key={idx}
-                  value={`faq-${idx}`}
-                  className="bg-background border border-border rounded-lg px-5 data-[state=open]:border-accent/40 transition-all"
-                >
-                  <AccordionTrigger className="text-left font-sora font-semibold text-primary hover:text-accent hover:no-underline py-4 text-sm md:text-base">
-                    {faq.q}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed pb-4 text-sm">
-                    {faq.a}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact CTA */}
       <ContactCTA />
     </>
   );

@@ -20,10 +20,11 @@ const staticPages = [
 const seoPages = [
   { loc: "/laser-cutting-bangalore", priority: "0.9", changefreq: "weekly" },
   { loc: "/cnc-bending-bangalore", priority: "0.9", changefreq: "weekly" },
-  { loc: "/powder-coating-bangalore", priority: "0.9", changefreq: "weekly" },
-  { loc: "/laser-marking-bangalore", priority: "0.9", changefreq: "weekly" },
+  { loc: "/sheet-metal-fabrication-bangalore", priority: "0.9", changefreq: "weekly" },
+  { loc: "/custom-metal-fabrication-bangalore", priority: "0.9", changefreq: "weekly" },
   { loc: "/welding-services-bangalore", priority: "0.9", changefreq: "weekly" },
-  { loc: "/custom-metal-fabrication-bangalore", priority: "0.9", changefreq: "weekly" }
+  { loc: "/powder-coating-bangalore", priority: "0.9", changefreq: "weekly" },
+  { loc: "/laser-marking-bangalore", priority: "0.9", changefreq: "weekly" }
 ];
 
 // 3. Extract dynamic services from site.ts using regex

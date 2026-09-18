@@ -15,9 +15,9 @@ import { getLocalBusinessSchema } from "@/lib/seo";
 const Home = () => (
   <>
     <SEO
-      title="Precision Laser Cutting, CNC Bending & Metal Fabrication in Bengaluru"
-      description="MAM Industries: Leading B2B partner for precision 3kW fibre laser cutting, CNC bending, and expert welding in Bengaluru. 7+ years of industrial excellence. Get a quote in 24h."
-      keywords="laser cutting bengaluru, cnc bending bangalore, metal fabrication karnataka, industrial laser cutting, sheet metal fabrication, mig tig welding bangalore, mam industries"
+      title="MAM Industries | Laser Cutting, CNC Bending & Metal Fabrication in Bangalore"
+      description="MAM Industries provides CNC laser cutting, CNC bending, sheet metal fabrication and custom metal fabrication services in Bangalore for prototypes and production parts."
+      keywords="laser cutting bangalore, cnc bending bangalore, metal fabrication bangalore, sheet metal fabrication bangalore, custom metal fabrication bangalore, stainless steel fabrication bangalore"
       path="/"
       jsonLd={getLocalBusinessSchema()}
     />
