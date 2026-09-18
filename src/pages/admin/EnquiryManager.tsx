@@ -110,37 +110,75 @@ const EnquiryManager = () => {
     }
   };
 
+  const counts = {
+    All: enquiries.length,
+    New: enquiries.filter(e => e.status === "New").length,
+    "In Progress": enquiries.filter(e => e.status === "In Progress").length,
+    Quoted: enquiries.filter(e => e.status === "Quoted").length,
+    Closed: enquiries.filter(e => e.status === "Closed").length,
+  };
+
   return (
-    <div className="p-6 md:p-10 max-w-7xl mx-auto">
-      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-10">
+    <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-6">
+      {/* Page Header */}
+      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-sora font-bold text-white">Lead Management</h1>
-          <p className="text-sm text-metallic">Review and track incoming customer enquiries.</p>
+          <h1 className="text-2xl font-sora font-bold text-white tracking-tight">Lead Management</h1>
+          <p className="text-xs text-metallic mt-1">Review, track, and directly respond to customer quote enquiries.</p>
         </div>
-        <div className="flex gap-3 w-full sm:w-auto">
+        <div className="flex gap-2.5 w-full sm:w-auto">
           <div className="relative flex-1 sm:flex-none">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-metallic" size={16} />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-metallic" size={15} />
             <input 
               type="text" 
-              placeholder="Search leads..."
+              placeholder="Search by name, email, or service..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="bg-secondary/50 border border-white/10 rounded-md pl-10 pr-4 py-2 text-sm text-white focus:border-accent outline-none w-full sm:w-64"
+              className="bg-secondary/60 border border-white/10 rounded-lg pl-9 pr-8 py-2 text-xs text-white placeholder:text-metallic/60 focus:border-accent focus:bg-secondary/90 outline-none w-full sm:w-72 transition-all"
             />
+            {search && (
+              <button 
+                onClick={() => setSearch("")}
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-metallic hover:text-white"
+              >
+                <X size={13} />
+              </button>
+            )}
           </div>
-          <select 
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
-            className="bg-secondary/50 border border-white/10 rounded-md px-4 py-2 text-sm text-white focus:border-accent outline-none"
-          >
-            <option value="All">All Status</option>
-            <option value="New">New</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Quoted">Quoted</option>
-            <option value="Closed">Closed</option>
-          </select>
         </div>
       </header>
+
+      {/* Filter KPI Bar */}
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
+        {[
+          { key: "All", label: "All Leads", color: "hover:border-white/20", active: "bg-white/10 text-white border-white/30" },
+          { key: "New", label: "New Leads", color: "hover:border-blue-500/40", active: "bg-blue-500/20 text-blue-400 border-blue-500/40" },
+          { key: "In Progress", label: "In Progress", color: "hover:border-amber-500/40", active: "bg-amber-500/20 text-amber-400 border-amber-500/40" },
+          { key: "Quoted", label: "Quoted", color: "hover:border-purple-500/40", active: "bg-purple-500/20 text-purple-400 border-purple-500/40" },
+          { key: "Closed", label: "Closed", color: "hover:border-emerald-500/40", active: "bg-emerald-500/20 text-emerald-400 border-emerald-500/40" },
+        ].map((item) => {
+          const isSelected = filter === item.key;
+          const count = counts[item.key as keyof typeof counts] || 0;
+          return (
+            <button
+              key={item.key}
+              onClick={() => setFilter(item.key)}
+              className={`flex items-center justify-between px-3.5 py-2.5 rounded-lg border text-xs transition-all ${
+                isSelected 
+                  ? `${item.active} font-semibold shadow-sm` 
+                  : `bg-secondary/40 border-white/5 text-metallic ${item.color} hover:text-white`
+              }`}
+            >
+              <span>{item.label}</span>
+              <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold ${
+                isSelected ? "bg-white/20 text-white" : "bg-white/5 text-metallic"
+              }`}>
+                {count}
+              </span>
+            </button>
+          );
+        })}
+      </div>
 
       {loading ? (
         <div className="h-64 grid place-items-center">
