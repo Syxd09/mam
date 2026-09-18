@@ -178,7 +178,7 @@ const Contact = () => {
       <section className="bg-primary text-primary-foreground relative overflow-hidden">
         <div className="absolute inset-0 bg-blueprint opacity-40" />
         <div className="container relative py-16 md:py-24">
-          <Breadcrumbs items={[{ label: "Contact Us" }]} />
+          <Breadcrumbs items={[{ name: "Contact", url: "/contact" }]} />
           <span className="eyebrow mt-2">Get in Touch</span>
           <h1 className="h-display text-4xl md:text-6xl mt-3 text-white max-w-3xl">
             Contact MAM Industries in Bangalore

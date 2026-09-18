@@ -6,11 +6,19 @@ import { SITE } from "@/lib/site";
 import { supabase } from "@/lib/supabase";
 import AnimatedCounter from "@/components/AnimatedCounter";
 
+const DEFAULT_STATS = [
+  { v: 7, suffix: "+", prefix: "", decimals: 0, l: "Years of expertise" },
+  { v: 1200, suffix: "+", prefix: "", decimals: 0, l: "Projects delivered" },
+  { v: 20, suffix: "+", prefix: "", decimals: 0, l: "Industries served" },
+  { v: 0.1, suffix: "mm", prefix: "±", decimals: 1, l: "Cut tolerance" },
+];
+
 const Hero = () => {
   const [heroContent, setHeroContent] = useState({
     title: "Precision Metal Fabrication, Laser Cutting & CNC Bending",
     subtitle: "MAM Industries delivers laser cutting, CNC bending, multi-process welding, fabrication and finishing under one roof — built for OEMs, architects, contractors and factories that demand tolerance and turnaround."
   });
+  const [stats, setStats] = useState<Array<{ v: number | string; suffix?: string; prefix?: string; decimals?: number; l: string }>>(DEFAULT_STATS);
 
   useEffect(() => {
     const fetchConfig = async () => {
@@ -24,6 +32,57 @@ const Hero = () => {
             subtitle: subtitle || heroContent.subtitle
           });
         }
+
+        const getVal = (k: string) => data.find(c => c.key === k)?.value;
+
+        const s1_v = getVal("stat1_value");
+        const s1_s = getVal("stat1_suffix");
+        const s1_l = getVal("stat1_label");
+
+        const s2_v = getVal("stat2_value");
+        const s2_s = getVal("stat2_suffix");
+        const s2_l = getVal("stat2_label");
+
+        const s3_v = getVal("stat3_value");
+        const s3_s = getVal("stat3_suffix");
+        const s3_l = getVal("stat3_label");
+
+        const s4_p = getVal("stat4_prefix");
+        const s4_v = getVal("stat4_value");
+        const s4_s = getVal("stat4_suffix");
+        const s4_d = getVal("stat4_decimals");
+        const s4_l = getVal("stat4_label");
+
+        setStats([
+          {
+            v: s1_v !== undefined && s1_v !== "" ? (isNaN(Number(s1_v)) ? s1_v : Number(s1_v)) : 7,
+            suffix: s1_s !== undefined ? s1_s : "+",
+            prefix: "",
+            decimals: 0,
+            l: s1_l || "Years of expertise"
+          },
+          {
+            v: s2_v !== undefined && s2_v !== "" ? (isNaN(Number(s2_v)) ? s2_v : Number(s2_v)) : (SITE.projectsCompleted || 1200),
+            suffix: s2_s !== undefined ? s2_s : "+",
+            prefix: "",
+            decimals: 0,
+            l: s2_l || "Projects delivered"
+          },
+          {
+            v: s3_v !== undefined && s3_v !== "" ? (isNaN(Number(s3_v)) ? s3_v : Number(s3_v)) : 20,
+            suffix: s3_s !== undefined ? s3_s : "+",
+            prefix: "",
+            decimals: 0,
+            l: s3_l || "Industries served"
+          },
+          {
+            v: s4_v !== undefined && s4_v !== "" ? (isNaN(Number(s4_v)) ? s4_v : Number(s4_v)) : 0.1,
+            suffix: s4_s !== undefined ? s4_s : "mm",
+            prefix: s4_p !== undefined ? s4_p : "±",
+            decimals: s4_d !== undefined && s4_d !== "" ? Number(s4_d) : 1,
+            l: s4_l || "Cut tolerance"
+          }
+        ]);
       }
     };
     fetchConfig();
@@ -101,15 +160,14 @@ const Hero = () => {
         transition={{ duration: 0.7, delay: 0.2 }}
         className="mt-14 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 border border-white/10 rounded-lg overflow-hidden backdrop-blur"
       >
-        {[
-          { v: 7, suffix: "+", l: "Years of expertise" },
-          { v: SITE.projectsCompleted, suffix: "+", l: "Projects delivered" },
-          { v: 20, suffix: "+", l: "Industries served" },
-          { v: 0.1, suffix: "mm", prefix: "±", decimals: 1, l: "Cut tolerance" },
-        ].map((m, i) => (
+        {stats.map((m, i) => (
           <div key={i} className="bg-primary/80 backdrop-blur px-5 py-6 group hover:bg-primary/60 transition-colors">
             <div className="font-sora font-bold text-2xl md:text-3xl text-white">
-              <AnimatedCounter to={m.v} suffix={m.suffix} prefix={m.prefix} decimals={m.decimals ?? 0} />
+              {typeof m.v === "number" ? (
+                <AnimatedCounter to={m.v} suffix={m.suffix} prefix={m.prefix} decimals={m.decimals ?? 0} />
+              ) : (
+                <span>{m.prefix}{m.v}{m.suffix}</span>
+              )}
             </div>
             <div className="text-xs text-metallic uppercase tracking-wider mt-1 group-hover:text-accent transition-colors">{m.l}</div>
           </div>

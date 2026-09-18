@@ -9,7 +9,8 @@ import {
   MapPin,
   Clock,
   Info,
-  Globe
+  Globe,
+  BarChart3
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
@@ -127,6 +128,217 @@ const ConfigManager = () => {
                 rows={3}
                 className="w-full bg-primary border border-white/10 rounded-md p-3 text-white focus:border-accent outline-none resize-none text-sm leading-relaxed"
               />
+            </div>
+          </div>
+        </section>
+
+        {/* Trust Metrics / Hero Stats Bar Section */}
+        <section className="bg-secondary/50 border border-white/5 rounded-xl p-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+            <h2 className="text-xs uppercase tracking-[0.2em] text-accent font-bold flex items-center gap-2">
+              <BarChart3 size={14} />
+              Trust Metrics & Stats Bar
+            </h2>
+            <span className="text-xs text-metallic">Hero stats bar displayed on the homepage</span>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Stat 1 */}
+            <div className="bg-primary/60 border border-white/10 rounded-lg p-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold text-white">Metric 1</span>
+                <span className="text-[10px] uppercase tracking-wider bg-accent/20 text-accent px-1.5 py-0.5 rounded font-mono font-bold">
+                  {config.stat1_value !== undefined ? config.stat1_value : "7"}{config.stat1_suffix !== undefined ? config.stat1_suffix : "+"}
+                </span>
+              </div>
+              <div>
+                <label className="text-[10px] uppercase tracking-wider text-metallic font-semibold block mb-1">
+                  Number / Value
+                </label>
+                <input
+                  type="text"
+                  value={config.stat1_value !== undefined ? config.stat1_value : "7"}
+                  onChange={(e) => handleChange("stat1_value", e.target.value)}
+                  placeholder="7"
+                  className="w-full bg-primary border border-white/10 rounded p-2 text-white text-sm focus:border-accent outline-none font-sora font-bold"
+                />
+              </div>
+              <div>
+                <label className="text-[10px] uppercase tracking-wider text-metallic font-semibold block mb-1">
+                  Suffix
+                </label>
+                <input
+                  type="text"
+                  value={config.stat1_suffix !== undefined ? config.stat1_suffix : "+"}
+                  onChange={(e) => handleChange("stat1_suffix", e.target.value)}
+                  placeholder="+"
+                  className="w-full bg-primary border border-white/10 rounded p-2 text-white text-sm focus:border-accent outline-none"
+                />
+              </div>
+              <div>
+                <label className="text-[10px] uppercase tracking-wider text-metallic font-semibold block mb-1">
+                  Label
+                </label>
+                <input
+                  type="text"
+                  value={config.stat1_label !== undefined ? config.stat1_label : "Years of expertise"}
+                  onChange={(e) => handleChange("stat1_label", e.target.value)}
+                  placeholder="Years of expertise"
+                  className="w-full bg-primary border border-white/10 rounded p-2 text-white text-sm focus:border-accent outline-none"
+                />
+              </div>
+            </div>
+
+            {/* Stat 2 */}
+            <div className="bg-primary/60 border border-white/10 rounded-lg p-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold text-white">Metric 2</span>
+                <span className="text-[10px] uppercase tracking-wider bg-accent/20 text-accent px-1.5 py-0.5 rounded font-mono font-bold">
+                  {isNaN(Number(config.stat2_value || "1200")) ? (config.stat2_value || "1200") : Number(config.stat2_value || "1200").toLocaleString()}{config.stat2_suffix !== undefined ? config.stat2_suffix : "+"}
+                </span>
+              </div>
+              <div>
+                <label className="text-[10px] uppercase tracking-wider text-metallic font-semibold block mb-1">
+                  Number / Value
+                </label>
+                <input
+                  type="text"
+                  value={config.stat2_value !== undefined ? config.stat2_value : "1200"}
+                  onChange={(e) => handleChange("stat2_value", e.target.value)}
+                  placeholder="1200"
+                  className="w-full bg-primary border border-white/10 rounded p-2 text-white text-sm focus:border-accent outline-none font-sora font-bold"
+                />
+              </div>
+              <div>
+                <label className="text-[10px] uppercase tracking-wider text-metallic font-semibold block mb-1">
+                  Suffix
+                </label>
+                <input
+                  type="text"
+                  value={config.stat2_suffix !== undefined ? config.stat2_suffix : "+"}
+                  onChange={(e) => handleChange("stat2_suffix", e.target.value)}
+                  placeholder="+"
+                  className="w-full bg-primary border border-white/10 rounded p-2 text-white text-sm focus:border-accent outline-none"
+                />
+              </div>
+              <div>
+                <label className="text-[10px] uppercase tracking-wider text-metallic font-semibold block mb-1">
+                  Label
+                </label>
+                <input
+                  type="text"
+                  value={config.stat2_label !== undefined ? config.stat2_label : "Projects delivered"}
+                  onChange={(e) => handleChange("stat2_label", e.target.value)}
+                  placeholder="Projects delivered"
+                  className="w-full bg-primary border border-white/10 rounded p-2 text-white text-sm focus:border-accent outline-none"
+                />
+              </div>
+            </div>
+
+            {/* Stat 3 */}
+            <div className="bg-primary/60 border border-white/10 rounded-lg p-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold text-white">Metric 3</span>
+                <span className="text-[10px] uppercase tracking-wider bg-accent/20 text-accent px-1.5 py-0.5 rounded font-mono font-bold">
+                  {config.stat3_value !== undefined ? config.stat3_value : "20"}{config.stat3_suffix !== undefined ? config.stat3_suffix : "+"}
+                </span>
+              </div>
+              <div>
+                <label className="text-[10px] uppercase tracking-wider text-metallic font-semibold block mb-1">
+                  Number / Value
+                </label>
+                <input
+                  type="text"
+                  value={config.stat3_value !== undefined ? config.stat3_value : "20"}
+                  onChange={(e) => handleChange("stat3_value", e.target.value)}
+                  placeholder="20"
+                  className="w-full bg-primary border border-white/10 rounded p-2 text-white text-sm focus:border-accent outline-none font-sora font-bold"
+                />
+              </div>
+              <div>
+                <label className="text-[10px] uppercase tracking-wider text-metallic font-semibold block mb-1">
+                  Suffix
+                </label>
+                <input
+                  type="text"
+                  value={config.stat3_suffix !== undefined ? config.stat3_suffix : "+"}
+                  onChange={(e) => handleChange("stat3_suffix", e.target.value)}
+                  placeholder="+"
+                  className="w-full bg-primary border border-white/10 rounded p-2 text-white text-sm focus:border-accent outline-none"
+                />
+              </div>
+              <div>
+                <label className="text-[10px] uppercase tracking-wider text-metallic font-semibold block mb-1">
+                  Label
+                </label>
+                <input
+                  type="text"
+                  value={config.stat3_label !== undefined ? config.stat3_label : "Industries served"}
+                  onChange={(e) => handleChange("stat3_label", e.target.value)}
+                  placeholder="Industries served"
+                  className="w-full bg-primary border border-white/10 rounded p-2 text-white text-sm focus:border-accent outline-none"
+                />
+              </div>
+            </div>
+
+            {/* Stat 4 */}
+            <div className="bg-primary/60 border border-white/10 rounded-lg p-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold text-white">Metric 4</span>
+                <span className="text-[10px] uppercase tracking-wider bg-accent/20 text-accent px-1.5 py-0.5 rounded font-mono font-bold">
+                  {config.stat4_prefix !== undefined ? config.stat4_prefix : "±"}{config.stat4_value !== undefined ? config.stat4_value : "0.1"}{config.stat4_suffix !== undefined ? config.stat4_suffix : "mm"}
+                </span>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="text-[10px] uppercase tracking-wider text-metallic font-semibold block mb-1">
+                    Prefix
+                  </label>
+                  <input
+                    type="text"
+                    value={config.stat4_prefix !== undefined ? config.stat4_prefix : "±"}
+                    onChange={(e) => handleChange("stat4_prefix", e.target.value)}
+                    placeholder="±"
+                    className="w-full bg-primary border border-white/10 rounded p-2 text-white text-sm focus:border-accent outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="text-[10px] uppercase tracking-wider text-metallic font-semibold block mb-1">
+                    Suffix
+                  </label>
+                  <input
+                    type="text"
+                    value={config.stat4_suffix !== undefined ? config.stat4_suffix : "mm"}
+                    onChange={(e) => handleChange("stat4_suffix", e.target.value)}
+                    placeholder="mm"
+                    className="w-full bg-primary border border-white/10 rounded p-2 text-white text-sm focus:border-accent outline-none"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="text-[10px] uppercase tracking-wider text-metallic font-semibold block mb-1">
+                  Number / Value
+                </label>
+                <input
+                  type="text"
+                  value={config.stat4_value !== undefined ? config.stat4_value : "0.1"}
+                  onChange={(e) => handleChange("stat4_value", e.target.value)}
+                  placeholder="0.1"
+                  className="w-full bg-primary border border-white/10 rounded p-2 text-white text-sm focus:border-accent outline-none font-sora font-bold"
+                />
+              </div>
+              <div>
+                <label className="text-[10px] uppercase tracking-wider text-metallic font-semibold block mb-1">
+                  Label
+                </label>
+                <input
+                  type="text"
+                  value={config.stat4_label !== undefined ? config.stat4_label : "Cut tolerance"}
+                  onChange={(e) => handleChange("stat4_label", e.target.value)}
+                  placeholder="Cut tolerance"
+                  className="w-full bg-primary border border-white/10 rounded p-2 text-white text-sm focus:border-accent outline-none"
+                />
+              </div>
             </div>
           </div>
         </section>

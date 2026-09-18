@@ -2,8 +2,9 @@ import { Link } from "react-router-dom";
 import { ChevronRight, Home } from "lucide-react";
 
 export type BreadcrumbItem = {
-  name: string;
-  url: string;
+  name?: string;
+  label?: string;
+  url?: string;
 };
 
 interface Props {
@@ -20,14 +21,15 @@ const Breadcrumbs = ({ items }: Props) => {
         </Link>
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
+          const displayName = item.name || item.label || "";
           return (
             <div key={item.url || index} className="flex items-center gap-1.5">
               <ChevronRight size={12} className="text-white/20" />
-              {isLast ? (
-                <span className="text-white font-medium truncate max-w-[200px] sm:max-w-none">{item.name}</span>
+              {isLast || !item.url ? (
+                <span className="text-white font-medium truncate max-w-[200px] sm:max-w-none">{displayName}</span>
               ) : (
                 <Link to={item.url} className="hover:text-accent transition-colors">
-                  {item.name}
+                  {displayName}
                 </Link>
               )}
             </div>
