@@ -27,32 +27,8 @@ const seoPages = [
   { loc: "/laser-marking-bangalore", priority: "0.9", changefreq: "weekly" }
 ];
 
-// 3. Extract dynamic services from site.ts using regex
-let servicePages = [];
-try {
-  const siteTsContent = fs.readFileSync(SITE_TS_PATH, "utf8");
-  const slugRegex = /slug:\s*["']([^"']+)["']/g;
-  let match;
-  const slugs = new Set();
-  
-  while ((match = slugRegex.exec(siteTsContent)) !== null) {
-    slugs.add(match[1]);
-  }
-  
-  slugs.forEach(slug => {
-    servicePages.push({
-      loc: `/services#${slug}`,
-      priority: "0.8",
-      changefreq: "weekly"
-    });
-  });
-  console.log(`Successfully parsed ${slugs.size} dynamic service slugs from site.ts.`);
-} catch (err) {
-  console.error("Could not parse site.ts for service slugs. Using empty array. Error:", err.message);
-}
-
-// Combine all pages
-const allPages = [...staticPages, ...seoPages, ...servicePages];
+// Combine only valid canonical indexable pages (exclude fragment anchors #)
+const allPages = [...staticPages, ...seoPages];
 const today = new Date().toISOString().split("T")[0];
 
 // Generate sitemap XML content

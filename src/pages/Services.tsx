@@ -104,8 +104,8 @@ const Services = () => {
   return (
     <>
       <SEO
-        title="Metal Fabrication Services in Bangalore | MAM Industries"
-        description="Explore MAM Industries metal fabrication services in Bangalore including CNC laser cutting, CNC bending, welding, custom fabrication, powder coating and laser marking."
+        title="Metal Fabrication Services Bangalore | Laser Cutting & CNC Bending | MAM Industries"
+        description="MAM Industries provides complete metal fabrication services in Bangalore including CNC laser cutting, CNC bending, welding, powder coating and laser marking."
         keywords="metal fabrication services bangalore, cnc laser cutting services bangalore, cnc bending bangalore, sheet metal fabrication bangalore, custom metal fabrication, welding services bangalore"
         path="/services"
         jsonLd={getBreadcrumbSchema([

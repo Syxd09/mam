@@ -28,7 +28,7 @@ const FAQS = [
 const LaserMarkingBangalore = () => {
   const pageUrl = "/laser-marking-bangalore";
   const pageTitle = "Laser Marking Bangalore | Metal Laser Marking Services | MAM Industries";
-  const pageDesc = "MAM Industries provides permanent metal laser marking services in Bangalore. High-contrast serial numbers, part numbers, logos, and QR codes for components.";
+  const pageDesc = "Laser marking services in Bangalore for metal component identification, serial numbers, logos and product markings.";
   const pageKeywords = "laser marking bangalore, metal laser marking services bangalore, fiber laser marking bangalore, part serialization bangalore";
 
   const jsonLd = {

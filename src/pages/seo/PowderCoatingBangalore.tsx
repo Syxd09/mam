@@ -28,7 +28,7 @@ const FAQS = [
 const PowderCoatingBangalore = () => {
   const pageUrl = "/powder-coating-bangalore";
   const pageTitle = "Powder Coating Bangalore | Metal Finishing Services | MAM Industries";
-  const pageDesc = "Industrial powder coating and metal finishing services in Bangalore by MAM Industries. High-durability protective finishes for mild steel, stainless steel, and custom fabrications.";
+  const pageDesc = "Powder coating and metal finishing services in Bangalore for suitable fabricated metal components. Contact MAM Industries for custom fabrication and finishing.";
   const pageKeywords = "powder coating bangalore, metal finishing services bangalore, industrial powder coating, sheet metal coating bangalore";
 
   const jsonLd = {

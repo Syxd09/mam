@@ -28,7 +28,7 @@ const FAQS = [
 const WeldingServicesBangalore = () => {
   const pageUrl = "/welding-services-bangalore";
   const pageTitle = "Welding Services Bangalore | Metal Welding & Fabrication | MAM Industries";
-  const pageDesc = "MAM Industries provides professional welding and fabrication services in Bangalore including MIG, TIG, spot, and laser welding for custom sheet metal parts and structural assemblies.";
+  const pageDesc = "Metal welding and fabrication services in Bangalore for custom sheet-metal components and assemblies. Combine welding with laser cutting and CNC bending.";
   const pageKeywords = "welding services bangalore, mig welding bangalore, tig welding bangalore, laser welding bangalore, metal fabrication bangalore";
 
   const jsonLd = {
