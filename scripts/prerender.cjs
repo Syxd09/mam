@@ -1,3 +1,4 @@
+process.env.NODE_ENV = "development";
 const fs = require("fs");
 const path = require("path");
 
@@ -17,6 +18,7 @@ process.env.VITE_SUPABASE_PUBLISHABLE_KEY = process.env.VITE_SUPABASE_PUBLISHABL
 process.env.VITE_SUPABASE_ANON_KEY = process.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_EfMOpQBZnHIAElHgEFbH2Q_5mhsqjqs';
 
 const { createServer } = require("vite");
+
 
 const ROUTES = [
   "/",
@@ -49,6 +51,7 @@ async function prerender() {
 
   // Create Vite SSR instance
   const vite = await createServer({
+    mode: "development",
     server: { middlewareMode: true },
     appType: "custom",
     logLevel: "error",
