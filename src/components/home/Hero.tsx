@@ -164,7 +164,13 @@ const Hero = () => {
           <div key={i} className="bg-primary/80 backdrop-blur px-5 py-6 group hover:bg-primary/60 transition-colors">
             <div className="font-sora font-bold text-2xl md:text-3xl text-white">
               {typeof m.v === "number" ? (
-                <AnimatedCounter to={m.v} suffix={m.suffix} prefix={m.prefix} decimals={m.decimals ?? 0} />
+                <AnimatedCounter 
+                  key={`${i}-${m.prefix}-${m.v}-${m.suffix}`}
+                  to={m.v} 
+                  suffix={m.suffix} 
+                  prefix={m.prefix} 
+                  decimals={m.decimals ?? 0} 
+                />
               ) : (
                 <span>{m.prefix}{m.v}{m.suffix}</span>
               )}

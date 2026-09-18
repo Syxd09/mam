@@ -29,6 +29,23 @@ const ConfigManager = () => {
     fetchConfig();
   }, []);
 
+  const DEFAULT_CONFIG_KEYS: Record<string, string> = {
+    stat1_value: "7",
+    stat1_suffix: "+",
+    stat1_label: "Years of expertise",
+    stat2_value: "1200",
+    stat2_suffix: "+",
+    stat2_label: "Projects delivered",
+    stat3_value: "20",
+    stat3_suffix: "+",
+    stat3_label: "Industries served",
+    stat4_prefix: "±",
+    stat4_value: "0.1",
+    stat4_suffix: "mm",
+    stat4_decimals: "1",
+    stat4_label: "Cut tolerance",
+  };
+
   const fetchConfig = async () => {
     setLoading(true);
     const { data, error } = await supabase
@@ -42,7 +59,7 @@ const ConfigManager = () => {
         ...acc,
         [curr.key]: curr.value
       }), {});
-      setConfig(configMap);
+      setConfig({ ...DEFAULT_CONFIG_KEYS, ...configMap });
     }
     setLoading(false);
   };

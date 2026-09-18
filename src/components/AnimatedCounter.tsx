@@ -10,11 +10,29 @@ type Props = {
 };
 
 const AnimatedCounter = ({ to, duration = 1600, suffix = "", prefix = "", decimals = 0, className }: Props) => {
-  const [val, setVal] = useState(0);
+  const [val, setVal] = useState(to);
   const ref = useRef<HTMLSpanElement>(null);
   const started = useRef(false);
+  const prevTo = useRef(to);
 
   useEffect(() => {
+    // If the target value changes after initial animation, smoothly animate to the new target
+    if (started.current && prevTo.current !== to) {
+      const startVal = val;
+      prevTo.current = to;
+      const start = performance.now();
+      const tick = (now: number) => {
+        const t = Math.min(1, (now - start) / 800);
+        const eased = 1 - Math.pow(1 - t, 3);
+        setVal(startVal + (to - startVal) * eased);
+        if (t < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+      return;
+    }
+
+    prevTo.current = to;
+
     const el = ref.current;
     if (!el) return;
     const io = new IntersectionObserver(
@@ -31,7 +49,7 @@ const AnimatedCounter = ({ to, duration = 1600, suffix = "", prefix = "", decima
           requestAnimationFrame(tick);
         }
       },
-      { threshold: 0.4 }
+      { threshold: 0.2 }
     );
     io.observe(el);
     return () => io.disconnect();
