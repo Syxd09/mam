@@ -12,6 +12,10 @@ if (typeof globalThis.WebSocket === "undefined") {
   };
 }
 
+process.env.VITE_SUPABASE_URL = process.env.VITE_SUPABASE_URL || 'https://wdmphbzppytabhqgegzn.supabase.co';
+process.env.VITE_SUPABASE_PUBLISHABLE_KEY = process.env.VITE_SUPABASE_PUBLISHABLE_KEY || 'sb_publishable_EfMOpQBZnHIAElHgEFbH2Q_5mhsqjqs';
+process.env.VITE_SUPABASE_ANON_KEY = process.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_EfMOpQBZnHIAElHgEFbH2Q_5mhsqjqs';
+
 const { createServer } = require("vite");
 
 const ROUTES = [
