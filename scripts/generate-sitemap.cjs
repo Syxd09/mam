@@ -72,6 +72,12 @@ ${xmlUrls}
 fs.writeFileSync(path.join(PUBLIC_DIR, "sitemap.xml"), sitemapContent, "utf8");
 console.log(`Generated sitemap.xml with ${allPages.length} URLs in ${PUBLIC_DIR}.`);
 
+const DIST_DIR = path.join(__dirname, "../dist");
+if (fs.existsSync(DIST_DIR)) {
+  fs.writeFileSync(path.join(DIST_DIR, "sitemap.xml"), sitemapContent, "utf8");
+  console.log(`Also copied sitemap.xml to ${DIST_DIR}.`);
+}
+
 // Generate robots.txt content
 const robotsContent = `User-agent: *
 Allow: /
@@ -84,4 +90,8 @@ Sitemap: ${SITE_URL}/sitemap.xml
 // Write robots.txt
 fs.writeFileSync(path.join(PUBLIC_DIR, "robots.txt"), robotsContent, "utf8");
 console.log(`Generated robots.txt in ${PUBLIC_DIR}.`);
+if (fs.existsSync(DIST_DIR)) {
+  fs.writeFileSync(path.join(DIST_DIR, "robots.txt"), robotsContent, "utf8");
+  console.log(`Also copied robots.txt to ${DIST_DIR}.`);
+}
 console.log("Sitemap and robots.txt generation complete.");

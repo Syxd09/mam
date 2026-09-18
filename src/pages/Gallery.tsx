@@ -126,7 +126,7 @@ const Gallery = () => {
   const [cat, setCat] = useState("All");
   const [active, setActive] = useState<number | null>(null);
   const [gallery, setGallery] = useState<ProjectItem[]>(PROJECT_SAMPLES);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (filterParam) {
@@ -172,14 +172,6 @@ const Gallery = () => {
     () => (cat === "All" ? gallery : gallery.filter(g => g.cat.toLowerCase().includes(cat.toLowerCase()))),
     [cat, gallery]
   );
-
-  if (loading) {
-    return (
-      <div className="min-h-[50vh] flex items-center justify-center bg-background">
-        <Loader2 className="w-10 h-10 animate-spin text-accent" />
-      </div>
-    );
-  }
 
   return (
     <>

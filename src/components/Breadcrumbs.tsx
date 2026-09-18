@@ -21,7 +21,7 @@ const Breadcrumbs = ({ items }: Props) => {
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
           return (
-            <div key={item.url} className="flex items-center gap-1.5">
+            <div key={item.url || index} className="flex items-center gap-1.5">
               <ChevronRight size={12} className="text-white/20" />
               {isLast ? (
                 <span className="text-white font-medium truncate max-w-[200px] sm:max-w-none">{item.name}</span>

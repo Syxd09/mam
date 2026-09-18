@@ -36,9 +36,19 @@ const getServiceLandingUrl = (slug: string, title: string) => {
   return `/contact?service=${encodeURIComponent(title)}`;
 };
 
+const initialServices = SERVICES.map((s, i) => ({
+  id: i,
+  slug: s.slug,
+  title: s.title,
+  description: s.description,
+  image_url: s.image,
+  benefits: s.benefits,
+  industries: s.industries
+}));
+
 const Services = () => {
-  const [services, setServices] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [services, setServices] = useState<any[]>(initialServices);
+  const [loading, setLoading] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
