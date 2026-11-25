@@ -8,30 +8,29 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
 import SiteLayout from "@/components/layout/SiteLayout";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
-import Home from "./pages/Home";
 
-// Loading component
+// Public & SEO Pages (Synchronous to match SSG prerender tree & prevent hydration mismatch)
+import Home from "./pages/Home";
+import Services from "./pages/Services";
+import Gallery from "./pages/Gallery";
+import Contact from "./pages/Contact";
+import LaserCuttingBangalore from "./pages/seo/LaserCuttingBangalore";
+import CncBendingBangalore from "./pages/seo/CncBendingBangalore";
+import SheetMetalFabricationBangalore from "./pages/seo/SheetMetalFabricationBangalore";
+import PowderCoatingBangalore from "./pages/seo/PowderCoatingBangalore";
+import LaserMarkingBangalore from "./pages/seo/LaserMarkingBangalore";
+import WeldingServicesBangalore from "./pages/seo/WeldingServicesBangalore";
+import CustomMetalFabricationBangalore from "./pages/seo/CustomMetalFabricationBangalore";
+
+// Loading component for lazy-loaded Admin / Auth routes
 const PageLoader = () => (
   <div className="flex items-center justify-center min-h-[50vh] w-full pt-[120px]">
     <Loader2 className="w-10 h-10 animate-spin text-accent" />
   </div>
 );
 
-// Public Pages (Lazy Loaded)
-const Services = lazy(() => import("./pages/Services"));
-const Gallery = lazy(() => import("./pages/Gallery"));
-const Contact = lazy(() => import("./pages/Contact"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
-
-// B2B SEO Landing Pages (Lazy Loaded)
-const LaserCuttingBangalore = lazy(() => import("./pages/seo/LaserCuttingBangalore"));
-const CncBendingBangalore = lazy(() => import("./pages/seo/CncBendingBangalore"));
-const SheetMetalFabricationBangalore = lazy(() => import("./pages/seo/SheetMetalFabricationBangalore"));
-const PowderCoatingBangalore = lazy(() => import("./pages/seo/PowderCoatingBangalore"));
-const LaserMarkingBangalore = lazy(() => import("./pages/seo/LaserMarkingBangalore"));
-const WeldingServicesBangalore = lazy(() => import("./pages/seo/WeldingServicesBangalore"));
-const CustomMetalFabricationBangalore = lazy(() => import("./pages/seo/CustomMetalFabricationBangalore"));
 
 // Protected Admin Pages (Lazy Loaded)
 const AdminLayout = lazy(() => import("./pages/admin/AdminLayout"));
@@ -61,49 +60,66 @@ const App = () => (
       <Sonner />
       <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <ScrollToTop />
-        <Suspense fallback={<PageLoader />}>
-          <Routes>
-            {/* Public Website Routes */}
-            <Route element={<SiteLayout />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/gallery" element={<Gallery />} />
-              <Route path="/contact" element={<Contact />} />
-              
-              {/* B2B SEO Landing Pages */}
-              <Route path="/laser-cutting-bangalore" element={<LaserCuttingBangalore />} />
-              <Route path="/cnc-bending-bangalore" element={<CncBendingBangalore />} />
-              <Route path="/sheet-metal-fabrication-bangalore" element={<SheetMetalFabricationBangalore />} />
-              <Route path="/powder-coating-bangalore" element={<PowderCoatingBangalore />} />
-              <Route path="/laser-marking-bangalore" element={<LaserMarkingBangalore />} />
-              <Route path="/welding-services-bangalore" element={<WeldingServicesBangalore />} />
-              <Route path="/custom-metal-fabrication-bangalore" element={<CustomMetalFabricationBangalore />} />
+        <Routes>
+          {/* Public Website Routes */}
+          <Route element={<SiteLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/contact" element={<Contact />} />
+
+            {/* B2B SEO Landing Pages */}
+            <Route path="/laser-cutting-bangalore" element={<LaserCuttingBangalore />} />
+            <Route path="/cnc-bending-bangalore" element={<CncBendingBangalore />} />
+            <Route path="/sheet-metal-fabrication-bangalore" element={<SheetMetalFabricationBangalore />} />
+            <Route path="/powder-coating-bangalore" element={<PowderCoatingBangalore />} />
+            <Route path="/laser-marking-bangalore" element={<LaserMarkingBangalore />} />
+            <Route path="/welding-services-bangalore" element={<WeldingServicesBangalore />} />
+            <Route path="/custom-metal-fabrication-bangalore" element={<CustomMetalFabricationBangalore />} />
+          </Route>
+
+          {/* Auth Route */}
+          <Route
+            path="/login"
+            element={
+              <Suspense fallback={<PageLoader />}>
+                <LoginPage />
+              </Suspense>
+            }
+          />
+
+          {/* Protected Admin Routes */}
+          <Route path="/admin" element={<ProtectedRoute />}>
+            <Route
+              element={
+                <Suspense fallback={<PageLoader />}>
+                  <AdminLayout />
+                </Suspense>
+              }
+            >
+              <Route index element={<Dashboard />} />
+              <Route path="gallery" element={<GalleryManager />} />
+              <Route path="clients" element={<ClientManager />} />
+              <Route path="reviews" element={<ReviewManager />} />
+              <Route path="services" element={<ServiceManager />} />
+              <Route path="enquiries" element={<EnquiryManager />} />
+              <Route path="config" element={<ConfigManager />} />
+              <Route path="capabilities" element={<CapabilityManager />} />
             </Route>
+          </Route>
 
-            {/* Auth Route */}
-            <Route path="/login" element={<LoginPage />} />
-
-            {/* Protected Admin Routes */}
-            <Route path="/admin" element={<ProtectedRoute />}>
-              <Route element={<AdminLayout />}>
-                <Route index element={<Dashboard />} />
-                <Route path="gallery" element={<GalleryManager />} />
-                <Route path="clients" element={<ClientManager />} />
-                <Route path="reviews" element={<ReviewManager />} />
-                <Route path="services" element={<ServiceManager />} />
-                <Route path="enquiries" element={<EnquiryManager />} />
-                <Route path="config" element={<ConfigManager />} />
-                <Route path="capabilities" element={<CapabilityManager />} />
-              </Route>
-            </Route>
-
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
+          <Route
+            path="*"
+            element={
+              <Suspense fallback={<PageLoader />}>
+                <NotFound />
+              </Suspense>
+            }
+          />
+        </Routes>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
 );
 
 export default App;
-

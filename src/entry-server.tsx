@@ -4,7 +4,10 @@ import { StaticRouter } from "react-router-dom/server";
 import { Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import ScrollToTop from "@/components/ScrollToTop";
 import SiteLayout from "@/components/layout/SiteLayout";
 
 // Direct component imports for synchronous SSR/SSG rendering
@@ -31,7 +34,7 @@ export interface RenderResult {
 }
 
 export function render(url: string): RenderResult {
-  const helmetContext: any = {};
+  const helmetContext: Record<string, unknown> = {};
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -44,8 +47,11 @@ export function render(url: string): RenderResult {
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
+          <Toaster />
+          <Sonner />
           <HelmetProvider context={helmetContext}>
             <StaticRouter location={url}>
+              <ScrollToTop />
               <Routes>
                 <Route element={<SiteLayout />}>
                   <Route path="/" element={<Home />} />
@@ -68,7 +74,14 @@ export function render(url: string): RenderResult {
     </React.StrictMode>
   );
 
-  const { helmet } = helmetContext;
+  const { helmet } = helmetContext as {
+    helmet?: {
+      title?: { toString(): string };
+      meta?: { toString(): string };
+      link?: { toString(): string };
+      script?: { toString(): string };
+    };
+  };
 
   return {
     html,
