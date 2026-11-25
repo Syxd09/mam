@@ -92,32 +92,34 @@ const Contact = () => {
         console.error("Database error:", dbError);
       }
 
-      // 1.5 Sync to CRM Backend
-      const crmApiUrl = (import.meta.env.VITE_CRM_API_URL || "http://localhost:5001") + "/api/integration/website-enquiry";
-      const crmApiKey = import.meta.env.VITE_CRM_API_KEY || "mam_secure_sync_secret_123";
-      
-      fetch(crmApiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": crmApiKey
-        },
-        body: JSON.stringify({
-          name: parsed.data.name,
-          company: parsed.data.company || "Direct Web Inquiry",
-          email: parsed.data.email,
-          phone: parsed.data.phone,
-          city: "Bengaluru",
-          service: parsed.data.service,
-          message: parsed.data.message
-        })
-      }).catch(err => {
-        console.error("CRM Sync failed in background:", err);
-      });
+      // 1.5 Sync to CRM Backend (only when explicitly configured)
+      const crmBaseUrl = import.meta.env.VITE_CRM_API_URL;
+      const crmApiKey = import.meta.env.VITE_CRM_API_KEY;
+      if (crmBaseUrl) {
+        const headers: Record<string, string> = { "Content-Type": "application/json" };
+        if (crmApiKey) {
+          headers["x-api-key"] = crmApiKey;
+        }
+        fetch(`${crmBaseUrl.replace(/\/$/, "")}/api/integration/website-enquiry`, {
+          method: "POST",
+          headers,
+          body: JSON.stringify({
+            name: parsed.data.name,
+            company: parsed.data.company || "Direct Web Inquiry",
+            email: parsed.data.email,
+            phone: parsed.data.phone,
+            city: "Bengaluru",
+            service: parsed.data.service,
+            message: parsed.data.message
+          })
+        }).catch(err => {
+          console.error("CRM Sync failed in background:", err);
+        });
+      }
 
       // 2. Send via Web3Forms
       const formData = new FormData(formElement);
-      formData.append("access_key", "5e6757af-ab7d-4b52-8b5d-8608896bbdde");
+      formData.append("access_key", import.meta.env.VITE_WEB3FORMS_KEY || SITE.formAccessKey);
       formData.append("subject", `New Quote Request: ${data.service} from ${data.name}`);
       formData.append("from_name", "MAM Industries Website");
       
@@ -401,8 +403,8 @@ const Contact = () => {
                 </div>
                 <div>
                   <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-0.5">Phone & WhatsApp</div>
-                  <a href="tel:+917892303386" className="text-sm font-bold text-primary hover:text-accent transition-colors block">
-                    +91 78923 03386 / +91 98450 63230
+                  <a href={SITE.phoneHref} className="text-sm font-bold text-primary hover:text-accent transition-colors block">
+                    {SITE.phone}
                   </a>
                 </div>
               </div>
@@ -413,8 +415,8 @@ const Contact = () => {
                 </div>
                 <div>
                   <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-0.5">Official Email</div>
-                  <a href="mailto:info@mamindustries.in" className="text-sm font-bold text-primary hover:text-accent transition-colors block">
-                    info@mamindustries.in
+                  <a href={`mailto:${SITE.email}`} className="text-sm font-bold text-primary hover:text-accent transition-colors block">
+                    {SITE.email}
                   </a>
                 </div>
               </div>
@@ -425,7 +427,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-0.5">Shop Working Hours</div>
-                  <div className="text-sm font-medium text-muted-foreground">Monday – Saturday: 9:00 AM – 7:30 PM</div>
+                  <div className="text-sm font-medium text-muted-foreground">{SITE.hours}</div>
                 </div>
               </div>
             </div>

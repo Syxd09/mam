@@ -2,10 +2,19 @@ import { useEffect, useState } from "react";
 import { Quote, Star, ArrowRight, X, Loader2, MessageSquare } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/lib/supabase";
+import { TESTIMONIALS } from "@/lib/site";
 import { toast } from "sonner";
 
+const DEFAULT_REVIEWS = TESTIMONIALS.map((t, i) => ({
+  id: `static-${i}`,
+  customer_name: t.name,
+  company_name: t.role,
+  content: t.quote,
+  rating: 5,
+}));
+
 const Testimonials = () => {
-  const [reviews, setReviews] = useState<any[]>([]);
+  const [reviews, setReviews] = useState<any[]>(DEFAULT_REVIEWS);
 
   const fetchReviews = async () => {
     const { data } = await supabase
@@ -14,7 +23,7 @@ const Testimonials = () => {
       .eq("is_approved", true)
       .order("created_at", { ascending: false });
     
-    if (data) {
+    if (data && data.length > 0) {
       setReviews(data);
     }
   };
@@ -38,13 +47,13 @@ const Testimonials = () => {
           company_name: newReview.company,
           content: newReview.content,
           rating: newReview.rating,
-          is_approved: true // Set to true for instant reflection
+          is_approved: false
         }
       ]);
 
       if (error) throw error;
 
-      toast.success("Review submitted! Thank you for your feedback.");
+      toast.success("Review submitted! It will appear once approved by our team.");
       setIsFormOpen(false);
       setNewReview({ name: "", company: "", content: "", rating: 5 });
       fetchReviews();

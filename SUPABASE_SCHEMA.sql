@@ -15,8 +15,8 @@ INSERT INTO site_config (key, value) VALUES
 ('hero_title', 'Precision Metal Fabrication, Laser Cutting & CNC Bending'),
 ('hero_subtitle', 'Heavy-duty industrial fabrication solutions for Bengaluru''s leading manufacturers.'),
 ('business_hours', 'Mon – Sat · 9:00 AM – 8:00 PM'),
-('contact_email', 'syxdmatheen.9@gmail.com'),
-('contact_phone', '+91 76193 65978'),
+('contact_email', 'mamindustries19@gmail.com'),
+('contact_phone', '+91 7892303386'),
 ('contact_address', '7th Mile, No. 113, Kanakapura Main Rd, Bengaluru, Karnataka 560062');
 
 -- 2. SERVICES
@@ -78,8 +78,8 @@ CREATE POLICY "Allow public read-only access to site_config" ON site_config FOR 
 CREATE POLICY "Allow public read-only access to services" ON services FOR SELECT USING (is_active = true);
 CREATE POLICY "Allow public read-only access to gallery" ON gallery FOR SELECT USING (true);
 CREATE POLICY "Allow public read-only access to clients" ON clients FOR SELECT USING (is_visible = true);
-CREATE POLICY "Allow public read-only access to reviews" ON reviews FOR SELECT USING (true);
-CREATE POLICY "Allow public insert access to reviews" ON reviews FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow public read-only access to reviews" ON reviews FOR SELECT USING (is_approved = true);
+CREATE POLICY "Allow public insert access to reviews" ON reviews FOR INSERT WITH CHECK (COALESCE(is_approved, false) = false);
 
 -- ADMIN AUTH POLICIES (Requires authentication)
 -- Site Config
@@ -131,18 +131,8 @@ CREATE POLICY "Admin Update for Services" ON storage.objects FOR UPDATE USING (b
 CREATE POLICY "Admin Delete for Services" ON storage.objects FOR DELETE USING (bucket_id = 'service-images' AND auth.role() = 'authenticated');
 
 -- 7. SEED ADMIN USER
--- Run this SQL to create the initial admin user.
--- Email: syxdmatheen.9@gmail.com
--- Password: #7619365978.Mh
-
-INSERT INTO auth.users (instance_id, id, aud, role, email, encrypted_password, email_confirmed_at, recovery_sent_at, last_sign_in_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at, confirmation_token, email_change, email_change_token_new, recovery_token)
-SELECT '00000000-0000-0000-0000-000000000000', gen_random_uuid(), 'authenticated', 'authenticated', 'syxdmatheen.9@gmail.com', extensions.crypt('#7619365978.Mh', extensions.gen_salt('bf')), now(), now(), now(), '{"provider": "email", "providers": ["email"]}', '{}', now(), now(), '', '', '', ''
-WHERE NOT EXISTS (SELECT 1 FROM auth.users WHERE email = 'syxdmatheen.9@gmail.com');
-
-INSERT INTO auth.identities (id, user_id, identity_data, provider, provider_id, last_sign_in_at, created_at, updated_at)
-SELECT gen_random_uuid(), id, format('{"sub":"%s","email":"%s"}', id, email)::jsonb, 'email', id::text, now(), now(), now()
-FROM auth.users WHERE email = 'syxdmatheen.9@gmail.com'
-ON CONFLICT DO NOTHING;
+-- Create the initial admin user via the Supabase Dashboard (Authentication -> Users -> Add user)
+-- or via the Supabase CLI / Management API. Do NOT commit plaintext passwords to source control.
 -- 8. ENQUIRIES (Lead Tracking)
 CREATE TABLE enquiries (
   id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,

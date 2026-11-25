@@ -116,12 +116,7 @@ export const getWebSiteSchema = () => ({
   "@type": "WebSite",
   "@id": "https://www.mamindustries.in/#website",
   "url": "https://www.mamindustries.in",
-  "name": SITE.name,
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": "https://www.mamindustries.in/search?q={search_term_string}",
-    "query-input": "required name=search_term_string"
-  }
+  "name": SITE.name
 });
 
 export const getFAQPageSchema = (faqs: { q: string; a: string }[]) => ({

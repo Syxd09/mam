@@ -8,9 +8,19 @@ import Capabilities from "@/components/home/Capabilities";
 import Process from "@/components/home/Process";
 import GalleryPreview from "@/components/home/GalleryPreview";
 import Testimonials from "@/components/home/Testimonials";
-import FAQ from "@/components/home/FAQ";
+import FAQ, { FAQS } from "@/components/home/FAQ";
 import ContactCTA from "@/components/home/ContactCTA";
-import { getLocalBusinessSchema } from "@/lib/seo";
+import { getFAQPageSchema, getLocalBusinessSchema, getOrganizationSchema, getWebSiteSchema } from "@/lib/seo";
+
+const homeJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    getLocalBusinessSchema(),
+    getOrganizationSchema(),
+    getWebSiteSchema(),
+    getFAQPageSchema(FAQS),
+  ],
+};
 
 const Home = () => (
   <>
@@ -19,7 +29,7 @@ const Home = () => (
       description="MAM Industries provides CNC laser cutting, CNC bending, sheet metal fabrication and custom metal fabrication services in Bangalore for prototypes and production parts."
       keywords="laser cutting bangalore, cnc bending bangalore, metal fabrication bangalore, sheet metal fabrication bangalore, custom metal fabrication bangalore, stainless steel fabrication bangalore"
       path="/"
-      jsonLd={getLocalBusinessSchema()}
+      jsonLd={homeJsonLd}
     />
     <Hero />
     <TrustedBy />

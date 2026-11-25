@@ -2,7 +2,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { motion } from "framer-motion";
 import { HelpCircle } from "lucide-react";
 
-const FAQS = [
+export const FAQS = [
   {
     q: "What is the typical turnaround for a fabrication job?",
     a: "Prototypes are usually delivered in 3–7 working days. Batch and production runs depend on volume and finishing requirements — most jobs ship within 2–3 weeks of drawing approval.",
