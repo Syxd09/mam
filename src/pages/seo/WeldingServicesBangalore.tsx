@@ -4,7 +4,7 @@ import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ContactCTA from "@/components/home/ContactCTA";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { getBreadcrumbSchema, getServiceSchema, getFAQPageSchema } from "@/lib/seo";
+import { getBreadcrumbSchema, getServiceSchema, getFAQPageSchema, getWebPageSchema } from "@/lib/seo";
 
 const FAQS = [
   {
@@ -23,22 +23,28 @@ const FAQS = [
     q: "How can I request a quote for custom welding services?",
     a: "Simply send your CAD drawings, 2D drawings, or project specifications via our online quote form or WhatsApp. Our engineering team reviews part geometries and provides detailed quotations.",
   },
+  {
+    q: "Do you supply welded assemblies across Karnataka and pan-India?",
+    a: "Yes. We fabricate and weld structural frames, stainless assemblies, and enclosures in Bengaluru for delivery across Karnataka and pan-India.",
+  },
 ];
 
 const WeldingServicesBangalore = () => {
   const pageUrl = "/welding-services-bangalore";
-  const pageTitle = "Welding Services Bangalore | Metal Welding & Fabrication | MAM Industries";
-  const pageDesc = "Metal welding and fabrication services in Bangalore for custom sheet-metal components and assemblies. Combine welding with laser cutting and CNC bending.";
-  const pageKeywords = "welding services bangalore, mig welding bangalore, tig welding bangalore, laser welding bangalore, metal fabrication bangalore";
+  const pageTitle = "Welding Services Bangalore | MIG, TIG & Laser Welding Karnataka & India | MAM Industries";
+  const pageDesc = "Industrial MIG, CO2, TIG, spot & fiber laser welding services in Bangalore for mild steel, stainless steel & aluminium assemblies. Serving Bengaluru, Karnataka & pan-India.";
+  const pageKeywords = "welding services bangalore, mig welding bangalore, tig welding bangalore, laser welding bangalore, metal welding karnataka, structural fabrication india";
 
   const jsonLd = {
+    "@context": "https://schema.org",
     "@graph": [
+      getWebPageSchema(pageTitle, pageDesc, pageUrl),
       getBreadcrumbSchema([
         { name: "Home", url: "/" },
         { name: "Services", url: "/services" },
         { name: "Welding Services Bangalore", url: pageUrl },
       ]),
-      getServiceSchema("Welding & Fabrication Services in Bangalore", "Precision industrial MIG, CO2, TIG, and handheld laser welding services for metal structural assemblies in Bangalore."),
+      getServiceSchema("Welding & Metal Joining Services", pageDesc, pageUrl),
       getFAQPageSchema(FAQS),
     ],
   };

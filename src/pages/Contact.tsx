@@ -7,7 +7,7 @@ import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { SITE, SERVICES } from "@/lib/site";
 import { toast } from "@/hooks/use-toast";
-import { getBreadcrumbSchema } from "@/lib/seo";
+import { getBreadcrumbSchema, getWebPageSchema } from "@/lib/seo";
 import { supabase } from "@/lib/supabase";
 
 const schema = z.object({
@@ -161,20 +161,27 @@ const Contact = () => {
     }
 
     const message = `Hello MAM Industries, I'm ${data.name} ${data.company ? `from ${data.company}` : ''}.%0A%0A*Project Quotation Request:*%0A- *Service:* ${data.service || 'General Enquiry'}%0A- *Material:* ${data.material || 'N/A'}%0A- *Thickness:* ${data.thickness || 'N/A'}%0A- *Quantity:* ${data.quantity || 'N/A'}%0A- *Phone:* ${data.phone}%0A- *Email:* ${data.email}%0A- *Details:* ${data.message || 'N/A'}`;
-    window.open(`${SITE.whatsapp}?text=${message}`, "_blank");
+    window.open(`${SITE.whatsapp}?text=${encodeURIComponent(decodeURIComponent(message))}`, "_blank", "noopener,noreferrer");
   };
 
   return (
     <>
       <SEO
-        title="Contact MAM Industries | Laser Cutting & Metal Fabrication Bangalore"
-        description="Contact MAM Industries in Bangalore for CNC laser cutting, CNC bending, sheet metal fabrication and custom metal fabrication. Send your drawing for a quote."
-        keywords="contact mam industries, laser cutting bangalore contact, metal fabrication quotation bengaluru, sheet metal job work price bangalore, cnc bending factory address"
+        title="Contact MAM Industries | Metal Cutting, Laser Cutting & Fabrication Quote Bangalore & India"
+        description="Request a 24-hour quote from MAM Industries in Bengaluru for CNC laser metal cutting, CNC bending, laser marking, welding & custom metal fabrication. Serving Bangalore, Karnataka & pan-India."
+        keywords="contact mam industries, metal cutting quote bangalore, laser cutting bangalore contact, cnc bending quotation karnataka, sheet metal fabrication quote india"
         path="/contact"
-        jsonLd={getBreadcrumbSchema([
-          { name: "Home", url: "/" },
-          { name: "Contact", url: "/contact" }
-        ])}
+        jsonLd={[
+          getWebPageSchema(
+            "Contact MAM Industries | Request Metal Fabrication Quote",
+            "Send CAD drawings (.DXF, .DWG, .STEP, PDF) for 24-hour metal cutting, bending, marking, and fabrication quotes.",
+            "/contact"
+          ),
+          getBreadcrumbSchema([
+            { name: "Home", url: "/" },
+            { name: "Contact", url: "/contact" }
+          ])
+        ]}
       />
 
       <section className="bg-primary text-primary-foreground relative overflow-hidden">

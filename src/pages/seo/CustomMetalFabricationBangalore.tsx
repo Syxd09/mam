@@ -4,7 +4,7 @@ import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ContactCTA from "@/components/home/ContactCTA";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { getBreadcrumbSchema, getServiceSchema, getFAQPageSchema } from "@/lib/seo";
+import { getBreadcrumbSchema, getServiceSchema, getFAQPageSchema, getWebPageSchema } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 
 const FAQS = [
@@ -23,23 +23,29 @@ const FAQS = [
   {
     q: "How do I request a custom metal fabrication quote?",
     a: "Submit your technical drawing or component details via our website contact form or email. We review design feasibility and send an itemized quotation within 24 hours."
+  },
+  {
+    q: "Do you supply custom fabricated metal assemblies across Karnataka and India?",
+    a: "Yes. MAM Industries supplies custom fabricated assemblies, frames, shutters, gates, and OEM components across Bengaluru, Karnataka, and pan-India."
   }
 ];
 
 const CustomMetalFabricationBangalore = () => {
   const pageUrl = "/custom-metal-fabrication-bangalore";
-  const pageTitle = "Metal Fabrication Bangalore | Custom Sheet Metal Fabrication | MAM Industries";
-  const pageDesc = "Custom metal fabrication in Bangalore including laser cutting, CNC bending, welding and finishing for industrial components, prototypes and production parts.";
-  const pageKeywords = "metal fabrication bangalore, custom sheet metal fabrication bengaluru, custom metal components, ms ss fabrication bangalore, industrial sheet metal fabrication";
+  const pageTitle = "Custom Metal Fabrication Bangalore | Metal Fabrication Works Karnataka & India | MAM Industries";
+  const pageDesc = "End-to-end custom metal fabrication in Bangalore: CNC laser cutting, CNC bending, welding, laser marking & powder coating for prototypes and OEM production across Karnataka & India.";
+  const pageKeywords = "metal fabrication bangalore, custom metal fabrication karnataka, metal fabrication works india, custom sheet metal fabrication bengaluru, ms ss fabrication bangalore";
 
   const jsonLd = {
+    "@context": "https://schema.org",
     "@graph": [
+      getWebPageSchema(pageTitle, pageDesc, pageUrl),
       getBreadcrumbSchema([
         { name: "Home", url: "/" },
         { name: "Services", url: "/services" },
         { name: "Custom Metal Fabrication Bangalore", url: pageUrl },
       ]),
-      getServiceSchema("Custom Metal Fabrication Services", "Custom metal fabrication in Bangalore including laser cutting, CNC bending, welding and finishing."),
+      getServiceSchema("Custom Metal Fabrication Services", pageDesc, pageUrl),
       getFAQPageSchema(FAQS),
     ],
   };

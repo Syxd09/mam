@@ -1,36 +1,14 @@
-import { useEffect, useState } from "react";
-import { Quote, Star, ArrowRight, X, Loader2, MessageSquare } from "lucide-react";
+import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { Quote, Star, X, Loader2, MessageSquare } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/lib/supabase";
-import { TESTIMONIALS } from "@/lib/site";
+import { useReviews } from "@/lib/queries";
 import { toast } from "sonner";
 
-const DEFAULT_REVIEWS = TESTIMONIALS.map((t, i) => ({
-  id: `static-${i}`,
-  customer_name: t.name,
-  company_name: t.role,
-  content: t.quote,
-  rating: 5,
-}));
-
 const Testimonials = () => {
-  const [reviews, setReviews] = useState<any[]>(DEFAULT_REVIEWS);
-
-  const fetchReviews = async () => {
-    const { data } = await supabase
-      .from("reviews")
-      .select("*")
-      .eq("is_approved", true)
-      .order("created_at", { ascending: false });
-    
-    if (data && data.length > 0) {
-      setReviews(data);
-    }
-  };
-
-  useEffect(() => {
-    fetchReviews();
-  }, []);
+  const queryClient = useQueryClient();
+  const { data: reviews = [] } = useReviews();
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [selectedReview, setSelectedReview] = useState<any | null>(null);
@@ -41,12 +19,32 @@ const Testimonials = () => {
     e.preventDefault();
     setSubmitting(true);
     try {
+      const trimmedName = newReview.name.trim();
+      const trimmedCompany = newReview.company.trim();
+      const trimmedContent = newReview.content.trim();
+      if (trimmedName.length < 2 || trimmedName.length > 80) {
+        toast.error("Name must be between 2 and 80 characters.");
+        setSubmitting(false);
+        return;
+      }
+      if (trimmedCompany.length < 2 || trimmedCompany.length > 100) {
+        toast.error("Organization must be between 2 and 100 characters.");
+        setSubmitting(false);
+        return;
+      }
+      if (trimmedContent.length < 10 || trimmedContent.length > 1000) {
+        toast.error("Review must be between 10 and 1000 characters.");
+        setSubmitting(false);
+        return;
+      }
+      const safeRating = Math.min(5, Math.max(1, Math.round(Number(newReview.rating) || 5)));
+
       const { error } = await supabase.from("reviews").insert([
         {
-          customer_name: newReview.name,
-          company_name: newReview.company,
-          content: newReview.content,
-          rating: newReview.rating,
+          customer_name: trimmedName,
+          company_name: trimmedCompany,
+          content: trimmedContent,
+          rating: safeRating,
           is_approved: false
         }
       ]);
@@ -56,7 +54,7 @@ const Testimonials = () => {
       toast.success("Review submitted! It will appear once approved by our team.");
       setIsFormOpen(false);
       setNewReview({ name: "", company: "", content: "", rating: 5 });
-      fetchReviews();
+      queryClient.invalidateQueries({ queryKey: ["reviews"] });
     } catch (error) {
       toast.error("Failed to submit review");
     } finally {

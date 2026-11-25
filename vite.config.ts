@@ -18,4 +18,16 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "react-vendor": ["react", "react-dom", "react-router-dom"],
+          "motion-vendor": ["framer-motion"],
+          "supabase-vendor": ["@supabase/supabase-js", "@tanstack/react-query"],
+          "ui-vendor": ["lucide-react", "@radix-ui/react-accordion", "@radix-ui/react-dialog", "@radix-ui/react-tooltip"],
+        },
+      },
+    },
+  },
 }));

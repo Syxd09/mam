@@ -4,7 +4,7 @@ import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ContactCTA from "@/components/home/ContactCTA";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { getBreadcrumbSchema, getServiceSchema, getFAQPageSchema } from "@/lib/seo";
+import { getBreadcrumbSchema, getServiceSchema, getFAQPageSchema, getWebPageSchema } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 
 const FAQS = [
@@ -23,23 +23,29 @@ const FAQS = [
   {
     q: "How do I request a CNC bending quote?",
     a: "Send your 2D/3D CAD drawing (.STEP, .DXF, .DWG, PDF) to MAM Industries via our contact page or email. We send an itemized quote within 24 hours."
+  },
+  {
+    q: "Do you provide CNC metal bending services for Karnataka and national OEMs?",
+    a: "Yes. We serve Bengaluru, Mysuru, Tumakuru, Hubballi, Hosur, and ship CNC-bent sheet metal brackets, enclosures, and panels across India."
   }
 ];
 
 const CncBendingBangalore = () => {
   const pageUrl = "/cnc-bending-bangalore";
-  const pageTitle = "CNC Bending Bangalore | Precision Sheet Metal Bending | MAM Industries";
-  const pageDesc = "CNC press brake and sheet metal bending services in Bangalore for MS, stainless steel and aluminium components. Custom bending from customer drawings.";
-  const pageKeywords = "cnc bending bangalore, precision sheet metal bending, press brake bending bangalore, custom sheet metal forming bengaluru, ms ss bending bangalore";
+  const pageTitle = "CNC Bending & Metal Bending Bangalore | 250T Press Brake Karnataka & India | MAM Industries";
+  const pageDesc = "250-ton CNC press brake metal bending services in Bangalore (2500mm bed, ±0.05° accuracy) for MS, stainless steel & aluminium. Serving Bengaluru, Karnataka & pan-India.";
+  const pageKeywords = "cnc bending bangalore, metal bending bangalore, precision sheet metal bending karnataka, press brake bending bangalore, custom sheet metal forming india, ms ss bending bengaluru";
 
   const jsonLd = {
+    "@context": "https://schema.org",
     "@graph": [
+      getWebPageSchema(pageTitle, pageDesc, pageUrl),
       getBreadcrumbSchema([
         { name: "Home", url: "/" },
         { name: "Services", url: "/services" },
         { name: "CNC Bending Bangalore", url: pageUrl },
       ]),
-      getServiceSchema("CNC Bending Services", "CNC press brake and sheet metal bending services in Bangalore for MS, stainless steel and aluminium components."),
+      getServiceSchema("CNC Press Brake & Metal Bending Services", pageDesc, pageUrl),
       getFAQPageSchema(FAQS),
     ],
   };

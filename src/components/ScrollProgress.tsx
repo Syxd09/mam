@@ -3,15 +3,24 @@ import { useEffect, useState } from "react";
 const ScrollProgress = () => {
   const [progress, setProgress] = useState(0);
   useEffect(() => {
-    const onScroll = () => {
+    let rafId = 0;
+    const update = () => {
+      rafId = 0;
       const h = document.documentElement;
-      const scrolled = h.scrollTop;
       const height = h.scrollHeight - h.clientHeight;
-      setProgress(height > 0 ? (scrolled / height) * 100 : 0);
+      setProgress(height > 0 ? (h.scrollTop / height) * 100 : 0);
     };
-    onScroll();
+    const onScroll = () => {
+      if (!rafId) {
+        rafId = window.requestAnimationFrame(update);
+      }
+    };
+    update();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (rafId) window.cancelAnimationFrame(rafId);
+    };
   }, []);
   return (
     <div className="fixed top-0 inset-x-0 z-[60] h-[2px] bg-transparent pointer-events-none">

@@ -1,27 +1,20 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GG3VMWX9EV"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-GG3VMWX9EV');
-    </script>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-5D395ZGG');</script>
-    <!-- End Google Tag Manager -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0F172A" />
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=1400&q=70&fm=webp" media="(min-width: 768px)" />
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=600&q=50&fm=webp" media="(max-width: 767px)" />
+
+    <!-- Preconnects for critical origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    <link rel="preconnect" href="https://wdmphbzppytabhqgegzn.supabase.co" crossorigin />
+
+    <!-- LCP Hero Image Preload with high fetchpriority -->
+    <link rel="preload" as="image" fetchpriority="high" href="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=1400&q=70&fm=webp" media="(min-width: 768px)" />
+    <link rel="preload" as="image" fetchpriority="high" href="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=600&q=50&fm=webp" media="(max-width: 767px)" />
+
     <link rel="shortcut icon" href="/favicon.ico?v=3" type="image/x-icon" />
     <link rel="icon" href="/favicon-48x48.png?v=3" type="image/png" sizes="48x48" />
     <link rel="icon" href="/favicon-32x32.png?v=3" type="image/png" sizes="32x32" />
@@ -41,9 +34,16 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://www.mamindustries.in/og-image.jpg" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Non-render-blocking Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    </noscript>
 
     <script type="application/ld+json">
       {
@@ -65,7 +65,7 @@
           "postalCode": "560062",
           "addressCountry": "IN"
         },
-        "areaServed": "Bengaluru, Karnataka",
+        "areaServed": "Bengaluru, Karnataka, India",
         "aggregateRating": {
           "@type": "AggregateRating",
           "ratingValue": "5.0",
@@ -73,13 +73,33 @@
         }
       }
     </script>
+
+    <!-- Deferred Analytics (loaded after initial paint to protect FCP/LCP/TBT) -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          var g = document.createElement('script');
+          g.async = true;
+          g.src = 'https://www.googletagmanager.com/gtag/js?id=G-GG3VMWX9EV';
+          document.head.appendChild(g);
+          gtag('js', new Date());
+          gtag('config', 'G-GG3VMWX9EV');
+
+          (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-5D395ZGG');
+        }, 1200);
+      });
+    </script>
   </head>
 
   <body>
-    <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5D395ZGG"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

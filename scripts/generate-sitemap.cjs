@@ -54,8 +54,33 @@ if (fs.existsSync(DIST_DIR)) {
   console.log(`Also copied sitemap.xml to ${DIST_DIR}.`);
 }
 
-// Generate robots.txt content
+// Generate robots.txt content (explicitly welcoming search & AI/GEO crawlers)
 const robotsContent = `User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /login
+
+User-agent: GPTBot
+Allow: /
+Disallow: /admin
+Disallow: /login
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /admin
+Disallow: /login
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin
+Disallow: /login
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin
+Disallow: /login
+
+User-agent: Google-Extended
 Allow: /
 Disallow: /admin
 Disallow: /login

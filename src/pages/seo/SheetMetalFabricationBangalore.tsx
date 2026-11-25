@@ -4,7 +4,7 @@ import { CheckCircle2, FileText, Phone, ArrowRight, Layers, Cpu, ShieldCheck } f
 import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ContactCTA from "@/components/home/ContactCTA";
-import { getServiceSchema, getBreadcrumbSchema, getFAQPageSchema } from "@/lib/seo";
+import { getServiceSchema, getBreadcrumbSchema, getFAQPageSchema, getWebPageSchema } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 
 const SheetMetalFabricationBangalore = () => {
@@ -24,25 +24,36 @@ const SheetMetalFabricationBangalore = () => {
     {
       q: "Do you handle both prototypes and volume production runs?",
       a: "Yes. We manufacture rapid prototype sheet metal parts as well as high-volume production batches with strict batch-to-batch dimensional accuracy."
+    },
+    {
+      q: "Do you supply fabricated sheet metal parts across Karnataka and pan-India?",
+      a: "Yes. From our Bengaluru manufacturing unit, we deliver sheet metal enclosures, brackets, and assemblies across Bangalore, Karnataka, and nationwide across India."
     }
   ];
+
+  const pageTitle = "Sheet Metal Fabrication Bangalore | Custom Sheet Metal Parts Karnataka & India | MAM Industries";
+  const pageDesc = "Precision sheet metal fabrication in Bangalore: CNC laser cutting, 250T CNC bending, TIG/MIG welding, powder coating & laser marking for prototypes and bulk OEM production across Karnataka & India.";
 
   return (
     <>
       <SEO
-        title="Sheet Metal Fabrication Bangalore | Custom Sheet Metal Parts | MAM Industries"
-        description="Custom sheet metal fabrication in Bangalore including laser cutting, CNC bending, welding and finishing for industrial components and assemblies."
-        keywords="sheet metal fabrication bangalore, custom sheet metal parts bengaluru, precision sheet metal manufacturing, ms ss fabrication bangalore, industrial sheet metal enclosures"
+        title={pageTitle}
+        description={pageDesc}
+        keywords="sheet metal fabrication bangalore, custom sheet metal parts karnataka, precision sheet metal manufacturing india, ms ss fabrication bangalore, industrial sheet metal enclosures bengaluru"
         path="/sheet-metal-fabrication-bangalore"
-        jsonLd={[
-          getServiceSchema("Sheet Metal Fabrication Services", "Custom sheet metal fabrication in Bangalore including laser cutting, CNC bending, welding and finishing for industrial components."),
-          getBreadcrumbSchema([
-            { name: "Home", url: "/" },
-            { name: "Services", url: "/services" },
-            { name: "Sheet Metal Fabrication", url: "/sheet-metal-fabrication-bangalore" }
-          ]),
-          getFAQPageSchema(faqs)
-        ]}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@graph": [
+            getWebPageSchema(pageTitle, pageDesc, "/sheet-metal-fabrication-bangalore"),
+            getServiceSchema("Sheet Metal Fabrication Services", pageDesc, "/sheet-metal-fabrication-bangalore"),
+            getBreadcrumbSchema([
+              { name: "Home", url: "/" },
+              { name: "Services", url: "/services" },
+              { name: "Sheet Metal Fabrication", url: "/sheet-metal-fabrication-bangalore" }
+            ]),
+            getFAQPageSchema(faqs)
+          ]
+        }}
       />
 
       <Breadcrumbs items={[

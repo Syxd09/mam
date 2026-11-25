@@ -13,7 +13,7 @@ export const FAQS = [
   },
   {
     q: "Which materials and thicknesses can you cut?",
-    a: "Mild steel, stainless steel, aluminium, galvanised and copper sheets — from 0.5 mm up to 20 mm on our fibre laser cells.",
+    a: "Mild steel (0.8–16 mm), stainless steel (0.8–8 mm), aluminium (0.1–5 mm), and galvanised iron (0.8–4 mm) on our 3kW fibre laser cells with a 2m x 4m bed.",
   },
   {
     q: "Can you deliver across Karnataka and India?",
@@ -33,7 +33,7 @@ export const FAQS = [
   },
   {
     q: "What are your standard dimensional and angle tolerances?",
-    a: "For our CNC fibre laser cutting operations, we maintain standard linear tolerances of ±0.1mm. For CNC press-brake bending, we routinely achieve precision angular tolerances of ±0.5° and linear flange tolerances of ±0.2mm, matching OEM aerospace and automotive requirements.",
+    a: "For our 3kW CNC fibre laser cutting operations, we maintain linear tolerances of ±0.1 mm. For 250-ton CNC press-brake bending, we achieve angular tolerances of ±0.05° and linear flange tolerances of ±0.2 mm, matching OEM automotive and industrial requirements.",
   },
   {
     q: "Do you offer bulk contract volume discounts for long-term OEM supply?",

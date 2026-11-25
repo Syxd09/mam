@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { useMemo } from "react";
+import { useCapabilities } from "@/lib/queries";
 
 interface StatItem {
   label: string;
@@ -64,42 +64,21 @@ const DEFAULT_SECTIONS: CapabilityItem[] = [
 ];
 
 const Capabilities = () => {
-  const [sections, setSections] = useState<CapabilityItem[]>(DEFAULT_SECTIONS);
+  const { data } = useCapabilities();
 
-  useEffect(() => {
-    const fetchCapabilities = async () => {
-      try {
-        const { data, error } = await supabase
-          .from("capabilities")
-          .select("*")
-          .eq("is_visible", true)
-          .order("display_order", { ascending: true });
-
-        if (error) {
-          console.warn("Could not load capabilities from database, using static defaults:", error.message);
-          return;
-        }
-
-        if (data && data.length > 0) {
-          const formattedData = data.map((item: any) => ({
-            id: item.id,
-            eyebrow: item.eyebrow,
-            title: item.title,
-            description: item.description,
-            image_url: item.image_url,
-            stats: typeof item.stats === "string" ? JSON.parse(item.stats) : item.stats,
-            badge: item.badge,
-            is_visible: item.is_visible
-          }));
-          setSections(formattedData);
-        }
-      } catch (err) {
-        console.warn("Capabilities fetch error:", err);
-      }
-    };
-
-    fetchCapabilities();
-  }, []);
+  const sections = useMemo<CapabilityItem[]>(() => {
+    if (!data || data.length === 0) return DEFAULT_SECTIONS;
+    return data.map((item: any) => ({
+      id: item.id,
+      eyebrow: item.eyebrow,
+      title: item.title,
+      description: item.description,
+      image_url: item.image_url,
+      stats: typeof item.stats === "string" ? JSON.parse(item.stats) : item.stats,
+      badge: item.badge,
+      is_visible: item.is_visible,
+    }));
+  }, [data]);
 
   return (
     <section className="bg-background">
@@ -118,7 +97,10 @@ const Capabilities = () => {
                 <img
                   src={section.image_url}
                   alt={section.title}
+                  width={700}
+                  height={438}
                   loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover"
                 />
               </div>

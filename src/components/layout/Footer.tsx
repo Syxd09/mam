@@ -1,43 +1,27 @@
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Clock, Facebook, Instagram, Youtube, Star } from "lucide-react";
-import { NAV, SERVICES, SITE } from "@/lib/site";
-import { supabase } from "@/lib/supabase";
-import logoCombinedDark from "@/assets/mam-combined-logo-dark.png";
+import { NAV, SITE } from "@/lib/site";
+import { useSiteConfig, useServices } from "@/lib/queries";
 
 const Footer = () => {
-  const [config, setConfig] = useState<any>({
-    contact_email: SITE.email,
-    contact_phone: SITE.phone,
-    contact_address: `${SITE.address.line1}, ${SITE.address.line2}, ${SITE.address.city} – ${SITE.address.pincode}`,
-    business_hours: SITE.hours
-  });
-  const [services, setServices] = useState<any[]>([]);
+  const { data: configData } = useSiteConfig();
+  const { data: services = [] } = useServices();
 
-  useEffect(() => {
-    const fetchConfigAndServices = async () => {
-      // Fetch Config
-      const { data: configData } = await supabase.from("site_config").select("key, value");
-      if (configData) {
-        const configMap = configData.reduce((acc, curr) => ({ ...acc, [curr.key]: curr.value }), {});
-        setConfig((prev: any) => ({ ...prev, ...configMap }));
-      }
-
-      // Fetch Services
-      const { data: serviceData } = await supabase
-        .from("services")
-        .select("title, slug")
-        .eq("is_active", true)
-        .order("display_order", { ascending: true });
-      
-      if (serviceData && serviceData.length > 0) {
-        setServices(serviceData);
-      } else {
-        setServices(SERVICES.map(s => ({ title: s.title, slug: s.slug })));
-      }
+  const config = useMemo(() => {
+    const base: Record<string, string> = {
+      contact_email: SITE.email,
+      contact_phone: SITE.phone,
+      contact_address: `${SITE.address.line1}, ${SITE.address.line2}, ${SITE.address.city} – ${SITE.address.pincode}`,
+      business_hours: SITE.hours,
     };
-    fetchConfigAndServices();
-  }, []);
+    if (configData) {
+      for (const curr of configData) {
+        base[curr.key] = curr.value;
+      }
+    }
+    return base;
+  }, [configData]);
 
   return (
     <footer className="bg-blueprint text-primary-foreground relative overflow-hidden">
@@ -46,8 +30,10 @@ const Footer = () => {
         <div className="md:col-span-3">
           <div className="flex items-center mb-5">
             <img
-              src={logoCombinedDark}
+              src="/images/mam-combined-logo-dark.png"
               alt="MAM Industries"
+              width={202}
+              height={60}
               className="h-16 w-auto object-contain drop-shadow-[0_2px_8px_hsl(var(--accent)/0.25)]"
             />
           </div>
@@ -62,7 +48,7 @@ const Footer = () => {
         </div>
 
         <div className="md:col-span-2">
-          <h4 className="text-sm font-semibold uppercase tracking-wider mb-4 text-white">Company</h4>
+          <h3 className="text-sm font-semibold uppercase tracking-wider mb-4 text-white">Company</h3>
           <ul className="space-y-2.5 text-sm text-metallic">
             {NAV.map(n => (
               <li key={n.href}><Link to={n.href} className="hover:text-accent transition-colors">{n.label}</Link></li>
@@ -71,16 +57,16 @@ const Footer = () => {
         </div>
 
         <div className="md:col-span-2">
-          <h4 className="text-sm font-semibold uppercase tracking-wider mb-4 text-white">Services</h4>
+          <h3 className="text-sm font-semibold uppercase tracking-wider mb-4 text-white">Services</h3>
           <ul className="space-y-2.5 text-sm text-metallic">
-            {services.map(s => (
+            {services.map((s: any) => (
               <li key={s.slug}><Link to={`/services#${s.slug}`} className="hover:text-accent transition-colors">{s.title}</Link></li>
             ))}
           </ul>
         </div>
 
         <div className="md:col-span-2">
-          <h4 className="text-sm font-semibold uppercase tracking-wider mb-4 text-white">B2B Focus</h4>
+          <h3 className="text-sm font-semibold uppercase tracking-wider mb-4 text-white">B2B Focus</h3>
           <ul className="space-y-2.5 text-sm text-metallic">
             <li><Link to="/laser-cutting-bangalore" className="hover:text-accent transition-colors">Laser Cutting Bangalore</Link></li>
             <li><Link to="/cnc-bending-bangalore" className="hover:text-accent transition-colors">CNC Bending Bangalore</Link></li>
@@ -93,7 +79,7 @@ const Footer = () => {
         </div>
 
         <div className="md:col-span-3">
-          <h4 className="text-sm font-semibold uppercase tracking-wider mb-4 text-white">Reach Us</h4>
+          <h3 className="text-sm font-semibold uppercase tracking-wider mb-4 text-white">Reach Us</h3>
           <ul className="space-y-3 text-sm text-metallic">
             <li className="flex gap-2.5">
               <MapPin size={16} className="text-accent shrink-0 mt-0.5" />

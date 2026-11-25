@@ -5,7 +5,7 @@ import { useSearchParams, Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { supabase } from "@/lib/supabase";
-import { getBreadcrumbSchema } from "@/lib/seo";
+import { getBreadcrumbSchema, getWebPageSchema } from "@/lib/seo";
 
 type ProjectItem = {
   src: string;
@@ -176,14 +176,21 @@ const Gallery = () => {
   return (
     <>
       <SEO
-        title="Metal Fabrication Projects Bangalore | Laser Cutting & CNC Bending | MAM Industries"
-        description="View MAM Industries metal fabrication projects in Bangalore, including laser-cut components, CNC bent parts, stainless steel fabrication and custom assemblies."
-        keywords="metal fabrication projects bangalore, laser cutting portfolio bangalore, cnc bending projects bengaluru, stainless steel fabrication samples"
+        title="Metal Fabrication Projects Gallery | Laser Cutting & CNC Bending Samples | Bangalore & India"
+        description="Explore MAM Industries' metal fabrication portfolio in Bengaluru: precision laser-cut MS/SS/Al parts, CNC bent brackets, welded frames, laser-marked components, and powder-coated enclosures supplied across Karnataka & India."
+        keywords="metal fabrication projects bangalore, laser cutting portfolio karnataka, cnc bending samples india, stainless steel fabrication gallery, custom metal parts bangalore"
         path="/gallery"
-        jsonLd={getBreadcrumbSchema([
-          { name: "Home", url: "/" },
-          { name: "Projects Gallery", url: "/gallery" }
-        ])}
+        jsonLd={[
+          getWebPageSchema(
+            "Metal Fabrication Projects Gallery | MAM Industries",
+            "Portfolio of laser-cut, CNC-bent, welded, and finished metal components manufactured in Bengaluru.",
+            "/gallery"
+          ),
+          getBreadcrumbSchema([
+            { name: "Home", url: "/" },
+            { name: "Projects Gallery", url: "/gallery" }
+          ])
+        ]}
       />
 
       <section className="bg-primary text-primary-foreground relative overflow-hidden">

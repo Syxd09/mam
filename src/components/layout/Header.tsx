@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Menu, X, Phone, Mail, MapPin } from "lucide-react";
 import { NAV, SITE } from "@/lib/site";
-import logoCombinedLight from "@/assets/mam-combined-logo.png";
-import logoCombinedDark from "@/assets/mam-combined-logo-dark.png";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -43,13 +41,17 @@ const Header = () => {
         <div className="container flex items-center justify-between h-[72px]">
           <Link to="/" className="group flex items-center gap-3">
             <img
-              src={logoCombinedLight}
+              src="/images/mam-combined-logo.png"
               alt="MAM Industries"
+              width={202}
+              height={60}
               className="h-12 md:h-16 w-auto object-contain block dark:hidden drop-shadow-[0_2px_8px_hsl(var(--accent)/0.25)]"
             />
             <img
-              src={logoCombinedDark}
+              src="/images/mam-combined-logo-dark.png"
               alt="MAM Industries"
+              width={202}
+              height={60}
               className="h-12 md:h-16 w-auto object-contain hidden dark:block drop-shadow-[0_2px_8px_hsl(var(--accent)/0.25)]"
             />
           </Link>

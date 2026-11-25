@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { useClients } from "@/lib/queries";
 
 const STATIC_CLIENTS = [
   { name: "Mahindra Tier-2" },
@@ -13,22 +12,8 @@ const STATIC_CLIENTS = [
 ];
 
 const TrustedBy = () => {
-  const [clients, setClients] = useState(STATIC_CLIENTS);
-
-  useEffect(() => {
-    const fetchClients = async () => {
-      const { data } = await supabase
-        .from("clients")
-        .select("*")
-        .eq("is_visible", true)
-        .order("display_order", { ascending: true });
-      
-      if (data && data.length > 0) {
-        setClients(data);
-      }
-    };
-    fetchClients();
-  }, []);
+  const { data } = useClients();
+  const clients = data && data.length > 0 ? data : STATIC_CLIENTS;
 
   return (
     <section className="py-10 md:py-12 bg-background border-y border-border overflow-hidden">

@@ -3,4 +3,29 @@ Allow: /
 Disallow: /admin
 Disallow: /login
 
+User-agent: GPTBot
+Allow: /
+Disallow: /admin
+Disallow: /login
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /admin
+Disallow: /login
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin
+Disallow: /login
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin
+Disallow: /login
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /admin
+Disallow: /login
+
 Sitemap: https://www.mamindustries.in/sitemap.xml

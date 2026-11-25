@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, Phone, Star, ShieldCheck, Zap } from "lucide-react";
 import { SITE } from "@/lib/site";
-import { supabase } from "@/lib/supabase";
+import { useSiteConfig } from "@/lib/queries";
 import AnimatedCounter from "@/components/AnimatedCounter";
 
 const DEFAULT_STATS = [
@@ -14,79 +14,61 @@ const DEFAULT_STATS = [
 ];
 
 const Hero = () => {
-  const [heroContent, setHeroContent] = useState({
-    title: "Precision Metal Fabrication, Laser Cutting & CNC Bending",
-    subtitle: "MAM Industries delivers laser cutting, CNC bending, multi-process welding, fabrication and finishing under one roof — built for OEMs, architects, contractors and factories that demand tolerance and turnaround."
-  });
-  const [stats, setStats] = useState<Array<{ v: number | string; suffix?: string; prefix?: string; decimals?: number; l: string }>>(DEFAULT_STATS);
+  const { data } = useSiteConfig();
 
-  useEffect(() => {
-    const fetchConfig = async () => {
-      const { data } = await supabase.from("site_config").select("key, value");
-      if (data) {
-        const title = data.find(c => c.key === "hero_title")?.value;
-        const subtitle = data.find(c => c.key === "hero_subtitle")?.value;
-        if (title || subtitle) {
-          setHeroContent({
-            title: title || heroContent.title,
-            subtitle: subtitle || heroContent.subtitle
-          });
-        }
+  const stats = useMemo<Array<{ v: number | string; suffix?: string; prefix?: string; decimals?: number; l: string }>>(() => {
+    if (!data || data.length === 0) return DEFAULT_STATS;
+    const getVal = (k: string) => data.find(c => c.key === k)?.value;
 
-        const getVal = (k: string) => data.find(c => c.key === k)?.value;
+    const s1_v = getVal("stat1_value");
+    const s1_s = getVal("stat1_suffix");
+    const s1_l = getVal("stat1_label");
 
-        const s1_v = getVal("stat1_value");
-        const s1_s = getVal("stat1_suffix");
-        const s1_l = getVal("stat1_label");
+    const s2_v = getVal("stat2_value");
+    const s2_s = getVal("stat2_suffix");
+    const s2_l = getVal("stat2_label");
 
-        const s2_v = getVal("stat2_value");
-        const s2_s = getVal("stat2_suffix");
-        const s2_l = getVal("stat2_label");
+    const s3_v = getVal("stat3_value");
+    const s3_s = getVal("stat3_suffix");
+    const s3_l = getVal("stat3_label");
 
-        const s3_v = getVal("stat3_value");
-        const s3_s = getVal("stat3_suffix");
-        const s3_l = getVal("stat3_label");
+    const s4_p = getVal("stat4_prefix");
+    const s4_v = getVal("stat4_value");
+    const s4_s = getVal("stat4_suffix");
+    const s4_d = getVal("stat4_decimals");
+    const s4_l = getVal("stat4_label");
 
-        const s4_p = getVal("stat4_prefix");
-        const s4_v = getVal("stat4_value");
-        const s4_s = getVal("stat4_suffix");
-        const s4_d = getVal("stat4_decimals");
-        const s4_l = getVal("stat4_label");
-
-        setStats([
-          {
-            v: s1_v !== undefined && s1_v !== "" ? (isNaN(Number(s1_v)) ? s1_v : Number(s1_v)) : 7,
-            suffix: s1_s !== undefined ? s1_s : "+",
-            prefix: "",
-            decimals: 0,
-            l: s1_l || "Years of expertise"
-          },
-          {
-            v: s2_v !== undefined && s2_v !== "" ? (isNaN(Number(s2_v)) ? s2_v : Number(s2_v)) : (SITE.projectsCompleted || 1200),
-            suffix: s2_s !== undefined ? s2_s : "+",
-            prefix: "",
-            decimals: 0,
-            l: s2_l || "Projects delivered"
-          },
-          {
-            v: s3_v !== undefined && s3_v !== "" ? (isNaN(Number(s3_v)) ? s3_v : Number(s3_v)) : 20,
-            suffix: s3_s !== undefined ? s3_s : "+",
-            prefix: "",
-            decimals: 0,
-            l: s3_l || "Industries served"
-          },
-          {
-            v: s4_v !== undefined && s4_v !== "" ? (isNaN(Number(s4_v)) ? s4_v : Number(s4_v)) : 0.1,
-            suffix: s4_s !== undefined ? s4_s : "mm",
-            prefix: s4_p !== undefined ? s4_p : "±",
-            decimals: s4_d !== undefined && s4_d !== "" ? Number(s4_d) : 1,
-            l: s4_l || "Cut tolerance"
-          }
-        ]);
+    return [
+      {
+        v: s1_v !== undefined && s1_v !== "" ? (isNaN(Number(s1_v)) ? s1_v : Number(s1_v)) : 7,
+        suffix: s1_s !== undefined ? s1_s : "+",
+        prefix: "",
+        decimals: 0,
+        l: s1_l || "Years of expertise"
+      },
+      {
+        v: s2_v !== undefined && s2_v !== "" ? (isNaN(Number(s2_v)) ? s2_v : Number(s2_v)) : (SITE.projectsCompleted || 1200),
+        suffix: s2_s !== undefined ? s2_s : "+",
+        prefix: "",
+        decimals: 0,
+        l: s2_l || "Projects delivered"
+      },
+      {
+        v: s3_v !== undefined && s3_v !== "" ? (isNaN(Number(s3_v)) ? s3_v : Number(s3_v)) : 20,
+        suffix: s3_s !== undefined ? s3_s : "+",
+        prefix: "",
+        decimals: 0,
+        l: s3_l || "Industries served"
+      },
+      {
+        v: s4_v !== undefined && s4_v !== "" ? (isNaN(Number(s4_v)) ? s4_v : Number(s4_v)) : 0.1,
+        suffix: s4_s !== undefined ? s4_s : "mm",
+        prefix: s4_p !== undefined ? s4_p : "±",
+        decimals: s4_d !== undefined && s4_d !== "" ? Number(s4_d) : 1,
+        l: s4_l || "Cut tolerance"
       }
-    };
-    fetchConfig();
-  }, []);
+    ];
+  }, [data]);
 
   return (
     <section className="relative isolate overflow-hidden bg-primary text-primary-foreground">
@@ -99,7 +81,11 @@ const Hero = () => {
         <img
           src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=1400&q=70&fm=webp"
           alt="Precision Metal Fabrication"
+          width={1400}
+          height={933}
           loading="eager"
+          decoding="sync"
+          {...({ fetchpriority: "high" } as React.ImgHTMLAttributes<HTMLImageElement>)}
           className="w-full h-full object-cover"
         />
       </picture>

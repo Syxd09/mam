@@ -4,7 +4,7 @@ import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ContactCTA from "@/components/home/ContactCTA";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { getBreadcrumbSchema, getServiceSchema, getFAQPageSchema } from "@/lib/seo";
+import { getBreadcrumbSchema, getServiceSchema, getFAQPageSchema, getWebPageSchema } from "@/lib/seo";
 
 const FAQS = [
   {
@@ -23,22 +23,28 @@ const FAQS = [
     q: "Can I combine fabrication, welding, and powder coating in one order?",
     a: "Yes. MAM Industries coordinates the full manufacturing workflow from drawing to laser cutting, CNC bending, welding, and powder coating, delivering finished components ready for assembly.",
   },
+  {
+    q: "Do you deliver powder-coated metal parts across Karnataka and India?",
+    a: "Yes. Finished, quality-checked parts are securely packaged and dispatched across Bengaluru, Karnataka, and pan-India.",
+  },
 ];
 
 const PowderCoatingBangalore = () => {
   const pageUrl = "/powder-coating-bangalore";
-  const pageTitle = "Powder Coating Bangalore | Metal Finishing Services | MAM Industries";
-  const pageDesc = "Powder coating and metal finishing services in Bangalore for suitable fabricated metal components. Contact MAM Industries for custom fabrication and finishing.";
-  const pageKeywords = "powder coating bangalore, metal finishing services bangalore, industrial powder coating, sheet metal coating bangalore";
+  const pageTitle = "Powder Coating Bangalore | Industrial Metal Finishing Karnataka & India | MAM Industries";
+  const pageDesc = "Industrial powder coating and metal surface finishing services in Bangalore (RAL colour matching, salt-spray tested) combined with laser cutting, CNC bending & fabrication for Karnataka and pan-India OEMs.";
+  const pageKeywords = "powder coating bangalore, metal finishing services karnataka, industrial powder coating india, sheet metal coating bangalore, ral powder coating bengaluru";
 
   const jsonLd = {
+    "@context": "https://schema.org",
     "@graph": [
+      getWebPageSchema(pageTitle, pageDesc, pageUrl),
       getBreadcrumbSchema([
         { name: "Home", url: "/" },
         { name: "Services", url: "/services" },
         { name: "Powder Coating Bangalore", url: pageUrl },
       ]),
-      getServiceSchema("Powder Coating Services in Bangalore", "Durable electrostatic powder coating and surface finishing services for metal components in Bangalore."),
+      getServiceSchema("Powder Coating & Metal Finishing Services", pageDesc, pageUrl),
       getFAQPageSchema(FAQS),
     ],
   };

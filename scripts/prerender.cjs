@@ -72,21 +72,24 @@ async function prerender() {
         pageHtml = pageHtml.replace(/<title>[\s\S]*?<\/title>/i, helmet.title);
       }
 
-      // 2. Remove default generic meta description and replace with page-specific meta
+      // 2. Remove default generic meta description/OG/Twitter tags and replace with page-specific meta
       if (helmet.meta) {
-        pageHtml = pageHtml.replace(/<meta\s+name="description"[\s\S]*?>/i, "");
+        pageHtml = pageHtml.replace(/<meta\s+name="description"[\s\S]*?>/gi, "");
+        pageHtml = pageHtml.replace(/<meta\s+property="og:[^"]*"[\s\S]*?>/gi, "");
+        pageHtml = pageHtml.replace(/<meta\s+name="twitter:[^"]*"[\s\S]*?>/gi, "");
         pageHtml = pageHtml.replace("</head>", `  ${helmet.meta}\n</head>`);
       }
 
       // 3. Inject Canonical Link and alternate links
       if (helmet.link) {
         // Remove any default canonical if present
-        pageHtml = pageHtml.replace(/<link\s+rel="canonical"[\s\S]*?>/i, "");
+        pageHtml = pageHtml.replace(/<link\s+rel="canonical"[\s\S]*?>/gi, "");
         pageHtml = pageHtml.replace("</head>", `  ${helmet.link}\n</head>`);
       }
 
-      // 4. Inject Page-specific Structured Data (JSON-LD)
+      // 4. Inject Page-specific Structured Data (JSON-LD), replacing fallback block to avoid duplicates
       if (helmet.script) {
+        pageHtml = pageHtml.replace(/<script\s+type="application\/ld\+json">[\s\S]*?<\/script>/gi, "");
         pageHtml = pageHtml.replace("</head>", `  ${helmet.script}\n</head>`);
       }
 

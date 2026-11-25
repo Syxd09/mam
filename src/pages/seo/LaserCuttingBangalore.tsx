@@ -4,7 +4,7 @@ import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ContactCTA from "@/components/home/ContactCTA";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { getBreadcrumbSchema, getServiceSchema, getFAQPageSchema } from "@/lib/seo";
+import { getBreadcrumbSchema, getServiceSchema, getFAQPageSchema, getWebPageSchema } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 
 const FAQS = [
@@ -23,23 +23,29 @@ const FAQS = [
   {
     q: "Can laser cutting and CNC bending be done together?",
     a: "Yes. We offer complete drawing-to-part manufacturing, combining precision laser cutting with 250T CNC press brake bending and TIG/MIG welding under one roof."
+  },
+  {
+    q: "Do you supply laser-cut metal parts across Karnataka and pan-India?",
+    a: "Yes. From our Bengaluru plant on Kanakapura Main Road, we deliver laser-cut components across all Bangalore industrial zones (Peenya, Bommasandra, Jigani, Electronic City, Whitefield), throughout Karnataka (Mysuru, Tumakuru, Hubballi, Mangaluru), and ship pan-India for OEMs and contractors."
   }
 ];
 
 const LaserCuttingBangalore = () => {
   const pageUrl = "/laser-cutting-bangalore";
-  const pageTitle = "Laser Cutting Bangalore | CNC Fiber Laser Cutting Services | MAM Industries";
-  const pageDesc = "CNC laser cutting services in Bangalore for mild steel, stainless steel and aluminium sheet metal. Send your drawing to MAM Industries for a laser cutting quote.";
-  const pageKeywords = "laser cutting bangalore, cnc fiber laser cutting services, sheet metal laser cutting bengaluru, ms ss aluminium laser cutting bangalore";
+  const pageTitle = "Laser Cutting & Metal Cutting Bangalore | CNC Fiber Laser Cutting Karnataka & India | MAM Industries";
+  const pageDesc = "3kW CNC fiber laser metal cutting services in Bangalore for mild steel (up to 16mm), stainless steel (8mm), aluminium (5mm) & GI (±0.1mm). Serving Bengaluru, Karnataka & pan-India B2B OEMs.";
+  const pageKeywords = "laser cutting bangalore, metal cutting bangalore, cnc fiber laser cutting services bengaluru, sheet metal laser cutting karnataka, ms ss aluminium laser cutting india, laser cutting job work bangalore";
 
   const jsonLd = {
+    "@context": "https://schema.org",
     "@graph": [
+      getWebPageSchema(pageTitle, pageDesc, pageUrl),
       getBreadcrumbSchema([
         { name: "Home", url: "/" },
         { name: "Services", url: "/services" },
         { name: "Laser Cutting Bangalore", url: pageUrl },
       ]),
-      getServiceSchema("CNC Fiber Laser Cutting", "CNC laser cutting services in Bangalore for mild steel, stainless steel and aluminium sheet metal."),
+      getServiceSchema("CNC Fiber Laser & Metal Cutting", pageDesc, pageUrl),
       getFAQPageSchema(FAQS),
     ],
   };

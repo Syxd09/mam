@@ -6,7 +6,7 @@ import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { SERVICES } from "@/lib/site";
 import { supabase } from "@/lib/supabase";
-import { getBreadcrumbSchema } from "@/lib/seo";
+import { getBreadcrumbSchema, getServiceSchema, getWebPageSchema } from "@/lib/seo";
 
 const getServiceLandingUrl = (slug: string, title: string) => {
   const lowerSlug = (slug || "").toLowerCase();
@@ -104,14 +104,26 @@ const Services = () => {
   return (
     <>
       <SEO
-        title="Metal Fabrication Services Bangalore | Laser Cutting & CNC Bending | MAM Industries"
-        description="MAM Industries provides complete metal fabrication services in Bangalore including CNC laser cutting, CNC bending, welding, powder coating and laser marking."
-        keywords="metal fabrication services bangalore, cnc laser cutting services bangalore, cnc bending bangalore, sheet metal fabrication bangalore, custom metal fabrication, welding services bangalore"
+        title="Metal Cutting, Laser Cutting, CNC Bending & Fabrication Services | Bangalore, Karnataka & India"
+        description="Complete metal fabrication services in Bengaluru for Karnataka and pan-India OEMs: 3kW CNC fiber laser metal cutting, 250T CNC metal bending, laser metal marking, TIG/MIG/laser welding, powder coating, shutters, gates & PEB sheds."
+        keywords="metal cutting services bangalore, cnc laser cutting karnataka, metal bending bangalore, laser marking services india, sheet metal fabrication bangalore, custom metal fabrication karnataka, welding services bangalore, powder coating bangalore"
         path="/services"
-        jsonLd={getBreadcrumbSchema([
-          { name: "Home", url: "/" },
-          { name: "Services", url: "/services" }
-        ])}
+        jsonLd={[
+          getWebPageSchema(
+            "Metal Cutting, Laser Cutting, CNC Bending & Fabrication Services | MAM Industries",
+            "Complete metal fabrication services in Bengaluru for Karnataka and pan-India OEMs.",
+            "/services"
+          ),
+          getBreadcrumbSchema([
+            { name: "Home", url: "/" },
+            { name: "Services", url: "/services" }
+          ]),
+          getServiceSchema(
+            "End-to-End Metal Fabrication Services",
+            "CNC fiber laser cutting, CNC press brake bending, laser marking, TIG/MIG/laser welding, powder coating, and custom sheet metal fabrication in Bangalore with pan-India dispatch.",
+            "/services"
+          )
+        ]}
       />
 
       {/* Page header */}

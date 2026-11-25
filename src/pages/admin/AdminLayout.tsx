@@ -19,7 +19,6 @@ import {
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { motion, AnimatePresence } from "framer-motion";
-import logoCombinedDark from "@/assets/mam-combined-logo-dark.png";
 
 const AdminLayout = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -98,8 +97,10 @@ const AdminLayout = () => {
         <div className="p-5 border-b border-white/10 bg-white/[0.02]">
           <Link to="/admin" className="block">
             <img
-              src={logoCombinedDark}
+              src="/images/mam-combined-logo-dark.png"
               alt="MAM Industries"
+              width={160}
+              height={40}
               className="h-10 w-auto object-contain"
             />
           </Link>
@@ -194,8 +195,10 @@ const AdminLayout = () => {
       <div className="lg:hidden fixed top-0 inset-x-0 bg-[#0F172A] border-b border-white/10 z-50 px-4 h-16 flex items-center justify-between backdrop-blur-lg">
         <div className="flex items-center gap-3">
           <img
-            src={logoCombinedDark}
+            src="/images/mam-combined-logo-dark.png"
             alt="MAM Industries"
+            width={128}
+            height={32}
             className="h-8 w-auto object-contain"
           />
           <span className="text-[10px] uppercase tracking-wider text-accent font-mono font-bold bg-accent/10 px-2 py-0.5 rounded border border-accent/20">

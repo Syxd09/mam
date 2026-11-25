@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
 import SiteLayout from "@/components/layout/SiteLayout";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
+import Home from "./pages/Home";
 
 // Loading component
 const PageLoader = () => (
@@ -17,7 +18,6 @@ const PageLoader = () => (
 );
 
 // Public Pages (Lazy Loaded)
-const Home = lazy(() => import("./pages/Home"));
 const Services = lazy(() => import("./pages/Services"));
 const Gallery = lazy(() => import("./pages/Gallery"));
 const Contact = lazy(() => import("./pages/Contact"));
@@ -44,7 +44,15 @@ const ConfigManager = lazy(() => import("./pages/admin/ConfigManager"));
 const CapabilityManager = lazy(() => import("./pages/admin/CapabilityManager"));
 const EnquiryManager = lazy(() => import("./pages/admin/EnquiryManager"));
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000,
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const App = () => (
   <QueryClientProvider client={queryClient}>

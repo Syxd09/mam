@@ -4,7 +4,7 @@ import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ContactCTA from "@/components/home/ContactCTA";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { getBreadcrumbSchema, getServiceSchema, getFAQPageSchema } from "@/lib/seo";
+import { getBreadcrumbSchema, getServiceSchema, getFAQPageSchema, getWebPageSchema } from "@/lib/seo";
 
 const FAQS = [
   {
@@ -23,22 +23,28 @@ const FAQS = [
     q: "How can I request a quote for laser marking services?",
     a: "Send your part drawings, vector graphics (DXF/AI/PDF), marking specifications, and batch quantities to MAM Industries via our quote form or WhatsApp.",
   },
+  {
+    q: "Do you handle batch metal marking for clients outside Bangalore?",
+    a: "Yes. We provide laser metal marking, QR/barcode serialization, and deep engraving for OEMs across Bangalore, Karnataka, and pan-India with fast logistics turnaround.",
+  },
 ];
 
 const LaserMarkingBangalore = () => {
   const pageUrl = "/laser-marking-bangalore";
-  const pageTitle = "Laser Marking Bangalore | Metal Laser Marking Services | MAM Industries";
-  const pageDesc = "Laser marking services in Bangalore for metal component identification, serial numbers, logos and product markings.";
-  const pageKeywords = "laser marking bangalore, metal laser marking services bangalore, fiber laser marking bangalore, part serialization bangalore";
+  const pageTitle = "Laser Marking & Metal Marking Bangalore | Fiber Laser Engraving Karnataka & India | MAM Industries";
+  const pageDesc = "Permanent fiber laser metal marking and engraving services in Bangalore for serial numbers, QR codes, barcodes, logos & industrial traceability across Karnataka and India.";
+  const pageKeywords = "laser marking bangalore, metal marking bangalore, metal laser engraving karnataka, fiber laser marking india, part serialization bangalore, qr code metal marking";
 
   const jsonLd = {
+    "@context": "https://schema.org",
     "@graph": [
+      getWebPageSchema(pageTitle, pageDesc, pageUrl),
       getBreadcrumbSchema([
         { name: "Home", url: "/" },
         { name: "Services", url: "/services" },
         { name: "Laser Marking Bangalore", url: pageUrl },
       ]),
-      getServiceSchema("Laser Marking Services in Bangalore", "High-speed permanent fiber laser marking and deep engraving services for metal components in Bangalore."),
+      getServiceSchema("Fiber Laser & Metal Marking Services", pageDesc, pageUrl),
       getFAQPageSchema(FAQS),
     ],
   };

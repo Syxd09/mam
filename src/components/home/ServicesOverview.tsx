@@ -1,35 +1,10 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { SERVICES } from "@/lib/site";
-import { supabase } from "@/lib/supabase";
+import { useServices } from "@/lib/queries";
 
 const ServicesOverview = () => {
-  const [services, setServices] = useState<any[]>([]);
-
-  useEffect(() => {
-    const fetchServices = async () => {
-      const { data } = await supabase
-        .from("services")
-        .select("*")
-        .eq("is_active", true)
-        .order("display_order", { ascending: true });
-      
-      if (data && data.length > 0) {
-        setServices(data);
-      } else {
-        // Fallback to static data if DB is empty
-        setServices(SERVICES.map(s => ({
-          title: s.title,
-          short_desc: s.short,
-          image_url: s.image,
-          slug: s.slug
-        })));
-      }
-    };
-    fetchServices();
-  }, []);
+  const { data: services = [] } = useServices();
 
   return (
     <section id="services" className="py-20 md:py-28 bg-background bg-blueprint-light">
@@ -70,7 +45,10 @@ const ServicesOverview = () => {
                   <img
                     src={s.image_url}
                     alt={`${s.title} in Bangalore — MAM Industries`}
+                    width={800}
+                    height={500}
                     loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute top-3 left-3 bg-primary/90 text-primary-foreground text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded backdrop-blur">
