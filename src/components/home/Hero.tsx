@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { ArrowRight, Phone, Star, ShieldCheck, Zap } from "lucide-react";
 import { SITE } from "@/lib/site";
 import { useSiteConfig } from "@/lib/queries";
@@ -106,12 +105,7 @@ const Hero = () => {
       <div className="absolute bottom-1/3 right-[8%] w-1.5 h-1.5 bg-accent rounded-full animate-spark" style={{ animationDelay: "1.2s" }} />
 
       <div className="container relative pt-20 md:pt-28 pb-20 md:pb-32">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="max-w-3xl"
-        >
+        <div className="max-w-3xl">
           <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 backdrop-blur px-3 py-1.5 rounded-full text-xs font-medium text-metallic mb-6">
             <Star size={12} className="fill-accent text-accent" />
             5.0 Rated · 7+ Years in Bengaluru
@@ -144,15 +138,10 @@ const Hero = () => {
               {SITE.phone}
             </a>
           </div>
-        </motion.div>
+        </div>
 
       {/* Trust metrics */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.2 }}
-        className="mt-14 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 border border-white/10 rounded-lg overflow-hidden backdrop-blur"
-      >
+      <div className="mt-14 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 border border-white/10 rounded-lg overflow-hidden backdrop-blur">
         {stats.map((m, i) => (
           <div key={i} className="bg-primary/80 backdrop-blur px-5 py-6 group hover:bg-primary/60 transition-colors">
             <div className="font-sora font-bold text-2xl md:text-3xl text-white">
@@ -171,7 +160,7 @@ const Hero = () => {
             <div className="text-xs text-metallic uppercase tracking-wider mt-1 group-hover:text-accent transition-colors">{m.l}</div>
           </div>
         ))}
-      </motion.div>
+      </div>
     </div>
 
     {/* Bottom feature strip */}

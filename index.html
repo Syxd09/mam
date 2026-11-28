@@ -74,12 +74,15 @@
       }
     </script>
 
-    <!-- Deferred Analytics (loaded after initial paint to protect FCP/LCP/TBT) -->
+    <!-- Interaction-Deferred Analytics (protects FCP/LCP/TBT on initial load) -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      window.addEventListener('load', function() {
-        setTimeout(function() {
+      (function() {
+        var loaded = false;
+        function loadAnalytics() {
+          if (loaded) return;
+          loaded = true;
           var g = document.createElement('script');
           g.async = true;
           g.src = 'https://www.googletagmanager.com/gtag/js?id=G-GG3VMWX9EV';
@@ -92,8 +95,14 @@
           j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
           })(window,document,'script','dataLayer','GTM-5D395ZGG');
-        }, 1200);
-      });
+        }
+        ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function(evt) {
+          window.addEventListener(evt, loadAnalytics, { once: true, passive: true });
+        });
+        window.addEventListener('load', function() {
+          setTimeout(loadAnalytics, 7000);
+        });
+      })();
     </script>
   </head>
 
