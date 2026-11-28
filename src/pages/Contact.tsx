@@ -9,6 +9,7 @@ import { SITE, SERVICES } from "@/lib/site";
 import { toast } from "@/hooks/use-toast";
 import { getBreadcrumbSchema, getWebPageSchema } from "@/lib/seo";
 import { supabase } from "@/lib/supabase";
+import { useSiteConfig } from "@/lib/queries";
 
 const schema = z.object({
   name: z.string().trim().min(2, "Name is too short").max(80),
@@ -23,6 +24,15 @@ const schema = z.object({
 });
 
 const Contact = () => {
+  const { data: configData } = useSiteConfig();
+  const getConfig = (key: string, fallback: string) =>
+    configData?.find((c) => c.key === key)?.value || fallback;
+
+  const contactPhone = getConfig("contact_phone", SITE.phone);
+  const contactEmail = getConfig("contact_email", SITE.email);
+  const contactHours = getConfig("business_hours", SITE.hours);
+  const contactAddress = getConfig("contact_address", "");
+
   const [searchParams] = useSearchParams();
   const preSelectedService = searchParams.get("service");
   const [submitting, setSubmitting] = useState(false);
@@ -396,10 +406,19 @@ const Contact = () => {
                 <div>
                   <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-1">Factory & Registered Address</div>
                   <div className="text-sm font-semibold text-primary leading-relaxed">
-                    MAM Industries<br />
-                    7th Mile, 113, Kanakapura Main Road,<br />
-                    Yelachenahalli, Naidu Layout,<br />
-                    Bengaluru, Karnataka 560062, India
+                    {contactAddress ? (
+                      <>
+                        MAM Industries<br />
+                        {contactAddress}
+                      </>
+                    ) : (
+                      <>
+                        MAM Industries<br />
+                        7th Mile, 113, Kanakapura Main Road,<br />
+                        Yelachenahalli, Naidu Layout,<br />
+                        Bengaluru, Karnataka 560062, India
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -410,8 +429,8 @@ const Contact = () => {
                 </div>
                 <div>
                   <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-0.5">Phone & WhatsApp</div>
-                  <a href={SITE.phoneHref} className="text-sm font-bold text-primary hover:text-accent transition-colors block">
-                    {SITE.phone}
+                  <a href={`tel:${contactPhone.replace(/\s+/g, "")}`} className="text-sm font-bold text-primary hover:text-accent transition-colors block">
+                    {contactPhone}
                   </a>
                 </div>
               </div>
@@ -422,8 +441,8 @@ const Contact = () => {
                 </div>
                 <div>
                   <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-0.5">Official Email</div>
-                  <a href={`mailto:${SITE.email}`} className="text-sm font-bold text-primary hover:text-accent transition-colors block">
-                    {SITE.email}
+                  <a href={`mailto:${contactEmail}`} className="text-sm font-bold text-primary hover:text-accent transition-colors block">
+                    {contactEmail}
                   </a>
                 </div>
               </div>
@@ -434,7 +453,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-0.5">Shop Working Hours</div>
-                  <div className="text-sm font-medium text-muted-foreground">{SITE.hours}</div>
+                  <div className="text-sm font-medium text-muted-foreground">{contactHours}</div>
                 </div>
               </div>
             </div>

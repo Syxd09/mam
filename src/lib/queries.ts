@@ -2,8 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
 import { SERVICES, GALLERY, TESTIMONIALS } from "@/lib/site";
 
-const STALE_TIME = 5 * 60 * 1000;
-
 export function useSiteConfig() {
   return useQuery({
     queryKey: ["site_config"],
@@ -12,7 +10,8 @@ export function useSiteConfig() {
       if (error) throw error;
       return data || [];
     },
-    staleTime: STALE_TIME,
+    staleTime: 0,
+    refetchOnMount: "always",
   });
 }
 
@@ -38,7 +37,7 @@ export function useServices() {
         industries: s.industries,
       }));
     },
-    initialData: () =>
+    placeholderData: () =>
       SERVICES.map((s, i) => ({
         id: i,
         slug: s.slug,
@@ -49,7 +48,8 @@ export function useServices() {
         benefits: s.benefits,
         industries: s.industries,
       })),
-    staleTime: STALE_TIME,
+    staleTime: 0,
+    refetchOnMount: "always",
   });
 }
 
@@ -65,7 +65,8 @@ export function useClients() {
       if (error) throw error;
       return data && data.length > 0 ? data : null;
     },
-    staleTime: STALE_TIME,
+    staleTime: 0,
+    refetchOnMount: "always",
   });
 }
 
@@ -81,7 +82,8 @@ export function useCapabilities() {
       if (error) throw error;
       return data && data.length > 0 ? data : null;
     },
-    staleTime: STALE_TIME,
+    staleTime: 0,
+    refetchOnMount: "always",
   });
 }
 
@@ -98,8 +100,9 @@ export function useGalleryPreview() {
       if (data && data.length > 0) return data;
       return GALLERY.map((g) => ({ image_url: g.src, title: g.title, category: g.cat }));
     },
-    initialData: () => GALLERY.map((g) => ({ image_url: g.src, title: g.title, category: g.cat })),
-    staleTime: STALE_TIME,
+    placeholderData: () => GALLERY.map((g) => ({ image_url: g.src, title: g.title, category: g.cat })),
+    staleTime: 0,
+    refetchOnMount: "always",
   });
 }
 
@@ -122,7 +125,7 @@ export function useReviews() {
         rating: 5,
       }));
     },
-    initialData: () =>
+    placeholderData: () =>
       TESTIMONIALS.map((t, i) => ({
         id: `static-${i}`,
         customer_name: t.name,
@@ -130,6 +133,7 @@ export function useReviews() {
         content: t.quote,
         rating: 5,
       })),
-    staleTime: STALE_TIME,
+    staleTime: 0,
+    refetchOnMount: "always",
   });
 }
